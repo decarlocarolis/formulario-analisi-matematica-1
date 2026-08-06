@@ -16,4 +16,8 @@ Le equazioni differenziali ordinarie non fanno parte di questo volume e rimangon
 - copertina e pagina conclusiva ridisegnate;
 - nuovi stili per parti, capitoli, riquadri operativi e tabelle;
 - intestazioni e piè di pagina uniformati;
-- numero di versione e pubblicazione GitHub mantenuti a `v.1.2`.
+- numero di versione e pubblicazione GitHub mantenuti a `v.1.2`;
+- riquadri ridisegnati con testate integrate e associazione cromatica semantica;
+- wordmark `ingegnerismo.it` ingrandito accanto al logo;
+- corretta la resa delle parentesi graffe estensibili nelle formule LaTeX;
+- toolchain di compilazione fissata a TeX Live 2025 per una resa riproducibile.
