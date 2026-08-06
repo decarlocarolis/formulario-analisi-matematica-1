@@ -28,7 +28,8 @@ Tutte le modifiche rilevanti del formulario sono registrate in questo file.
 - frontespizio semplificato secondo una griglia editoriale, con titolo e sottotitolo dominanti;
 - pagine di apertura delle parti uniformate al frontespizio;
 - piè di pagina delle pagine di apertura unificato: `ingegnerismo.it` è la firma principale a sinistra e i metadati restano secondari a destra;
-- nome dell’autore eliminato dai piè di pagina ripetitivi e mantenuto una sola volta sul frontespizio.
+- nome dell’autore eliminato dai piè di pagina ripetitivi e mantenuto una sola volta sul frontespizio;
+- sottotitolo ufficiale del marchio corretto in «Atlante dell'Ingegneria» su tutte le pagine di apertura.
 
 ### Licenza e diritti
 
