@@ -18,19 +18,19 @@ Il progetto grafico deve favorire la consultazione durante lo studio e la prepar
 |---|---|---|
 | blu primario | collegamenti, sezioni, scelta del metodo | `#006FB9` |
 | blu scuro | titoli, capitoli, struttura principale | `#00477A` |
-| giallo accento | richiami, priorità, errori e numeri di pagina | `#FFEE84` |
+| giallo accento | formule chiave, priorità e numeri di pagina | `#FFEE84` |
 | nero testo | testo principale | `#1D1D1B` |
 | grigio testo | metadati e contenuti secondari | `#666665` |
 | grigio medio | bordi neutri | `#A4A3A3` |
 | bianco | sfondo principale | `#FFFFFF` |
 
-Le tinte pallide utilizzate come sfondo sono derivate dai colori istituzionali e non introducono nuovi colori dominanti.
+Le tinte pallide utilizzate come sfondo sono derivate dai colori istituzionali. Due accenti funzionali, entrambi attenuati, sono riservati esclusivamente alla semantica dei riquadri: rosso `#9E3D32` per gli errori e verde `#2F6B57` per i controlli conclusivi. Non sono impiegati come colori decorativi o strutturali.
 
 ## Tipografia
 
 - testo corrente: Libertinus Serif;
 - titoli, etichette e navigazione: Libertinus Sans;
-- formule: Libertinus Math;
+- formule: Libertinus Math, con STIX Two Math limitato alle parentesi graffe estensibili per evitare giunzioni visibili dei delimitatori;
 - corpo principale: 11 pt su pagina A4.
 
 Non vengono incorporati font esterni nel deposito: la compilazione usa i font disponibili nella distribuzione TeX.
@@ -52,13 +52,13 @@ La copertina usa il logo a bandiera, il dorso blu con accento giallo, il titolo 
 
 - **Obiettivo operativo**: blu scuro;
 - **Scelta del metodo**: blu primario;
-- **Procedura d'esame**: corpo bianco con struttura blu;
+- **Procedura d'esame**: testata azzurro chiaro e corpo bianco;
 - **Formula chiave**: accento giallo;
-- **Errore frequente**: giallo con testo scuro;
-- **Controllo finale**: blu scuro con accento giallo;
+- **Errore frequente**: rosso attenuato, riservato alle condizioni di rischio o agli errori;
+- **Controllo finale**: verde attenuato, riservato alle verifiche conclusive;
 - **Richiamo teorico essenziale**: grigio neutro.
 
-Il significato non dipende soltanto dal colore: etichetta, bordo e disposizione restano distinguibili anche in scala di grigi.
+Le testate sono integrate nel perimetro del riquadro, senza etichette flottanti. Il significato non dipende soltanto dal colore: titolo esplicito, bordo e disposizione restano distinguibili anche in scala di grigi.
 
 ### Tabelle
 
@@ -72,4 +72,4 @@ L'intestazione riporta capitolo e volume. Il piè di pagina contiene sito, versi
 
 Il file SVG è il sorgente vettoriale del logo. Il PDF vettoriale è la copia utilizzata dalla compilazione LaTeX per evitare dipendenze aggiuntive nella procedura automatica.
 
-Il logo non deve essere deformato, ruotato, ricolorato o collocato su sfondi che ne riducano il contrasto.
+Il logo non deve essere deformato, ruotato, ricolorato o collocato su sfondi che ne riducano il contrasto. Quando il dominio `ingegnerismo.it` è affiancato al simbolo, deve avere dimensione tipografica nettamente leggibile e proporzionata all’altezza del marchio.

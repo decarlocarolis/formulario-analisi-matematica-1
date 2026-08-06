@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{formulario-ingegnerismo}[2026/08/06 v1.1 Classe grafica dei formulari di ingegnerismo.it]
+\ProvidesClass{formulario-ingegnerismo}[2026/08/06 v1.2 Classe grafica dei formulari di ingegnerismo.it]
 
 % Classe di base e lingua del documento.
 \LoadClass[11pt,a4paper,oneside,open=any,headings=normal,parskip=half,numbers=noenddot]{scrbook}
@@ -21,6 +21,8 @@
 ]
 \setmonofont{LibertinusMono-Regular.otf}[Scale=0.92]
 \setmathfont{LibertinusMath-Regular.otf}
+% Fallback mirato per delimitatori estensibili: evita giunzioni visibili nelle parentesi graffe.
+\setmathfont[range={\lbrace,\rbrace}]{STIXTwoMath-Regular.otf}
 \RequirePackage{microtype}
 
 % Impaginazione e strumenti grafici.
@@ -53,6 +55,12 @@
 \definecolor{IngGialloPallido}{HTML}{FFFBE8}
 \definecolor{IngGrigioPallido}{HTML}{F4F5F5}
 \definecolor{IngBianco}{HTML}{FFFFFF}
+% Colori semantici: il marchio resta blu/giallo; errore e verifica hanno codici distinti.
+\definecolor{IngErrore}{HTML}{9E3D32}
+\definecolor{IngErrorePallido}{HTML}{FFF3F1}
+\definecolor{IngVerifica}{HTML}{2F6B57}
+\definecolor{IngVerificaPallido}{HTML}{F0F7F4}
+\definecolor{IngAzzurroPallido}{HTML}{EDF6FB}
 
 \color{IngNero}
 \pagecolor{IngBianco}
@@ -141,95 +149,98 @@
   \href{\SitoURL}{\textcolor{IngBluScuro}{\sffamily\bfseries ingegnerismo.it}}%
 }
 
-% Stile comune dei riquadri: etichetta compatta, corpo arioso e gerarchia coerente.
+% Stile comune dei riquadri: testata integrata, bordi sobri e codifica semantica stabile.
 \tcbset{
   formulario/base/.style={
     enhanced,
     breakable,
-    boxrule=.48pt,
-    arc=1.7mm,
-    outer arc=1.7mm,
-    left=3mm,
-    right=3mm,
-    top=4.3mm,
-    bottom=2.1mm,
-    before skip=.9\baselineskip,
-    after skip=.85\baselineskip,
-    attach boxed title to top left={xshift=3.2mm,yshift=-2.1mm},
-    varwidth boxed title=.92\linewidth,
-    boxed title style={
-      boxrule=0pt,
-      arc=1.1mm,
-      left=2.2mm,
-      right=2.2mm,
-      top=.9mm,
-      bottom=.9mm
-    },
-    fonttitle=\sffamily\bfseries\small
+    boxrule=.55pt,
+    arc=1.35mm,
+    outer arc=1.35mm,
+    left=3.2mm,
+    right=3.2mm,
+    top=2.8mm,
+    bottom=2.7mm,
+    lefttitle=3.2mm,
+    righttitle=3.2mm,
+    toptitle=1.45mm,
+    bottomtitle=1.35mm,
+    titlerule=0pt,
+    before skip=.88\baselineskip,
+    after skip=.82\baselineskip,
+    fonttitle=\sffamily\bfseries\small,
+    coltext=IngNero
   }
 }
 
+% Blu istituzionale: orientamento e obiettivo.
 \newtcolorbox{obiettivocapitolo}[1]{
   formulario/base,
   colback=IngBluPallido,
   colframe=IngBluScuro,
   colbacktitle=IngBluScuro,
   coltitle=IngBianco,
-  borderline west={2.8pt}{0pt}{IngBluScuro},
+  borderline west={2.4pt}{0pt}{IngBluScuro},
   title={Obiettivo operativo — #1}
 }
+% Blu primario: selezione del metodo.
 \newtcolorbox{sceltametodo}[1]{
   formulario/base,
-  colback=IngBluPallidoIntenso,
+  colback=IngAzzurroPallido,
   colframe=IngBlu,
   colbacktitle=IngBlu,
   coltitle=IngBianco,
-  borderline west={2.8pt}{0pt}{IngBlu},
+  borderline west={2.4pt}{0pt}{IngBlu},
   title={Scelta del metodo — #1}
 }
+% Procedura: testata chiara per distinguerla dai box di orientamento.
 \newtcolorbox{proceduraesame}[1]{
   formulario/base,
   colback=IngBianco,
-  colframe=IngBluScuro,
-  colbacktitle=IngBluScuro,
-  coltitle=IngBianco,
-  borderline west={3.2pt}{0pt}{IngBlu},
+  colframe=IngBlu!70!IngBluScuro,
+  colbacktitle=IngBluPallidoIntenso,
+  coltitle=IngBluScuro,
+  borderline west={2.8pt}{0pt}{IngBlu},
   title={Procedura d'esame — #1}
 }
+% Rosso attenuato: errore o rischio, senza confonderlo con una formula chiave.
 \newtcolorbox{errorefrequente}[1]{
   formulario/base,
-  colback=IngGialloPallido,
-  colframe=IngGialloScuro,
-  colbacktitle=IngGiallo,
-  coltitle=IngNero,
-  borderline west={3.2pt}{0pt}{IngGialloScuro},
+  colback=IngErrorePallido,
+  colframe=IngErrore,
+  colbacktitle=IngErrore,
+  coltitle=IngBianco,
+  borderline west={2.8pt}{0pt}{IngErrore},
   title={Errore frequente — #1}
 }
+% Verde attenuato: verifica conclusiva e controllo positivo.
 \newtcolorbox{controllofinale}[1]{
   formulario/base,
-  colback=IngBluPallido,
-  colframe=IngBluScuro,
-  colbacktitle=IngBluScuro,
+  colback=IngVerificaPallido,
+  colframe=IngVerifica,
+  colbacktitle=IngVerifica,
   coltitle=IngBianco,
-  borderline west={3.2pt}{0pt}{IngGiallo},
+  borderline west={2.8pt}{0pt}{IngVerifica},
   title={Controllo finale — #1}
 }
+% Grigio neutro: richiamo teorico e contesto.
 \newtcolorbox{teoriaessenziale}[1]{
   formulario/base,
   colback=IngGrigioPallido,
   colframe=IngGrigioMedio,
   colbacktitle=IngGrigio,
   coltitle=IngBianco,
-  borderline west={2.5pt}{0pt}{IngGrigioMedio},
+  borderline west={2.4pt}{0pt}{IngGrigioMedio},
   title={Richiamo teorico essenziale — #1}
 }
+% Giallo del marchio: relazione da memorizzare o usare direttamente.
 \newtcolorbox{formulachiave}[1]{
   formulario/base,
   colback=IngGialloPallido,
   colframe=IngGialloScuro,
   colbacktitle=IngGiallo,
   coltitle=IngNero,
-  borderline west={3.2pt}{0pt}{IngBluScuro},
+  borderline west={2.8pt}{0pt}{IngGialloScuro},
   title={Formula chiave — #1}
 }
 
@@ -275,8 +286,8 @@
   \vspace*{25mm}
   \hspace*{14mm}%
   \begin{minipage}{.78\textwidth}
-    \LogoIngegnerismo[21mm]\hspace{4mm}%
-    \raisebox{6mm}{\textcolor{IngBluScuro}{\sffamily\bfseries\large ingegnerismo.it}}
+    \LogoIngegnerismo[24mm]\hspace{5mm}%
+    \raisebox{7.2mm}{\textcolor{IngBluScuro}{\sffamily\bfseries\fontsize{24}{26}\selectfont ingegnerismo.it}}
     \vspace{24mm}
 
     {\sffamily\bfseries\small\color{IngBlu}\MakeUppercase{Parte \thepart}\par}
