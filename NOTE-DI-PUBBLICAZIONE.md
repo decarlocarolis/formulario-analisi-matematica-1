@@ -15,7 +15,8 @@ Le equazioni differenziali ordinarie non fanno parte di questo volume e rimangon
 - identità visiva derivata dal logo di ingegnerismo.it;
 - frontespizio editoriale semplificato, con titolo e sottotitolo come elementi dominanti;
 - pagine di apertura delle parti costruite sulla stessa griglia del frontespizio;
-- marchio spostato in basso a destra come firma editoriale;
+- piè di pagina delle pagine di apertura reso uniforme, con `ingegnerismo.it` come firma principale;
+- autore riportato una sola volta sul frontespizio e non ripetuto nei piè di pagina;
 - nuovi stili per capitoli, riquadri operativi e tabelle;
 - riquadri con testate integrate e associazione cromatica semantica;
 - corretta la resa delle parentesi graffe estensibili nelle formule LaTeX;
