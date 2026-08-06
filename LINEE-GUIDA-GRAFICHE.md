@@ -2,6 +2,8 @@
 
 Questo documento descrive il sistema visivo adottato dal **Formulario di Analisi Matematica I v.1.2**. Le stesse regole costituiscono la base per i successivi formulari della collana di ingegnerismo.it.
 
+La dicitura istituzionale associata al marchio è **«Atlante dell'Ingegneria»** e deve essere utilizzata senza varianti nelle copertine, nelle pagine di parte e nelle pagine conclusive.
+
 ## Principi
 
 Il progetto grafico deve favorire la consultazione durante lo studio e la preparazione degli esami. Le priorità sono:
@@ -68,7 +70,7 @@ Le tabelle usano righe alternate molto chiare, linee sottili e intestazioni ad a
 
 ### Intestazioni e piè di pagina
 
-L'intestazione riporta capitolo e volume. Nel piè di pagina il sito è il riferimento principale; seguono versione e numero di pagina evidenziato con l'accento giallo. Il nome dell’autore non viene ripetuto nelle pagine interne.
+L'intestazione riporta capitolo e volume. Il piè di pagina contiene sito, versione e numero di pagina evidenziato con l'accento giallo.
 
 ## Marchio
 

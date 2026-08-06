@@ -167,7 +167,7 @@
             \textcolor{IngBluScuro}{\sffamily\bfseries\fontsize{19}{21}\selectfont ingegnerismo.it}%
           }\par
           \vspace{.6mm}
-          {\sffamily\scriptsize\color{IngGrigio}Formulari operativi per ingegneria e discipline STEM\par}
+          {\sffamily\scriptsize\color{IngGrigio}Atlante dell'Ingegneria\par}
         \end{minipage}
       \end{minipage}%
     };
