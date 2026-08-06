@@ -94,11 +94,49 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git add -A
           git commit -m "Ridisegna il formulario mantenendo la versione v.1.2"
-          git push origin HEAD:main
+          git fetch origin main
+          REVISIONE_ATTESA="$(git rev-parse origin/main)"
+          git push --force-with-lease=refs/heads/main:"${REVISIONE_ATTESA}" origin HEAD:main
 
-      - name: Aggiorna l'etichetta v1.2
+      - name: Prepara gli allegati della release
         shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p distribuzione
+          cp compilazione/formulario.pdf distribuzione/formulario-analisi-matematica-1.pdf
+          git archive --format=zip --output=distribuzione/formulario-analisi-matematica-1-sorgenti.zip HEAD
+          sha256sum \
+            distribuzione/formulario-analisi-matematica-1.pdf \
+            distribuzione/formulario-analisi-matematica-1-sorgenti.zip \
+            > distribuzione/SOMME-DI-CONTROLLO-SHA256.txt
+
+      - name: Aggiorna l'etichetta e la release v1.2
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           git tag -f -a v1.2 -m "Formulario di Analisi Matematica I v.1.2 - revisione grafica"
           git push --force origin refs/tags/v1.2
+
+          gh release delete-asset v1.2 formulario-analisi-matematica-1-source.zip --yes || true
+          gh release delete-asset v1.2 SHA256SUMS.txt --yes || true
+          gh release upload v1.2 \
+            distribuzione/formulario-analisi-matematica-1.pdf \
+            distribuzione/formulario-analisi-matematica-1-sorgenti.zip \
+            distribuzione/SOMME-DI-CONTROLLO-SHA256.txt \
+            --clobber
+
+          cat > /tmp/note-release.md <<'EOF'
+          ## Revisione grafica della versione v.1.2
+
+          La release mantiene il numero **v.1.2** e sostituisce gli allegati precedenti con il formulario ridisegnato e i relativi sorgenti LaTeX canonici.
+
+          Il sistema grafico è derivato dal marchio di ingegnerismo.it e utilizza una gerarchia coerente per copertina, parti, capitoli, procedure, formule chiave, errori frequenti, controlli finali e tabelle. Tutta la documentazione editoriale e tecnica è in italiano.
+
+          Le equazioni differenziali ordinarie restano escluse da questo volume e appartengono al formulario dedicato di EDO e Analisi Numerica.
+          EOF
+
+          gh release edit v1.2 \
+            --title "Formulario di Analisi Matematica I v.1.2" \
+            --notes-file /tmp/note-release.md
