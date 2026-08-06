@@ -37,13 +37,15 @@ Non vengono incorporati font esterni nel deposito: la compilazione usa i font di
 
 ## Componenti
 
-### Copertina
+### Frontespizio
 
-La copertina usa il logo a bandiera, il dorso blu con accento giallo, il titolo del volume, l'obiettivo operativo e la sequenza «Riconosci → Scegli → Esegui → Controlla».
+Il frontespizio usa una griglia editoriale essenziale: dorso blu ridotto con accento giallo, identificazione della collana, titolo e sottotitolo dominanti, ampio spazio bianco, un segno matematico di fondo molto tenue e metadati compatti. Il marchio è collocato in basso a destra come firma editoriale e non compete con il titolo. Obiettivo e sequenza «Riconosci → Scegli → Esegui → Controlla» sono sviluppati nella pagina «Come usare questo formulario», non sulla copertina.
 
 ### Parti e capitoli
 
-- le parti hanno una pagina di apertura autonoma;
+- le parti hanno una pagina di apertura autonoma costruita sulla stessa griglia del frontespizio;
+- il titolo della parte occupa l'area superiore, il numero funge da filigrana e la descrizione è raccolta in un riquadro neutro;
+- il marchio è allineato in basso a destra e i metadati del volume in basso a sinistra;
 - i capitoli usano un numero bianco in campo blu scuro;
 - una linea gialla separa il titolo dal contenuto;
 - sezioni e sottosezioni usano i due blu istituzionali.
