@@ -276,34 +276,74 @@
   \pdfbookmark[0]{Parte \thepart: #1}{parte-\thepart}%
   \thispagestyle{empty}%
   \begin{tikzpicture}[remember picture,overlay]
-    \fill[IngBluPallido] (current page.north west) rectangle (current page.south east);
-    \fill[IngBluScuro] (current page.north west) rectangle ([xshift=20mm]current page.south west);
-    \fill[IngBlu] ([xshift=20mm]current page.north west) rectangle ([xshift=24mm]current page.south west);
-    \fill[IngGiallo] ([xshift=24mm]current page.north west) rectangle ([xshift=26.5mm]current page.south west);
-    \node[anchor=north east,text=IngBlu!12,font=\sffamily\bfseries\fontsize{105}{105}\selectfont]
-      at ([xshift=-12mm,yshift=-10mm]current page.north east) {\thepart};
-  \end{tikzpicture}%
-  \vspace*{25mm}
-  \hspace*{14mm}%
-  \begin{minipage}{.78\textwidth}
-    \LogoIngegnerismo[24mm]\hspace{5mm}%
-    \raisebox{7.2mm}{\textcolor{IngBluScuro}{\sffamily\bfseries\fontsize{24}{26}\selectfont ingegnerismo.it}}
-    \vspace{24mm}
+    \fill[IngBianco] (current page.north west) rectangle (current page.south east);
+    \fill[IngBluScuro] (current page.north west) rectangle ([xshift=15mm]current page.south west);
+    \fill[IngBlu] ([xshift=15mm]current page.north west) rectangle ([xshift=18.5mm]current page.south west);
+    \fill[IngGiallo] ([xshift=18.5mm]current page.north west) rectangle ([xshift=20mm]current page.south west);
 
-    {\sffamily\bfseries\small\color{IngBlu}\MakeUppercase{Parte \thepart}\par}
-    \vspace{3mm}
-    {\sffamily\bfseries\fontsize{30}{34}\selectfont\color{IngBluScuro}#1\par}
-    \vspace{4mm}
-    {\color{IngGialloScuro}\rule{45mm}{2pt}\par}
-    \vspace{7mm}
-    {\raggedright\sffamily\large\color{IngGrigio}#2\par}
-  \end{minipage}
-  \vfill
-  \hspace*{14mm}%
-  \begin{minipage}{.78\textwidth}
-    {\sffamily\small\color{IngGrigio}\FormularioTitolo\quad\textcolor{IngGrigioMedio}{|}\quad\FormularioVersione}
-  \end{minipage}
-  \vspace*{18mm}
+    % Numero di parte come filigrana tipografica.
+    \node[anchor=north east,text=IngBlu!7,font=\sffamily\bfseries\fontsize{118}{118}\selectfont]
+      at ([xshift=-12mm,yshift=-8mm]current page.north east) {\thepart};
+
+    % Titolo della parte.
+    \node[anchor=north west,inner sep=0pt]
+      at ([xshift=35mm,yshift=-40mm]current page.north west) {%
+        \begin{minipage}{146mm}
+          {\sffamily\bfseries\fontsize{10.5}{13}\selectfont\color{IngBlu}
+            \MakeUppercase{Parte \thepart}\par}
+          \vspace{4mm}
+          {\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000
+            \sffamily\bfseries\fontsize{34}{38}\selectfont\color{IngBluScuro}#1\par}
+          \vspace{5mm}
+          {\color{IngGialloScuro}\rule{52mm}{2.1pt}\par}
+        \end{minipage}%
+      };
+
+    % Sottotitolo con richiamo cromatico discreto.
+    \node[anchor=north west,inner sep=0pt]
+      at ([xshift=35mm,yshift=-105mm]current page.north west) {%
+        \begin{minipage}{132mm}
+          \begin{tcolorbox}[
+            enhanced,
+            colback=IngBianco,
+            colframe=IngLinea,
+            boxrule=.45pt,
+            arc=1.4mm,
+            borderline west={2.8pt}{0pt}{IngBlu},
+            left=4mm,right=4mm,top=3.2mm,bottom=3.2mm
+          ]
+          {\raggedright\sffamily\fontsize{15.5}{20}\selectfont\color{IngGrigio}#2\par}
+          \end{tcolorbox}
+        \end{minipage}%
+      };
+
+    % Linea di base comune a metadati e marchio.
+    \draw[IngLinea,line width=.6pt]
+      ([xshift=35mm,yshift=38mm]current page.south west) --
+      ([xshift=-14mm,yshift=38mm]current page.south east);
+
+    % Riferimento al volume in basso a sinistra.
+    \node[anchor=south west,inner sep=0pt]
+      at ([xshift=35mm,yshift=14mm]current page.south west) {%
+        \begin{minipage}{92mm}
+          {\sffamily\small\color{IngBluScuro}\FormularioTitolo\par}
+          \vspace{1.2mm}
+          {\sffamily\footnotesize\color{IngGrigio}
+            \FormularioVersione\quad\textcolor{IngGrigioMedio}{|}\quad\FormularioData\par}
+        \end{minipage}%
+      };
+
+    % Firma editoriale in basso a destra.
+    \node[anchor=south east,inner sep=0pt]
+      at ([xshift=-14mm,yshift=13mm]current page.south east) {%
+        \begin{minipage}{67mm}
+          \raggedleft
+          \LogoIngegnerismo[18mm]\hspace{2.6mm}%
+          \raisebox{5.4mm}{\textcolor{IngBluScuro}{\sffamily\bfseries\fontsize{18}{20}\selectfont ingegnerismo.it}}
+        \end{minipage}%
+      };
+  \end{tikzpicture}%
+  \null
   \clearpage
 }
 

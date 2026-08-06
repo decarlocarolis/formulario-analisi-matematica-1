@@ -13,11 +13,17 @@ Le equazioni differenziali ordinarie non fanno parte di questo volume e rimangon
 ## Revisione grafica della versione pubblicata v.1.2
 
 - identità visiva derivata dal logo di ingegnerismo.it;
-- copertina e pagina conclusiva ridisegnate;
-- nuovi stili per parti, capitoli, riquadri operativi e tabelle;
-- intestazioni e piè di pagina uniformati;
-- numero di versione e pubblicazione GitHub mantenuti a `v.1.2`;
-- riquadri ridisegnati con testate integrate e associazione cromatica semantica;
-- wordmark `ingegnerismo.it` ingrandito accanto al logo;
+- frontespizio editoriale semplificato, con titolo e sottotitolo come elementi dominanti;
+- pagine di apertura delle parti costruite sulla stessa griglia del frontespizio;
+- marchio spostato in basso a destra come firma editoriale;
+- nuovi stili per capitoli, riquadri operativi e tabelle;
+- riquadri con testate integrate e associazione cromatica semantica;
 - corretta la resa delle parentesi graffe estensibili nelle formule LaTeX;
-- toolchain di compilazione fissata a TeX Live 2025 per una resa riproducibile.
+- toolchain di compilazione fissata a TeX Live 2025 per una resa riproducibile;
+- numero di versione e pubblicazione GitHub mantenuti a `v.1.2`.
+
+## Licenza e identità visiva
+
+Salvo diversa indicazione, il PDF, i contenuti editoriali e i sorgenti LaTeX sono concessi con licenza **CC BY-NC 4.0**. L'attribuzione deve indicare Carlo de Carolis, ingegnerismo.it, la licenza e le eventuali modifiche. Il logo e i segni distintivi di ingegnerismo.it sono esclusi dalla licenza.
+
+La licenza consente adattamenti e redistribuzione non commerciali e non impedisce all'autore di pubblicare o vendere edizioni cartacee o successive. Le condizioni complete sono riportate in `LICENZA.md`.

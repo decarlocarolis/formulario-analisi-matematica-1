@@ -72,6 +72,8 @@ Il PDF non viene inserito nella cronologia del ramo `main`: viene ricompilato da
 
 Quando occorre correggere gli artefatti senza cambiare il numero editoriale, lo script `strumenti/pubblica-versione.sh v1.2` aggiorna l'etichetta e sostituisce i file della versione GitHub esistente. Questa operazione va usata soltanto per correzioni interne alla stessa versione dichiarata.
 
-## Diritti d'autore
+## Licenza
 
-© 2026 Carlo de Carolis. Tutti i diritti riservati. La visibilità pubblica del deposito non attribuisce automaticamente una licenza di riuso o redistribuzione.
+Salvo diversa indicazione, i contenuti editoriali, il PDF e i sorgenti LaTeX sono concessi con licenza **Creative Commons Attribuzione–Non commerciale 4.0 Internazionale (CC BY-NC 4.0)**. Sono consentite condivisione e modifiche per finalità non commerciali, con attribuzione a **Carlo de Carolis**, collegamento a **ingegnerismo.it**, indicazione della licenza e delle modifiche effettuate.
+
+Il logo e i segni distintivi di ingegnerismo.it sono esclusi dalla licenza. L'autore conserva il diritto di pubblicare e vendere future edizioni, comprese quelle cartacee. La licenza applicata alle versioni già pubblicate resta irrevocabile nei termini della CC BY-NC 4.0. Ambito, attribuzione consigliata ed esclusioni sono specificati in [`LICENZA.md`](LICENZA.md).
