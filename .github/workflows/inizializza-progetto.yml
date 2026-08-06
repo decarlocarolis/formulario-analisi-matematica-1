@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - pacchetto-iniziale-analisi-1-v1.2.zip
+      - pacchetto-pronto.txt
 
 permissions:
   contents: write
@@ -18,16 +18,18 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Estrai il progetto definitivo
+      - name: Ricostruisci ed estrai il progetto definitivo
         shell: bash
         run: |
+          cat caricamento/pacchetto.parte-* > pacchetto.b64
+          base64 --decode pacchetto.b64 > pacchetto-iniziale.zip
           rm -rf estrazione
           mkdir -p estrazione
-          unzip -q pacchetto-iniziale-analisi-1-v1.2.zip -d estrazione
+          unzip -q pacchetto-iniziale.zip -d estrazione
           shopt -s dotglob
           cp -a estrazione/formulario-analisi-matematica-1-v1.2-sorgenti/. .
-          rm -rf estrazione
-          rm -f pacchetto-iniziale-analisi-1-v1.2.zip
+          rm -rf estrazione caricamento
+          rm -f pacchetto.b64 pacchetto-iniziale.zip pacchetto-pronto.txt
           rm -f .github/workflows/inizializza-progetto.yml
 
       - name: Controlla la struttura del progetto
