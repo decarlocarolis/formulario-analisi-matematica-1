@@ -1,8 +1,5 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Discussioni della comunità
-    url: https://github.com/decarlocarolis/formulario-analisi-matematica-1/discussions
-    about: Fai domande generali o confrontati su proposte non ancora circoscritte.
-  - name: Sportello redazionale di ingegnerismo.it
-    url: https://ingegnerismo.it/aiuta/
-    about: Scrivi alla redazione se non vuoi o non puoi usare GitHub.
+  - name: Contribuire tramite ingegnerismo.it
+    url: https://ingegnerismo.it/contribuisci/
+    about: Contatta la redazione se non vuoi o non puoi usare GitHub.
