@@ -1,0 +1,50 @@
+name: Segnalazione di errore matematico
+description: Segnala una formula, una condizione, una procedura o un riferimento da correggere.
+title: "[Errata] "
+labels:
+  - errata
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Versione del formulario
+      description: Indica la versione riportata nel PDF.
+      placeholder: "v.1.2"
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: Posizione
+      description: Capitolo, sezione e pagina del PDF.
+      placeholder: "Capitolo 7, Limiti di funzione, pagina 64"
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: Contenuto attuale
+      description: Trascrivi la formula o il passaggio interessato.
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problema riscontrato
+      description: Spiega con precisione perché il contenuto è errato, ambiguo o incompleto.
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: Correzione proposta
+      description: Indica la formulazione corretta e le condizioni necessarie.
+    validations:
+      required: false
+  - type: textarea
+    id: sources
+    attributes:
+      label: Riferimenti verificabili
+      description: Manuale, appunti ufficiali, articolo o calcolo che supporta la segnalazione.
+    validations:
+      required: false

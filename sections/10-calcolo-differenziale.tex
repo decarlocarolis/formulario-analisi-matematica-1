@@ -1,0 +1,408 @@
+% Canonical LaTeX source; imported and revised from the legacy Markdown.
+\chapter{Calcolo differenziale}
+\label{chap:10}
+
+\begin{obiettivocapitolo}{calcolare derivate, tangenti, approssimazioni lineari e punti di non derivabilità}
+\prioritaalta. Il dominio della funzione originaria prevale sempre sul dominio apparente della formula derivata.
+\end{obiettivocapitolo}
+\begin{proceduraesame}{derivata di un'espressione composta}
+\begin{enumerate}
+\item Identifica la funzione esterna e procedi dall'esterno verso l'interno.
+\item Applica linearità, prodotto, quoziente e catena, scrivendo ogni fattore derivativo.
+\item Semplifica solo dopo aver completato la derivazione.
+\item Riporta le condizioni di esistenza della funzione e della derivata.
+\end{enumerate}
+\end{proceduraesame}
+\begin{sceltametodo}{punti problematici}
+Per funzioni a tratti o con valore assoluto, calcola le derivate laterali. Se sono finite e diverse c'è un punto angoloso; se sono infinite con segni opposti, una cuspide; se coincidono infinite, una tangente verticale. La derivabilità richiede continuità, ma la continuità non basta.
+\end{sceltametodo}
+\begin{proceduraesame}{retta tangente e linearizzazione}
+Calcola $f(x_0)$ e $f'(x_0)$, quindi usa $y=f(x_0)+f'(x_0)(x-x_0)$. Per piccoli incrementi, $\Delta f\approx f'(x_0)\Delta x$; specifica sempre il punto di linearizzazione.
+\end{proceduraesame}
+\begin{controllofinale}{derivata}
+Verifica con casi semplici, segno atteso, unità fisiche e derivazione inversa della primitiva quando applicabile.
+\end{controllofinale}
+
+La derivata misura il tasso di variazione locale di una funzione. Ogni regola va applicata soltanto nei punti nei quali la funzione originaria, le funzioni intermedie e la formula risultante sono definite. La notazione \(u'\) abbrevia \(du/dx\) quando \(u=u(x)\).
+
+\section{Derivata, derivate laterali e retta tangente}\label{derivata-derivate-laterali-e-retta-tangente}
+
+Siano \(f:D\to\mathbb R\) e \(x_0\in D\) punto di accumulazione di \(D\).
+
+\[
+\displaystyle
+f'(x_0)=
+\lim_{\substack{h\to0\\h\ne0,\ x_0+h\in D}}
+\frac{f(x_0+h)-f(x_0)}{h}.
+\]
+
+Forma equivalente, ponendo \(x=x_0+h\):
+
+\[
+f'(x_0)
+=\lim_{\substack{x\to x_0\\x\ne x_0,\ x\in D}}
+\frac{f(x)-f(x_0)}{x-x_0}.
+\]
+
+Il numeratore è l'incremento \(\Delta f\) e il denominatore l'incremento \(\Delta x\); il loro rapporto è il rapporto incrementale.
+
+\[
+\displaystyle
+f'_+(x_0)=
+\lim_{\substack{h\to0^+\\x_0+h\in D}}
+\frac{f(x_0+h)-f(x_0)}{h},
+\qquad
+f'_-(x_0)=
+\lim_{\substack{h\to0^-\\x_0+h\in D}}
+\frac{f(x_0+h)-f(x_0)}{h}.
+\]
+
+Se \(x_0\) è punto di accumulazione del dominio da entrambi i lati:
+
+\[
+\displaystyle
+f'(x_0)\in\mathbb R
+\quad\Longleftrightarrow\quad
+f'_-(x_0)=f'_+(x_0)\in\mathbb R.
+\]
+
+Approssimazione lineare e retta tangente:
+
+\[
+\displaystyle
+f(x_0+h)=f(x_0)+f'(x_0)h+o(h),
+\]
+
+\[
+\displaystyle
+y=f(x_0)+f'(x_0)(x-x_0).
+\]
+
+Retta normale al grafico nel punto \((x_0,f(x_0))\):
+
+\[
+y-f(x_0)=-\frac{1}{f'(x_0)}(x-x_0),
+\qquad f'(x_0)\ne0,
+\]
+
+\[
+x=x_0,
+\qquad f'(x_0)=0.
+\]
+
+\[
+\displaystyle
+f\text{ derivabile in }x_0
+\quad\Longrightarrow\quad
+f\text{ continua in }x_0.
+\]
+
+Il viceversa non vale; caso standard:
+
+\[
+\displaystyle
+f(x)=|x|,
+\qquad
+f'_-(0)=-1,
+\qquad
+f'_+(0)=1.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/derivata/}{derivata}.
+
+\section{Punti di non derivabilità}\label{punti-di-non-derivabilituxe0}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Caso
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Derivate laterali
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Modello in \(x_0=0\)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Punto angoloso & \(f'_-,f'_+\in\mathbb R\), \(f'_-\ne f'_+\) & \(f(x)=\lvert x\rvert\) \\
+Cuspide & \(f'_-,f'_+\) infiniti di segno opposto & \(f(x)=\sqrt{\lvert x\rvert}\) \\
+Tangente verticale & \(f'_-=f'_+=\pm\infty\) & \(f(x)=\sqrt[3]{x}\) \\
+Caso misto & un laterale è finito e l'altro infinito o inesistente & \(f(x)=\begin{cases}x,&x<0\\ \sqrt{x},&x\ge0\end{cases}\) \\
+\end{longtable}
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/punti-di-non-derivabilita/}{punti di non derivabilità}.
+
+\section{Differenziale e linearizzazione}\label{differenziale-e-linearizzazione}
+
+Sia \(f:D\to\mathbb R\) derivabile in \(x_0\in D\cap D'\). Per \(h\to0\) con \(x_0+h\in D\):
+
+\[
+\displaystyle
+df_{x_0}:h\longmapsto f'(x_0)h.
+\]
+
+\[
+\displaystyle
+f(x_0+h)-f(x_0)=f'(x_0)h+r(h),
+\qquad
+\lim_{h\to0}\frac{r(h)}{h}=0.
+\]
+
+\[
+L_{x_0}(x)
+=f(x_0)+df_{x_0}(x-x_0)
+=f(x_0)+f'(x_0)(x-x_0).
+\]
+
+Con \(h=\Delta x\):
+
+\[
+\begin{aligned}
+\Delta f&=f(x_0+h)-f(x_0),\\
+df_{x_0}(h)&=f'(x_0)h,\\
+r(h)&=\Delta f-df_{x_0}(h).
+\end{aligned}
+\]
+
+Stime di primo ordine, valide per incrementi sufficientemente piccoli e con errore trascurabile rispetto a \(|\Delta x|\):
+
+\[
+\displaystyle
+|\Delta f|\approx |f'(x_0)|\,|\Delta x|,
+\]
+
+\[
+\displaystyle
+\frac{|\Delta f|}{|f(x_0)|}
+\approx
+\left|\frac{f'(x_0)}{f(x_0)}\right|\,|\Delta x|,
+\qquad f(x_0)\ne0.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/differenziale/}{differenziale e linearizzazione}.
+
+Esercizi svolti: \href{https://ingegnerismo.it/matematica/differenziale-approssimazione-lineare-esercizi/}{differenziale e approssimazione lineare}.
+
+\section{Derivate elementari}\label{derivate-elementari}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Funzione
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Derivata
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Condizioni
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(c\) & \(0\) & \(c\in\mathbb R\) \\
+\(x\) & \(1\) & \(x\in\mathbb R\) \\
+\(x^\alpha\) & \(\alpha x^{\alpha-1}\) & \(x>0\), \(\alpha\in\mathbb R\) \\
+\(x^n\) & \(n x^{n-1}\) & \(x\in\mathbb R\), \(n\in\mathbb N_+\) \\
+\(x^{-n}\) & \(-n x^{-n-1}\) & \(x\ne0\), \(n\in\mathbb N_+\) \\
+\(\sqrt{x}\) & \(1/(2\sqrt{x})\) & \(x>0\) \\
+\(\lvert x\rvert\) & \(\operatorname{sgn}x\) & \(x\ne0\); non derivabile in \(0\) \\
+\(e^x\) & \(e^x\) & \(x\in\mathbb R\) \\
+\(a^x\) & \(a^x\ln a\) & \(a>0\) \\
+\(\ln x\) & \(1/x\) & \(x>0\) \\
+\(\log_a x\) & \(1/(x\ln a)\) & \(x>0\), \(a>0\), \(a\ne1\) \\
+\(\sin x\) & \(\cos x\) & \(x\in\mathbb R\) \\
+\(\cos x\) & \(-\sin x\) & \(x\in\mathbb R\) \\
+\(\tan x\) & \(1/\cos^2x=1+\tan^2x\) & \(x\ne\pi/2+k\pi\) \\
+\(\cot x\) & \(-1/\sin^2x\) & \(x\ne k\pi\) \\
+\(\sec x\) & \(\sec x\tan x\) & \(\cos x\ne0\) \\
+\(\csc x\) & \(-\csc x\cot x\) & \(\sin x\ne0\) \\
+\end{longtable}
+
+\section{Derivate delle funzioni inverse}\label{derivate-delle-funzioni-inverse}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Funzione
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Derivata
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Dominio della derivata
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(\arcsin x\) & \(1/\sqrt{1-x^2}\) & \(\lvert x\rvert<1\) \\
+\(\arccos x\) & \(-1/\sqrt{1-x^2}\) & \(\lvert x\rvert<1\) \\
+\(\arctan x\) & \(1/(1+x^2)\) & \(x\in\mathbb R\) \\
+\(\operatorname{arccot}x\) & \(-1/(1+x^2)\) & \(x\in\mathbb R\), con valori in \((0,\pi)\) \\
+\end{longtable}
+
+\section{Derivate iperboliche}\label{derivate-iperboliche}
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Funzione & Derivata & Dominio della derivata \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(\sinh x\) & \(\cosh x\) & \(x\in\mathbb R\) \\
+\(\cosh x\) & \(\sinh x\) & \(x\in\mathbb R\) \\
+\(\tanh x\) & \(1/\cosh^2x\) & \(x\in\mathbb R\) \\
+\(\coth x\) & \(-1/\sinh^2x\) & \(x\ne0\) \\
+\(\operatorname{arsinh}x\) & \(1/\sqrt{1+x^2}\) & \(x\in\mathbb R\) \\
+\(\operatorname{arcosh}x\) & \(1/\sqrt{x^2-1}\) & \(x>1\) \\
+\(\operatorname{artanh}x\) & \(1/(1-x^2)\) & \(\lvert x\rvert<1\) \\
+\(\operatorname{arcoth}x\) & \(1/(1-x^2)\) & \(\lvert x\rvert>1\) \\
+\end{longtable}
+
+Approfondimenti: \href{https://ingegnerismo.it/matematica/derivata/}{derivata} e \href{https://ingegnerismo.it/matematica/derivata-ordine-superiore/}{derivate di ordine superiore}.
+
+\section{Regole di derivazione}\label{regole-di-derivazione}
+
+\[
+\begin{aligned}
+(\alpha f+\beta g)'&=\alpha f'+\beta g',\\
+(fg)'&=f'g+fg',\\
+\left(\frac1f\right)'&=-\frac{f'}{f^2},\qquad f\ne0,\\
+\left(\frac fg\right)'&=\frac{f'g-fg'}{g^2},\qquad g\ne0,\\
+(f\circ g)'(x)&=f'(g(x))g'(x),\\
+(|f|)'&=\operatorname{sgn}(f)f',\qquad f\ne0.
+\end{aligned}
+\]
+
+Nei punti in cui \(f(x)=0\), la derivabilità di \(|f|\) va controllata direttamente: la formula con \(\operatorname{sgn}(f)\) non decide il caso.
+
+Se \(f\) è continua e strettamente monotona su un intervallo \(I\), è derivabile in \(x_0\in\operatorname{int}I\) e \(f'(x_0)\ne0\), posto \(y_0=f(x_0)\):
+
+\[
+\displaystyle
+(f^{-1})'(y_0)=\frac{1}{f'(x_0)}.
+\]
+
+In forma operativa, per ogni \(y\) nel tratto nel quale valgono le stesse ipotesi:
+
+\[
+(f^{-1})'(y)
+=\frac{1}{f'\bigl(f^{-1}(y)\bigr)}.
+\]
+
+Derivate successive:
+
+\[
+\displaystyle
+f^{(0)}=f,
+\qquad
+f^{(n)}=(f^{(n-1)})'.
+\]
+
+Formula di Leibniz:
+
+\[
+\displaystyle
+(fg)^{(n)}
+=
+\sum_{k=0}^{n}\binom nk f^{(k)}g^{(n-k)}.
+\]
+
+Derivata logaritmica:
+
+\[
+\displaystyle
+(\ln|f(x)|)'=\frac{f'(x)}{f(x)},
+\qquad f(x)\ne0.
+\]
+
+Potenza a base ed esponente variabili:
+
+\[
+\displaystyle
+\bigl(u(x)^{v(x)}\bigr)'
+=
+u(x)^{v(x)}
+\left[
+v'(x)\ln u(x)+v(x)\frac{u'(x)}{u(x)}
+\right],
+\qquad u(x)>0.
+\]
+
+Approfondimenti: \href{https://ingegnerismo.it/matematica/regole-di-derivazione/}{regole di derivazione}, \href{https://ingegnerismo.it/matematica/regola-della-catena/}{regola della catena} e \href{https://ingegnerismo.it/matematica/derivata-logaritmica/}{derivata logaritmica}.
+
+\section{Tabella delle derivate composte}\label{tabella-delle-derivate-composte}
+
+Per \(u=u(x)\) derivabile, nei rispettivi domini:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Funzione composta
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Derivata
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Condizioni
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(u^\alpha\) & \(\alpha u^{\alpha-1}u'\) & dove la potenza è reale e derivabile; per \(\alpha\in\mathbb R\) arbitrario, \(u>0\) \\
+\(\sqrt{u}\) & \(u'/(2\sqrt{u})\) & \(u>0\) \\
+\(\lvert u\rvert\) & \(\operatorname{sgn}(u)u'\) & \(u\ne0\) \\
+\(e^u\) & \(e^u u'\) & --- \\
+\(a^u\) & \(a^u\ln(a)\,u'\) & \(a>0\) \\
+\(\ln\lvert u\rvert\) & \(u'/u\) & \(u\ne0\) \\
+\(\sin u\) & \(\cos u\,u'\) & --- \\
+\(\cos u\) & \(-\sin u\,u'\) & --- \\
+\(\tan u\) & \(u'/\cos^2u\) & \(\cos u\ne0\) \\
+\(\arcsin u\) & \(u'/\sqrt{1-u^2}\) & \(\lvert u\rvert<1\) \\
+\(\arccos u\) & \(-u'/\sqrt{1-u^2}\) & \(\lvert u\rvert<1\) \\
+\(\arctan u\) & \(u'/(1+u^2)\) & --- \\
+\(\operatorname{arccot}u\) & \(-u'/(1+u^2)\) & --- \\
+\(\cot u\) & \(-u'/\sin^2u\) & \(\sin u\ne0\) \\
+\(\sec u\) & \(\sec u\tan u\,u'\) & \(\cos u\ne0\) \\
+\(\csc u\) & \(-\csc u\cot u\,u'\) & \(\sin u\ne0\) \\
+\(\sinh u\) & \(\cosh u\,u'\) & --- \\
+\(\cosh u\) & \(\sinh u\,u'\) & --- \\
+\(\tanh u\) & \(u'/\cosh^2u\) & --- \\
+\(\coth u\) & \(-u'/\sinh^2u\) & \(u\ne0\) \\
+\(\operatorname{arsinh}u\) & \(u'/\sqrt{1+u^2}\) & --- \\
+\(\operatorname{arcosh}u\) & \(u'/\sqrt{u^2-1}\) & \(u>1\) \\
+\(\operatorname{artanh}u\) & \(u'/(1-u^2)\) & \(\lvert u\rvert<1\) \\
+\(\operatorname{arcoth}u\) & \(u'/(1-u^2)\) & \(\lvert u\rvert>1\) \\
+\end{longtable}
+
+\section{Derivazione implicita e parametrica}\label{derivazione-implicita-e-parametrica}
+
+Se \(F\in C^1\) in un intorno di \((x_0,y_0)\), \(F(x_0,y_0)=0\) e \(F_y(x_0,y_0)\ne0\), allora localmente \(F(x,y(x))=0\) e
+
+\[
+y'(x)=-\frac{F_x(x,y(x))}{F_y(x,y(x))}.
+\]
+
+Qui \(F_x\) e \(F_y\) sono le derivate parziali. La condizione \(F_y\ne0\) permette di risolvere localmente l'equazione rispetto a \(y\); se invece \(F_x\ne0\) si può risolvere localmente rispetto a \(x\).
+
+Per una curva parametrica \(x=x(t)\), \(y=y(t)\) con \(x'(t)\ne0\):
+
+\[
+\frac{dy}{dx}=\frac{y'(t)}{x'(t)},
+\]
+
+\[
+\frac{d^2y}{dx^2}
+=
+\frac{1}{x'(t)}\frac{d}{dt}\left(\frac{y'(t)}{x'(t)}\right).
+\]

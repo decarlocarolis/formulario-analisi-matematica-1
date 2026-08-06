@@ -1,0 +1,236 @@
+% Canonical LaTeX source; imported and revised from the legacy Markdown.
+\chapter{Studio di funzione e metodi numerici}
+\label{chap:13}
+
+\begin{obiettivocapitolo}{eseguire uno studio di funzione completo in ordine stabile}
+\prioritaalta. La sequenza seguente riduce omissioni e contraddizioni tra grafico, limiti e derivate.
+\end{obiettivocapitolo}
+\begin{proceduraesame}{studio completo di funzione}
+\begin{enumerate}
+\item Dominio e punti esclusi.
+\item Simmetrie, periodicità e intersezioni con gli assi.
+\item Segno della funzione.
+\item Limiti agli estremi del dominio e nei punti esclusi.
+\item Asintoti verticali, orizzontali e obliqui.
+\item Continuità e classificazione delle discontinuità.
+\item Derivata prima, punti critici, tabella di monotonia ed estremi.
+\item Derivata seconda, concavità/convessità e flessi con cambio di segno.
+\item Valori notevoli e confronto con eventuali estremi assoluti.
+\item Grafico coerente con tutte le informazioni precedenti.
+\end{enumerate}
+\end{proceduraesame}
+\begin{sceltametodo}{zeri numerici}
+Usa la bisezione quando disponi di continuità e cambio di segno e vuoi convergenza garantita. Usa Newton quando hai una buona stima iniziale, derivata non piccola e regolarità; controlla sempre il residuo e l'intervallo.
+\end{sceltametodo}
+\begin{errorefrequente}{punti critici incompleti}
+Gli estremi possono trovarsi anche in punti non derivabili e agli estremi dell'intervallo, non soltanto dove $f'=0$.
+\end{errorefrequente}
+\begin{controllofinale}{grafico}
+Ogni ramo deve rispettare dominio, segno, limiti, monotonia, concavità e asintoti. Un solo conflitto indica un errore precedente.
+\end{controllofinale}
+
+\section{Candidati agli estremi assoluti}\label{candidati-agli-estremi-assoluti}
+
+Se \(f\in C([a,b])\) ed è derivabile salvo eventualmente in un insieme finito \(N\subset(a,b)\):
+
+\[
+\operatorname*{arg\,max}_{[a,b]} f,\quad
+\operatorname*{arg\,min}_{[a,b]} f
+\subseteq
+\{a,b\}\cup\{x\in(a,b):f'(x)=0\}\cup N.
+\]
+
+\section{Asintoti}\label{asintoti}
+
+Asintoto verticale. Basta un solo laterale infinito fra quelli ammessi dal dominio:
+
+\[
+\displaystyle
+x=x_0
+\quad\Longleftrightarrow\quad
+\lim_{x\to x_0^-}f(x)=\pm\infty
+\quad\text{oppure}\quad
+\lim_{x\to x_0^+}f(x)=\pm\infty.
+\]
+
+Asintoto orizzontale nella direzione \(\sigma\in\{+,-\}\):
+
+\[
+\displaystyle
+y=\ell
+\quad\Longleftrightarrow\quad
+\lim_{x\to\sigma\infty}f(x)=\ell\in\mathbb R.
+\]
+
+Asintoto obliquo nella direzione \(\sigma\in\{+,-\}\):
+
+\[
+\displaystyle
+y=m_\sigma x+q_\sigma,
+\]
+
+\[
+\displaystyle
+m_\sigma=\lim_{x\to\sigma\infty}\frac{f(x)}{x},
+\qquad
+q_\sigma=\lim_{x\to\sigma\infty}\bigl(f(x)-m_\sigma x\bigr),
+\]
+
+con \(m_\sigma,q_\sigma\in\mathbb R\) e \(m_\sigma\ne0\).
+
+\[
+\displaystyle
+\lim_{x\to\sigma\infty}
+\bigl[f(x)-(m_\sigma x+q_\sigma)\bigr]=0.
+\]
+
+Approfondimenti: \href{https://ingegnerismo.it/matematica/asintoto/}{asintoto} e \href{https://ingegnerismo.it/matematica/studio-di-funzione/}{studio di funzione}.
+
+\section{Punti stazionari ed estremi}\label{punti-stazionari-ed-estremi}
+
+\[
+\displaystyle
+x_0\text{ stazionario}
+\quad\Longleftrightarrow\quad
+f'(x_0)=0.
+\]
+
+Test del segno di \(f'\), assumendo \(f\) continua in \(x_0\) e derivabile nei due intorni laterali puntati:
+
+\[
+\begin{aligned}
+f':+\to- &\Longrightarrow x_0\text{ massimo locale},\\
+f':-\to+ &\Longrightarrow x_0\text{ minimo locale},\\
+f'>0\text{ sui due lati oppure }f'<0\text{ sui due lati}
+&\Longrightarrow x_0\text{ non è un estremo}.
+\end{aligned}
+\]
+
+Test della derivata seconda:
+
+\[
+\begin{aligned}
+f'(x_0)=0,\ f''(x_0)>0
+&\Longrightarrow x_0\text{ minimo locale},\\
+f'(x_0)=0,\ f''(x_0)<0
+&\Longrightarrow x_0\text{ massimo locale},\\
+f'(x_0)=0,\ f''(x_0)=0
+&\Longrightarrow \text{test inconcludente}.
+\end{aligned}
+\]
+
+Test della prima derivata non nulla, nelle ipotesi di Taylor di ordine \(m\ge2\):
+
+\[
+\displaystyle
+f'(x_0)=\cdots=f^{(m-1)}(x_0)=0,
+\qquad
+f^{(m)}(x_0)\ne0.
+\]
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Caso & Classificazione \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(m\) pari, \(f^{(m)}(x_0)>0\) & minimo locale \\
+\(m\) pari, \(f^{(m)}(x_0)<0\) & massimo locale \\
+\(m\) dispari & non estremo; per \(m\ge3\), flesso stazionario \\
+\end{longtable}
+
+Approfondimenti: \href{https://ingegnerismo.it/matematica/punto-critico/}{punto critico}, \href{https://ingegnerismo.it/matematica/massimo/}{massimo} e \href{https://ingegnerismo.it/matematica/minimo/}{minimo}.
+
+\section{Convessità, concavità e flessi}\label{convessituxe0-concavituxe0-e-flessi}
+
+Per \(f:I\to\mathbb R\):
+
+\[
+\displaystyle
+f\text{ convessa}
+\quad\Longleftrightarrow\quad
+f(\lambda x+(1-\lambda)y)
+\le
+\lambda f(x)+(1-\lambda)f(y)
+\]
+
+\[
+\displaystyle
+f\text{ concava}
+\quad\Longleftrightarrow\quad
+f(\lambda x+(1-\lambda)y)
+\ge
+\lambda f(x)+(1-\lambda)f(y),
+\]
+
+per ogni \(x,y\in I\) e \(\lambda\in[0,1]\).
+
+Se \(f\) è due volte derivabile su \(I\):
+
+\[
+\begin{aligned}
+f\text{ convessa su }I&\Longleftrightarrow f''\ge0\text{ su }I,\\
+f\text{ concava su }I&\Longleftrightarrow f''\le0\text{ su }I.
+\end{aligned}
+\]
+
+\[
+\begin{aligned}
+f''>0\text{ su }I&\Longrightarrow f\text{ strettamente convessa},\\
+f''<0\text{ su }I&\Longrightarrow f\text{ strettamente concava}.
+\end{aligned}
+\]
+
+Se \(f\) è continua in \(x_0\) e la concavità cambia attraversando il punto, si ha un flesso. In particolare, quando \(f''\) esiste nei due intorni laterali puntati:
+
+\[
+\displaystyle
+f''\text{ cambia segno attraversando }x_0
+\quad\Longrightarrow\quad
+x_0\text{ è un flesso}.
+\]
+
+\[
+\displaystyle
+f''(x_0)=0
+\quad\not\Longrightarrow\quad
+x_0\text{ è un flesso}.
+\]
+
+Approfondimenti: \href{https://ingegnerismo.it/matematica/convessita/}{convessità}, \href{https://ingegnerismo.it/matematica/concavita/}{concavità} e \href{https://ingegnerismo.it/matematica/flesso/}{flesso}.
+
+\section{Bisezione e metodo di Newton (estensione)}\label{bisezione-e-metodo-di-newton-estensione}
+
+Nel seguito \(\alpha\) è uno zero di \(f\), \(x_n\) l'approssimazione al passo \(n\) ed \(e_n=x_n-\alpha\) l'errore vero.
+
+Se \(f\in C([a,b])\) e \(f(a)f(b)<0\), il metodo di bisezione produce intervalli annidati contenenti uno zero. Dopo \(n\) bisezioni:
+
+\[
+b_n-a_n=\frac{b-a}{2^n},
+\qquad
+|x_n-\alpha|\le\frac{b-a}{2^{n+1}},
+\]
+
+dove \(x_n=(a_n+b_n)/2\) e \(\alpha\) è lo zero contenuto nell'intervallo.
+
+Metodo di Newton:
+
+\[
+x_{n+1}=x_n-\frac{f(x_n)}{f'(x_n)},
+\qquad f'(x_n)\ne0.
+\]
+
+Vicino a uno zero semplice \(\alpha\), sotto le usuali ipotesi di regolarità, la convergenza è quadraticamente locale:
+
+\[
+e_{n+1}
+=
+\frac{f''(\alpha)}{2f'(\alpha)}e_n^2
++o(e_n^2),
+\qquad e_n=x_n-\alpha.
+\]
+
+Teoria: \href{https://ingegnerismo.it/matematica/metodo-di-bisezione/}{metodo di bisezione} e \href{https://ingegnerismo.it/matematica/metodo-di-newton/}{metodo di Newton}.
+
+Esercizi svolti: \href{https://ingegnerismo.it/matematica/teorema-degli-zeri-esercizi/}{teorema degli zeri e bisezione}.

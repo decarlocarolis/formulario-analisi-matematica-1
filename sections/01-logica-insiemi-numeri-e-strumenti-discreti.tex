@@ -1,0 +1,937 @@
+% Canonical LaTeX source; imported and revised from the legacy Markdown.
+\chapter{Logica, insiemi, numeri e strumenti discreti}
+\label{chap:1}
+
+\begin{obiettivocapitolo}{usare i prerequisiti come strumenti di calcolo e controllo}
+\prioritaalta. Le competenze di questo capitolo intervengono in quasi ogni esercizio: segni, frazioni, potenze, valore assoluto, sommatorie e stime.
+\end{obiettivocapitolo}
+\begin{sceltametodo}{riconoscere l'operazione necessaria}
+\begin{tabularx}{\textwidth}{@{}p{.30\textwidth}X@{}}
+Frazioni o rapporti & porta a denominatore comune; semplifica solo fattori, mai addendi.\\
+Percentuali successive & moltiplica i fattori $1+p_j/100$; non sommare automaticamente le percentuali.\\
+Potenze e radicali & verifica parità dell'indice, segno della base e possibili rami.\\
+Sommatorie & separa linearmente, cambia indice con coerenza, riconosci progressioni.\\
+Valore assoluto & traduci in distanza o separa i casi in base al segno dell'argomento.\\
+Stima & usa disuguaglianza triangolare, Cauchy--Schwarz, AM--GM o confronto con una quantità più semplice.
+\end{tabularx}
+\end{sceltametodo}
+\begin{errorefrequente}{semplificazioni illegittime}
+È lecito cancellare un fattore comune non nullo, non un termine di una somma: $\frac{x(x+1)}x=x+1$ per $x\ne0$, mentre $\frac{x+1}{x}$ non si semplifica cancellando $x$.
+\end{errorefrequente}
+\begin{controllofinale}{prerequisiti}
+Controlla segno, denominatori, ordine di grandezza, unità di misura e coerenza fra valore esatto e approssimato.
+\end{controllofinale}
+
+\section{Logica matematica minima}\label{logica-matematica-minima}
+
+Nelle formule seguenti \(P\) e \(Q\) sono proposizioni, mentre \(P(x)\) è una proprietà che può essere vera o falsa a seconda di \(x\). I simboli \(\mathrm V\) e \(\mathrm F\) indicano rispettivamente «vero» e «falso».
+
+\[
+\neg(\forall x\ P(x))\Longleftrightarrow\exists x:\neg P(x),
+\qquad
+\neg(\exists x\ P(x))\Longleftrightarrow\forall x:\neg P(x).
+\]
+
+\[
+P\Rightarrow Q
+\Longleftrightarrow
+\neg P\lor Q
+\Longleftrightarrow
+\neg Q\Rightarrow\neg P.
+\]
+
+L'ultima equivalenza è la \textbf{contrapposizione}: «se \(P\) implica \(Q\), allora non \(Q\) implica non \(P\)». Non va confusa con il converso \(Q\Rightarrow P\).
+
+\[
+P\Longleftrightarrow Q
+\Longleftrightarrow
+(P\Rightarrow Q)\land(Q\Rightarrow P).
+\]
+
+\[
+\begin{array}{c|c|c|c}
+P&Q&P\Rightarrow Q&P\Longleftrightarrow Q\\
+\hline
+\mathrm V&\mathrm V&\mathrm V&\mathrm V\\
+\mathrm V&\mathrm F&\mathrm F&\mathrm F\\
+\mathrm F&\mathrm V&\mathrm V&\mathrm F\\
+\mathrm F&\mathrm F&\mathrm V&\mathrm V
+\end{array}
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/logica-matematica/}{logica matematica}, \href{https://ingegnerismo.it/matematica/quantificatori/}{quantificatori}.
+
+\section{Insiemi, intervalli e intorni}\label{insiemi-intervalli-e-intorni}
+
+Nella notazione \(\{x:P(x)\}\) i due punti si leggono «tale che». In questa sottosezione \(U\) è l'insieme universo rispetto al quale si prende il complementare.
+
+\[
+A\cup B=\{x:x\in A\lor x\in B\},
+\qquad
+A\cap B=\{x:x\in A\land x\in B\},
+\]
+
+\[
+A\setminus B=\{x\in A:x\notin B\},
+\qquad
+A^c=U\setminus A.
+\]
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Intervallo & Condizione su \(x\) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\((a,b)\) & \(a<x<b\) \\
+\([a,b]\) & \(a\le x\le b\) \\
+\((a,b]\) & \(a<x\le b\) \\
+\([a,b)\) & \(a\le x<b\) \\
+\((a,+\infty)\) & \(x>a\) \\
+\([a,+\infty)\) & \(x\ge a\) \\
+\((-\infty,b)\) & \(x<b\) \\
+\((-\infty,b]\) & \(x\le b\) \\
+\end{longtable}
+
+\[
+I(x_0,r)=(x_0-r,x_0+r),
+\qquad
+I^*(x_0,r)=I(x_0,r)\setminus\{x_0\},
+\qquad r>0.
+\]
+
+\[
+I_D(x_0,r)=D\cap I(x_0,r),
+\qquad
+I_D^*(x_0,r)=D\cap I^*(x_0,r).
+\]
+
+\[
+x_0\in\operatorname{int}A
+\Longleftrightarrow
+\exists r>0:\ I(x_0,r)\subseteq A.
+\]
+
+\[
+x_0\in A'
+\Longleftrightarrow
+\forall r>0:\ I^*(x_0,r)\cap A\ne\varnothing.
+\]
+
+\[
+x_0\notin A'
+\Longleftrightarrow
+\exists r>0:\ I^*(x_0,r)\cap A=\varnothing.
+\]
+
+\[
+a\text{ isolato in }A
+\Longleftrightarrow
+a\in A\ \land\ \exists r>0:\ I(a,r)\cap A=\{a\}.
+\]
+
+\[
+\overline A=A\cup A'.
+\]
+
+Qui \(A'\) è l'insieme dei punti di accumulazione, \(\overline A\) è la chiusura e \(\operatorname{int}A\) è l'interno. Gli intorni relativi \(I_D\) limitano la ricerca ai soli punti appartenenti al dominio \(D\).
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/insieme/}{insieme}, \href{https://ingegnerismo.it/matematica/operazioni-tra-insiemi/}{operazioni tra insiemi}, \href{https://ingegnerismo.it/matematica/intervallo-reale/}{intervallo reale}, \href{https://ingegnerismo.it/matematica/intorni-e-topologia-della-retta/}{intorni e topologia della retta}, \href{https://ingegnerismo.it/matematica/punto-di-accumulazione/}{punto di accumulazione}.
+
+Esercizi svolti: \href{https://ingegnerismo.it/matematica/intorni-accumulazione-esercizi/}{intorni, punti di accumulazione e punti isolati}.
+
+\section{Topologia essenziale della retta reale}\label{topologia-essenziale-della-retta-reale}
+
+Per \(A\subseteq\mathbb R\):
+
+\[
+A^\circ=\operatorname{int}A,
+\qquad
+\partial A=\overline A\setminus A^\circ
+=\overline A\cap\overline{A^c}.
+\]
+
+\[
+\begin{aligned}
+A\text{ aperto}
+&\Longleftrightarrow A=A^\circ,\\
+A\text{ chiuso}
+&\Longleftrightarrow A'\subseteq A
+\Longleftrightarrow A=\overline A.
+\end{aligned}
+\]
+
+\[
+A\text{ limitato}
+\Longleftrightarrow
+\exists M>0:\ |x|\le M\quad\forall x\in A.
+\]
+
+In \(\mathbb R\) vale il teorema di Heine--Borel:
+
+\[
+K\text{ compatto}
+\Longleftrightarrow
+K\text{ chiuso e limitato}.
+\]
+
+Caratterizzazione sequenziale della compattezza:
+
+\[
+K\text{ compatto}
+\Longleftrightarrow
+\text{ogni successione in }K\text{ ammette una sottosuccessione convergente a un punto di }K.
+\]
+
+Un sottoinsieme non vuoto di \(\mathbb R\) è connesso se e solo se è un intervallo.
+
+Cardinalità essenziale:
+
+\[
+\mathbb N_0,\ \mathbb Z,\ \mathbb Q\text{ sono numerabili},
+\qquad
+\mathbb R\text{ non è numerabile}.
+\]
+
+Per l'insieme delle parti
+
+\[
+\mathcal P(A)=\{B:B\subseteq A\},
+\]
+
+il teorema di Cantor afferma
+
+\[
+\operatorname{card}\mathcal P(A)>\operatorname{card}A.
+\]
+
+\section{Insiemi numerici, ordine e completezza}\label{insiemi-numerici-ordine-e-completezza}
+
+\[
+\mathbb N_0\subset\mathbb Z\subset\mathbb Q\subset\mathbb R\subset\mathbb C,
+\qquad
+\mathbb N_0=\{0,1,2,\ldots\},
+\qquad
+\mathbb N=\mathbb N_+=\{1,2,3,\ldots\}.
+\]
+
+\[
+M=\max A
+\Longleftrightarrow
+M\in A\ \land\ \forall x\in A:\ x\le M,
+\]
+
+\[
+m=\min A
+\Longleftrightarrow
+m\in A\ \land\ \forall x\in A:\ m\le x.
+\]
+
+Per \(A\ne\varnothing\) superiormente limitato:
+
+\[
+s=\sup A
+\Longleftrightarrow
+\begin{cases}
+\forall x\in A,\ x\le s,\\
+\forall\varepsilon>0,\ \exists x\in A:\ s-\varepsilon<x\le s.
+\end{cases}
+\]
+
+Per \(A\ne\varnothing\) inferiormente limitato:
+
+\[
+i=\inf A
+\Longleftrightarrow
+\begin{cases}
+\forall x\in A,\ i\le x,\\
+\forall\varepsilon>0,\ \exists x\in A:\ i\le x<i+\varepsilon.
+\end{cases}
+\]
+
+\[
+A\ne\varnothing,\ A\subseteq\mathbb R,\ A\text{ superiormente limitato}
+\Longrightarrow
+\sup A\in\mathbb R.
+\]
+
+\[
+A\ne\varnothing,\ A\subseteq\mathbb R,\ A\text{ inferiormente limitato}
+\Longrightarrow
+\inf A\in\mathbb R.
+\]
+
+Per \(A\ne\varnothing\) superiormente limitato:
+
+\[
+\max A\text{ esiste}
+\Longleftrightarrow
+\sup A\in A.
+\]
+
+Per \(A\ne\varnothing\) inferiormente limitato:
+
+\[
+\min A\text{ esiste}
+\Longleftrightarrow
+\inf A\in A.
+\]
+
+Il massimo e il minimo, quando esistono, appartengono all'insieme; il supremo e l'infimo possono non appartenervi.
+
+\[
+\forall x\in\mathbb R,\ \exists n\in\mathbb N_+:\ n>x.
+\]
+
+\[
+x<y
+\Longrightarrow
+\exists q\in\mathbb Q:\ x<q<y,
+\qquad
+\exists r\in\mathbb R\setminus\mathbb Q:\ x<r<y.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/insiemi-numerici/}{insiemi numerici}, \href{https://ingegnerismo.it/matematica/completezza-dei-reali/}{completezza dei reali}, \href{https://ingegnerismo.it/matematica/estremo-superiore/}{estremo superiore}.
+
+\section{Aritmetica, divisibilità e segni}\label{aritmetica-divisibilituxe0-e-segni}
+
+La tabella seguente vale sia per la moltiplicazione sia per la divisione, purché il divisore sia non nullo.
+
+\[
+\begin{array}{c|cc}
+\cdot\text{ o }:&+&-\\
+\hline
++&+&-\\
+-&-&+
+\end{array}
+\]
+
+\[
+\frac{a+b}{c-d}=(a+b):(c-d),
+\qquad c-d\ne0.
+\]
+
+\[
+a\mid b
+\Longleftrightarrow
+\exists k\in\mathbb Z:\ b=ak.
+\]
+
+Per \(a,b\in\mathbb Z\) con \(a\ne0\) esistono unici \(q,r\in\mathbb Z\) tali che
+
+\[
+b=aq+r,
+\qquad
+0\le r<|a|.
+\]
+
+Se \(a,b\in\mathbb N_+\) sono scritti mediante la fattorizzazione prima
+
+\[
+a=\prod_p p^{\alpha_p},
+\qquad
+b=\prod_p p^{\beta_p},
+\]
+
+allora
+
+\[
+\gcd(a,b)=\prod_p p^{\min(\alpha_p,\beta_p)},
+\qquad
+\operatorname{lcm}(a,b)=\prod_p p^{\max(\alpha_p,\beta_p)}.
+\]
+
+\[
+\gcd(a,b)\operatorname{lcm}(a,b)=ab,
+\qquad a,b>0.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/aritmetica-interi-frazioni-decimali/}{aritmetica di interi, frazioni e decimali}.
+
+\section{Frazioni, decimali e notazione scientifica}\label{frazioni-decimali-e-notazione-scientifica}
+
+\[
+\frac ab=\frac cd
+\Longleftrightarrow
+ad=bc,
+\qquad b,d\ne0.
+\]
+
+\[
+\frac{-a}{b}=\frac{a}{-b}=-\frac ab,
+\qquad
+\frac{-a}{-b}=\frac ab.
+\]
+
+\[
+\frac ab\pm\frac cd=\frac{ad\pm bc}{bd},
+\qquad
+\frac ab\frac cd=\frac{ac}{bd},
+\]
+
+\[
+\frac{a/b}{c/d}=\frac{ad}{bc},
+\qquad
+b,c,d\ne0.
+\]
+
+\[
+\frac{ac}{bc}=\frac ab\quad(bc\ne0).
+\]
+
+\[
+\begin{array}{c|c}
+\text{forma}&\text{valore}\\
+\hline
+0/b\ (b\ne0)&0\\
+a/0&\text{non definita}\\
+0/0&\text{non definita}
+\end{array}
+\]
+
+Per \(a/b\) ridotta ai minimi termini, con \(b>0\):
+
+\[
+\frac ab\text{ ha sviluppo decimale finito}
+\Longleftrightarrow
+b=2^m5^n,
+\qquad m,n\in\mathbb N_0.
+\]
+
+\[
+x=m\,10^k,
+\qquad
+1\le|m|<10,
+\qquad
+k\in\mathbb Z,
+\qquad x\ne0.
+\]
+
+\[
+(m_1 10^{k_1})(m_2 10^{k_2})=(m_1m_2)10^{k_1+k_2},
+\]
+
+\[
+\frac{m_1 10^{k_1}}{m_2 10^{k_2}}
+=\frac{m_1}{m_2}10^{k_1-k_2},
+\qquad m_2\ne0.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/frazioni-numeriche/}{frazioni numeriche}, \href{https://ingegnerismo.it/matematica/notazione-scientifica-approssimazioni/}{notazione scientifica e approssimazioni}.
+
+\section{Rapporti, proporzioni e percentuali}\label{rapporti-proporzioni-e-percentuali}
+
+\textbf{Proporzione.} Nella scrittura \(a:b=c:d\), i termini \(b\) e \(d\) sono i conseguenti e devono essere non nulli:
+
+\[
+a:b=c:d
+\Longleftrightarrow
+\frac ab=\frac cd
+\Longleftrightarrow
+ad=bc,
+\qquad b,d\ne0.
+\]
+
+Forme risolte più usate:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Incognita & Formula & Condizioni operative \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(a\) & \(a=\dfrac{bc}{d}\) & \(d\ne0\) \\
+\(c\) & \(c=\dfrac{ad}{b}\) & \(b\ne0\) \\
+\(b\) & \(b=\dfrac{ad}{c}\) & \(c\ne0\), \(d\ne0\) e risultato \(b\ne0\) \\
+\(d\) & \(d=\dfrac{bc}{a}\) & \(a\ne0\), \(b\ne0\) e risultato \(d\ne0\) \\
+\end{longtable}
+
+Se \(a=c=0\), ogni coppia \(b,d\ne0\) soddisfa la proporzione e né \(b\) né \(d\) è determinato univocamente. Se uno solo tra \(a\) e \(c\) è nullo, la proporzione non può essere verificata con \(b,d\ne0\).
+
+\textbf{Proporzionalità diretta.} \(x\) è la variabile indipendente, \(y\) quella dipendente e \(k\) la costante di proporzionalità:
+
+\[
+y=kx,
+\qquad
+x=\frac yk\quad(k\ne0),
+\qquad
+k=\frac yx\quad(x\ne0).
+\]
+
+Se \(k=0\), allora \(y=0\) per ogni \(x\) e la relazione non permette di ricavare un unico \(x\) da \(y\).
+
+\textbf{Proporzionalità inversa:}
+
+\[
+y=\frac kx,
+\qquad x\ne0,
+\]
+
+\[
+k=xy,
+\qquad
+x=\frac ky\quad(y\ne0).
+\]
+
+Se \(k=0\), si ha \(y=0\) per ogni \(x\ne0\); anche in questo caso non esiste una formula inversa univoca per \(x\).
+
+\textbf{Percentuali.} \(Q_i\) è il valore iniziale, \(Q_f\) il valore finale e \(p\) la variazione percentuale \textbf{con segno}: \(p>0\) indica un aumento, \(p<0\) una riduzione.
+
+\[
+p\%=\frac p{100}.
+\]
+
+Per calcolare il \(p\%\) di una quantità \(Q\), posto \(V\) il valore percentuale:
+
+\[
+V=Q\frac p{100},
+\qquad
+Q=\frac{100V}{p}\quad(p\ne0),
+\qquad
+p=\frac{100V}{Q}\quad(Q\ne0).
+\]
+
+Se \(p=0\), allora \(V=0\) per ogni \(Q\) e \(Q\) non è ricavabile in modo univoco; se \(Q=0\), allora \(V=0\) per ogni \(p\) e \(p\) non è ricavabile in modo univoco.
+
+Formula diretta e forme inverse per una variazione percentuale:
+
+\[
+Q_f=Q_i\left(1+\frac p{100}\right),
+\]
+
+\[
+Q_i=\frac{Q_f}{1+p/100},
+\qquad p\ne-100,
+\]
+
+\[
+p=100\left(\frac{Q_f}{Q_i}-1\right),
+\qquad Q_i\ne0.
+\]
+
+Se si preferisce indicare una riduzione mediante una percentuale positiva \(r\ge0\):
+
+\[
+Q_f=Q_i\left(1-\frac r{100}\right),
+\qquad
+Q_i=\frac{Q_f}{1-r/100}\quad(r\ne100),
+\]
+
+\[
+r=100\left(1-\frac{Q_f}{Q_i}\right),
+\qquad Q_i\ne0.
+\]
+
+Variazioni successive \(p_1,\ldots,p_m\):
+
+\[
+Q_f=Q_i\prod_{j=1}^m\left(1+\frac{p_j}{100}\right),
+\]
+
+\[
+p_{\mathrm{tot}}
+=100\left[
+\prod_{j=1}^m\left(1+\frac{p_j}{100}\right)-1
+\right].
+\]
+
+La percentuale che riporta \(Q_f\) al valore iniziale non è, in generale, \(-p\). Se \(p\) è la variazione da \(Q_i\) a \(Q_f\), la variazione inversa è
+
+\[
+p_{\mathrm{inv}}=-\frac{100p}{100+p},
+\qquad p\ne-100.
+\]
+
+In particolare, applicare prima \(+p\%\) e poi \(-p\%\) produce
+
+\[
+\left(1+\frac p{100}\right)\left(1-\frac p{100}\right)
+=1-\left(\frac p{100}\right)^2,
+\]
+
+quindi non si torna al valore iniziale, salvo \(p=0\).
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/rapporti-proporzioni-percentuali/}{rapporti, proporzioni e percentuali}, \href{https://ingegnerismo.it/matematica/proporzionalita-diretta-e-inversa/}{proporzionalità diretta e inversa}, \href{https://ingegnerismo.it/matematica/variazioni-percentuali/}{variazioni percentuali}.
+
+\section{Potenze e radicali reali}\label{potenze-e-radicali-reali}
+
+Per \(n\in\mathbb N_+\):
+
+\[
+a^n=\underbrace{a\cdot\ldots\cdot a}_{n\text{ fattori}},
+\qquad
+a^0=1\ (a\ne0),
+\qquad
+a^{-n}=\frac1{a^n}\ (a\ne0).
+\]
+
+\[
+\begin{array}{c|c}
+\text{forma}&\text{valore nel campo reale}\\
+\hline
+0^n,\ n>0&0\\
+0^0&\text{non definita}\\
+0^{-n},\ n>0&\text{non definita}
+\end{array}
+\]
+
+Per \(m,n\in\mathbb Z\), quando tutte le potenze sono definite (in particolare \(a\ne0\) se compare un esponente negativo):
+
+\[
+a^ma^n=a^{m+n},
+\qquad
+\frac{a^m}{a^n}=a^{m-n}\quad(a\ne0),
+\]
+
+\[
+(a^m)^n=a^{mn},
+\qquad
+(ab)^n=a^nb^n,
+\qquad
+\left(\frac ab\right)^n=\frac{a^n}{b^n}\ (b\ne0).
+\]
+
+La radice \(\sqrt[n]{a}\) indica il \textbf{ramo reale principale}. Per \(n\in\mathbb N_+\):
+
+\[
+\sqrt[n]{a}=r
+\Longleftrightarrow
+\begin{cases}
+r^n=a\ \land\ r\ge0,&n\text{ pari e }a\ge0,\\
+r^n=a,&n\text{ dispari e }a\in\mathbb R.
+\end{cases}
+\]
+
+L'equazione \(x^n=a\) è invece una relazione da risolvere e può avere più rami:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Parità di \(n\) & Condizione su \(a\) & Soluzioni reali di \(x^n=a\) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(n\) pari & \(a>0\) & \(x=\pm\sqrt[n]{a}\) \\
+\(n\) pari & \(a=0\) & \(x=0\) \\
+\(n\) pari & \(a<0\) & nessuna \\
+\(n\) dispari & \(a\in\mathbb R\) & \(x=\sqrt[n]{a}\) \\
+\end{longtable}
+
+\[
+\sqrt{a^2}=|a|,
+\qquad
+(\sqrt[n]{a})^n=a,
+\]
+
+\[
+\sqrt[n]{a^n}=
+\begin{cases}
+|a|,&n\text{ pari},\\
+a,&n\text{ dispari}.
+\end{cases}
+\]
+
+Per \(m\in\mathbb Z\), \(n\in\mathbb N_+\) e \(m/n\) ridotto ai minimi termini:
+
+\[
+a^{m/n}=(\sqrt[n]{a})^m.
+\]
+
+\[
+\begin{array}{c|c}
+n\text{ pari}&a\ge0;\ a>0\text{ se }m<0\\
+n\text{ dispari}&a\in\mathbb R;\ a\ne0\text{ se }m<0
+\end{array}
+\]
+
+\[
+a^x=e^{x\ln a},
+\qquad a>0,
+\qquad x\in\mathbb R.
+\]
+
+\[
+\begin{array}{c|c|c}
+&\sqrt[n]{ab}=\sqrt[n]a\sqrt[n]b
+&\sqrt[n]{a/b}=\sqrt[n]a/\sqrt[n]b\\
+\hline
+n\text{ dispari}&a,b\in\mathbb R&a\in\mathbb R,\ b\ne0\\
+n\text{ pari}&a,b\ge0&a\ge0,\ b>0
+\end{array}
+\]
+
+\[
+\frac1{\sqrt a}=\frac{\sqrt a}{a},
+\qquad a>0,
+\]
+
+\[
+\frac1{\sqrt a+\sqrt b}
+=\frac{\sqrt a-\sqrt b}{a-b},
+\qquad a,b\ge0,
+\qquad a\ne b.
+\]
+
+\[
+x^2=a
+\Longleftrightarrow
+x=\pm\sqrt a,
+\qquad a\ge0,
+\]
+
+\[
+\sqrt{x^2}=\lvert x\rvert.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/potenze-e-radicali/}{potenze e radicali}.
+
+\section{Principio di induzione e disuguaglianza di Bernoulli}\label{principio-di-induzione-e-disuguaglianza-di-bernoulli}
+
+\[
+\left.
+\begin{array}{l}
+P(n_0)\\
+\forall n\ge n_0:\ P(n)\Rightarrow P(n+1)
+\end{array}
+\right\}
+\Longrightarrow
+\forall n\ge n_0:\ P(n).
+\]
+
+\[
+(1+x)^n\ge1+nx,
+\qquad
+n\in\mathbb N_+,
+\qquad
+x\ge-1.
+\]
+
+\[
+(1+x)^n=1+nx
+\Longleftrightarrow
+n=1\ \lor\ x=0.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/principio-di-induzione/}{principio di induzione}, \href{https://ingegnerismo.it/matematica/disuguaglianza-di-bernoulli/}{disuguaglianza di Bernoulli}.
+
+\section{Fattoriale e coefficienti binomiali}\label{fattoriale-e-coefficienti-binomiali}
+
+\[
+n!=\prod_{k=1}^n k,
+\qquad
+0!=1,
+\qquad
+n\in\mathbb N_0.
+\]
+
+\[
+\binom nk=\frac{n!}{k!(n-k)!},
+\qquad
+n\in\mathbb N_0,
+\qquad
+0\le k\le n.
+\]
+
+\[
+\binom nk=\binom n{n-k},
+\qquad 0\le k\le n,
+\]
+
+\[
+\binom nk+\binom n{k+1}=\binom{n+1}{k+1},
+\qquad 0\le k\le n-1.
+\]
+
+\[
+(a+b)^n=\sum_{k=0}^n\binom nk a^{n-k}b^k.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/fattoriale/}{fattoriale}, \href{https://ingegnerismo.it/matematica/coefficiente-binomiale/}{coefficiente binomiale}.
+
+\section{Sommatorie, progressioni e somme finite}\label{sommatorie-progressioni-e-somme-finite}
+
+Nella sommatoria \(\sum_{k=m}^{n}a_k\), \(k\) è un \textbf{indice muto}: può essere rinominato senza cambiare il valore, purché siano modificati coerentemente estremi e termine generale.
+
+Per \(m,n\in\mathbb Z\) con \(m\le n\), linearità e cambio di indice:
+
+\[
+\sum_{k=m}^{n}(\alpha a_k+\beta b_k)
+=
+\alpha\sum_{k=m}^{n}a_k
++
+\beta\sum_{k=m}^{n}b_k,
+\]
+
+\[
+\sum_{k=m}^{n}a_k
+=
+\sum_{j=0}^{n-m}a_{m+j}.
+\]
+
+Somme fondamentali, per \(n\in\mathbb N_+\):
+
+\[
+\sum_{k=1}^{n}1=n,
+\qquad
+\sum_{k=1}^{n}k=\frac{n(n+1)}2,
+\]
+
+\[
+\sum_{k=1}^{n}k^2=\frac{n(n+1)(2n+1)}6,
+\qquad
+\sum_{k=1}^{n}k^3=\left[\frac{n(n+1)}2\right]^2.
+\]
+
+\textbf{Progressione aritmetica.} \(a_1\) è il primo termine, \(d\) la differenza comune, \(a_n\) il termine di indice \(n\) e \(S_n\) la somma dei primi \(n\) termini:
+
+\[
+a_n=a_1+(n-1)d,
+\]
+
+\[
+S_n=\sum_{k=1}^{n}a_k
+=\frac n2(a_1+a_n)
+=\frac n2\bigl[2a_1+(n-1)d\bigr].
+\]
+
+Forme inverse principali, per \(n>1\):
+
+\[
+d=\frac{a_n-a_1}{n-1},
+\qquad
+a_1=a_n-(n-1)d,
+\]
+
+\[
+a_1=\frac{S_n}{n}-\frac{n-1}{2}d,
+\qquad
+d=\frac{2(S_n-na_1)}{n(n-1)}.
+\]
+
+Se \(d\ne0\):
+
+\[
+n=1+\frac{a_n-a_1}{d},
+\]
+
+ma il risultato è un indice valido soltanto se appartiene a \(\mathbb N_+\).
+
+\textbf{Progressione geometrica.} \(q\) è la ragione comune. Il primo termine è sempre \(a_1\); per \(n>1\):
+
+\[
+a_n=a_1q^{n-1}.
+\]
+
+\[
+S_n=\sum_{k=1}^{n}a_k
+=
+\begin{cases}
+\displaystyle a_1\frac{1-q^n}{1-q},&q\ne1,\\[8pt]
+na_1,&q=1.
+\end{cases}
+\]
+
+Forme inverse utili:
+
+\[
+a_1=a_n\quad(n=1),
+\qquad
+a_1=\frac{a_n}{q^{n-1}}\quad(n>1,\ q\ne0),
+\]
+
+\[
+q=\frac{a_{n+1}}{a_n}\quad(a_n\ne0),
+\]
+
+\[
+q^{n-1}=\frac{a_n}{a_1}\quad(a_1\ne0).
+\]
+
+L'ultima relazione può produrre più rami reali o nessun ramo, a seconda del segno di \(a_n/a_1\) e della parità di \(n-1\). Se \(q>0\), \(q\ne1\) e \(a_n/a_1>0\), si può ricavare anche l'indice:
+
+\[
+n=1+\frac{\ln(a_n/a_1)}{\ln q},
+\]
+
+accettando il risultato soltanto quando \(n\in\mathbb N_+\).
+
+\section{Valore assoluto}\label{valore-assoluto}
+
+\[
+|x|=
+\begin{cases}
+x,&x\ge0,\\
+-x,&x<0.
+\end{cases}
+\]
+
+\[
+|x|\ge0,
+\qquad
+|x|=0\Longleftrightarrow x=0,
+\qquad
+|-x|=|x|.
+\]
+
+\[
+|xy|=|x||y|,
+\qquad
+\left|\frac xy\right|=\frac{|x|}{|y|}\quad(y\ne0).
+\]
+
+\[
+|x+y|\le|x|+|y|,
+\qquad
+\bigl||x|-|y|\bigr|\le|x-y|.
+\]
+
+Per \(r\ge0\):
+
+\[
+|x-a|<r\Longleftrightarrow a-r<x<a+r,
+\]
+
+\[
+|x-a|\le r\Longleftrightarrow a-r\le x\le a+r,
+\]
+
+\[
+|x-a|>r\Longleftrightarrow x<a-r\ \lor\ x>a+r,
+\]
+
+\[
+|x-a|\ge r\Longleftrightarrow x\le a-r\ \lor\ x\ge a+r.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/valore-assoluto/}{valore assoluto}, \href{https://ingegnerismo.it/matematica/disuguaglianza-triangolare/}{disuguaglianza triangolare}.
+
+\section{Disuguaglianze fondamentali}\label{disuguaglianze-fondamentali}
+
+Per \(a,b\in\mathbb R\):
+
+\[
+2|ab|\le a^2+b^2,
+\qquad
+(a-b)^2\ge0.
+\]
+
+Media aritmetica e geometrica, per \(a,b\ge0\):
+
+\[
+\sqrt{ab}\le\frac{a+b}{2},
+\]
+
+con uguaglianza se e solo se \(a=b\).
+
+Disuguaglianza di Cauchy--Schwarz in \(\mathbb R^n\):
+
+\[
+\left(\sum_{k=1}^{n}a_kb_k\right)^2
+\le
+\left(\sum_{k=1}^{n}a_k^2\right)
+\left(\sum_{k=1}^{n}b_k^2\right).
+\]
+
+L'uguaglianza vale se e solo se i vettori \((a_1,\ldots,a_n)\) e \((b_1,\ldots,b_n)\) sono linearmente dipendenti, compreso il caso in cui uno dei due sia nullo.

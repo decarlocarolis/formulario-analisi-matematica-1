@@ -1,0 +1,584 @@
+% Canonical LaTeX source; imported and revised from the legacy Markdown.
+\chapter{Serie numeriche}
+\label{chap:17}
+
+\begin{obiettivocapitolo}{scegliere un criterio conclusivo per la convergenza di una serie}
+\prioritaalta. Il primo controllo è sempre $a_n\to0$; se fallisce, la serie diverge. Se vale, non conclude nulla da solo.
+\end{obiettivocapitolo}
+\begin{sceltametodo}{albero decisionale per le serie}
+\begin{enumerate}
+\item \textbf{Riconosci serie notevoli:} geometrica, telescopica, armonica/generalizzata.
+\item \textbf{Termini non negativi:} confronto diretto o asintotico; rapporto/radice per fattoriali ed esponenziali; integrale o condensazione per forme lente.
+\item \textbf{Segni alterni:} prova convergenza assoluta; se fallisce, usa Leibniz verificando monotonia e limite a zero.
+\item \textbf{Oscillazioni non alternate semplici:} considera Dirichlet o Abel.
+\item \textbf{Serie di potenze:} trova il raggio e studia separatamente ogni estremo.
+\end{enumerate}
+\end{sceltametodo}
+\begin{proceduraesame}{applicare un criterio}
+\begin{enumerate}
+\item Scrivi chiaramente $a_n$ e l'indice iniziale.
+\item Verifica le ipotesi del criterio scelto.
+\item Calcola il limite o il confronto e traduci il risultato in convergenza/divergenza.
+\item Se il criterio è inconcludente, dichiaralo e passa a un altro; non dedurre una conclusione.
+\item Se richiesto, distingue convergenza assoluta, condizionata e stima del resto.
+\end{enumerate}
+\end{proceduraesame}
+\begin{errorefrequente}{rapporto e radice}
+Quando il limite vale $1$, i criteri del rapporto e della radice sono inconcludenti. Non indicano convergenza né divergenza.
+\end{errorefrequente}
+\begin{controllofinale}{serie}
+Confronta la conclusione con il termine generale e con una serie di riferimento; specifica sempre il comportamento agli estremi nei problemi parametrici.
+\end{controllofinale}
+
+\[
+\sum a_n\text{ e }\sum b_n\text{ hanno lo stesso carattere}
+\Longleftrightarrow
+\bigl(\text{entrambe convergenti}\bigr)
+\lor
+\bigl(\text{entrambe divergenti}\bigr).
+\]
+
+\section{Definizioni e proprietà}\label{definizioni-e-proprietuxe0}
+
+Per \(a_n\in\mathbb K\), con \(\mathbb K\in\{\mathbb R,\mathbb C\}\):
+
+\[
+\displaystyle
+\sum_{n=n_0}^{\infty}a_n,
+\qquad
+s_N=\sum_{n=n_0}^{N}a_n,
+\]
+
+\[
+\displaystyle
+\sum_{n=n_0}^{\infty}a_n=A
+\quad\Longleftrightarrow\quad
+s_N\to A.
+\]
+
+Se la serie converge a \(A\), il \textbf{resto dopo il termine di indice \(N\)} è
+
+\[
+R_N=A-s_N=\sum_{n=N+1}^{\infty}a_n,
+\qquad
+R_N\to0.
+\]
+
+Invarianza rispetto a un numero finito di termini, per \(N_0\ge n_0\):
+
+\[
+\displaystyle
+\sum_{n=n_0}^{\infty}a_n
+\ \text{e}\
+\sum_{n=N_0}^{\infty}a_n
+\quad
+\text{hanno lo stesso carattere},
+\qquad N_0\ge n_0.
+\]
+
+Linearità:
+
+\[
+\displaystyle
+\sum a_n=A,\quad \sum b_n=B
+\quad\Longrightarrow\quad
+\sum(\alpha a_n+\beta b_n)=\alpha A+\beta B.
+\]
+
+Per \(a_n\ge0\) definitivamente:
+
+\[
+\displaystyle
+\sum a_n\ \text{converge}
+\quad\Longleftrightarrow\quad
+(s_N)\ \text{è limitata superiormente},
+\]
+
+\[
+\displaystyle
+(s_N)\ \text{non limitata}
+\quad\Longrightarrow\quad
+s_N\to+\infty.
+\]
+
+Teoria: \href{https://ingegnerismo.it/matematica/serie-numerica/}{serie numerica}.
+
+\section{Condizione necessaria e criterio di Cauchy}\label{condizione-necessaria-e-criterio-di-cauchy}
+
+\[
+\displaystyle
+\sum a_n\ \text{converge}
+\quad\Longrightarrow\quad
+a_n\to0.
+\]
+
+\[
+\displaystyle
+a_n\not\to0
+\quad\Longrightarrow\quad
+\sum a_n\ \text{diverge}.
+\]
+
+Il converso della condizione necessaria è falso:
+
+\[
+\frac1n\to0,
+\qquad
+\sum_{n=1}^{\infty}\frac1n\text{ diverge}.
+\]
+
+\[
+\displaystyle
+\sum a_n\ \text{converge}
+\quad\Longleftrightarrow\quad
+\forall\varepsilon>0\ \exists N\ \forall p,q:
+\ q\ge p\ge N
+\Longrightarrow
+\left\lvert\sum_{n=p}^{q}a_n\right\rvert<\varepsilon.
+\]
+
+Teoria: \href{https://ingegnerismo.it/matematica/condizione-necessaria-convergenza/}{condizione necessaria di convergenza} e \href{https://ingegnerismo.it/matematica/criterio-di-cauchy/}{criterio di Cauchy}.
+
+\section{Serie notevoli}\label{serie-notevoli}
+
+Serie geometrica, \(q\ne1\):
+
+\[
+\displaystyle
+\sum_{n=0}^{N}q^n
+=
+\frac{1-q^{N+1}}{1-q}.
+\]
+
+Per \(q=1\):
+
+\[
+\displaystyle
+\sum_{n=0}^{N}1=N+1.
+\]
+
+\[
+\displaystyle
+\sum_{n=0}^{\infty}q^n
+=
+\begin{cases}
+\dfrac1{1-q}, & \lvert q\rvert<1,\\[4pt]
+\text{diverge}, & \lvert q\rvert\ge1.
+\end{cases}
+\]
+
+Per \(\lvert q\rvert<1\):
+
+\[
+\displaystyle
+R_N=\sum_{n=N+1}^{\infty}q^n
+=
+\frac{q^{N+1}}{1-q},
+\]
+
+\[
+|R_N|=\frac{|q|^{N+1}}{|1-q|}.
+\]
+
+Per garantire \(|R_N|\le\varepsilon\) si sceglie \(N\) tale che
+
+\[
+|q|^{N+1}\le\varepsilon|1-q|.
+\]
+
+Serie armonica e \(p\)-serie:
+
+\[
+\displaystyle
+\sum_{n=1}^{\infty}\frac1n
+\quad\text{diverge},
+\]
+
+\[
+\displaystyle
+\sum_{n=1}^{\infty}\frac1{n^p}\text{ converge}
+\Longleftrightarrow p>1,
+\]
+
+\[
+\displaystyle
+\sum_{n=1}^{\infty}\frac1{n^p}\text{ diverge}
+\Longleftrightarrow p\le1.
+\]
+
+Serie logaritmica, per \(p,q\in\mathbb R\); il carattere è dato da:
+
+\[
+\displaystyle
+\sum_{n=2}^{\infty}\frac1{n^p(\ln n)^q}\text{ converge}
+\Longleftrightarrow
+p>1\ \lor\ (p=1\ \land\ q>1),
+\]
+
+\[
+\displaystyle
+\sum_{n=2}^{\infty}\frac1{n^p(\ln n)^q}\text{ diverge}
+\Longleftrightarrow
+p<1\ \lor\ (p=1\ \land\ q\le1).
+\]
+
+Serie telescopica:
+
+\[
+\displaystyle
+\sum_{n=1}^{N}(b_n-b_{n+1})
+=
+b_1-b_{N+1},
+\]
+
+\[
+\displaystyle
+\sum_{n=1}^{\infty}(b_n-b_{n+1})
+\ \text{converge}
+\quad\Longleftrightarrow\quad
+b_n\to L\in\mathbb K,
+\]
+
+\[
+\displaystyle
+\sum_{n=1}^{\infty}(b_n-b_{n+1})
+=
+b_1-L.
+\]
+
+Serie armonica alternata:
+
+\[
+\displaystyle
+\sum_{n=1}^{\infty}\frac{(-1)^{n-1}}n=\ln2.
+\]
+
+Serie di Mengoli:
+
+\[
+\frac1{n(n+1)}=\frac1n-\frac1{n+1},
+\]
+
+\[
+\sum_{n=1}^{N}\frac1{n(n+1)}=1-\frac1{N+1},
+\qquad
+\sum_{n=1}^{\infty}\frac1{n(n+1)}=1.
+\]
+
+Per \(|q|<1\):
+
+\[
+\sum_{n=1}^{\infty}nq^{n-1}=\frac1{(1-q)^2},
+\qquad
+\sum_{n=1}^{\infty}nq^n=\frac{q}{(1-q)^2}.
+\]
+
+Teoria e casi: \href{https://ingegnerismo.it/matematica/serie-notevoli/}{serie notevoli} e \href{https://ingegnerismo.it/matematica/serie-geometrica/}{serie geometrica}.
+
+\section{Confronto e confronto asintotico}\label{confronto-e-confronto-asintotico}
+
+Se \(0\le a_n\le b_n\) definitivamente:
+
+\[
+\displaystyle
+\sum b_n\ \text{converge}
+\Longrightarrow
+\sum a_n\ \text{converge},
+\]
+
+\[
+\displaystyle
+\sum a_n\ \text{diverge}
+\Longrightarrow
+\sum b_n\ \text{diverge}.
+\]
+
+Se entrambe convergono:
+
+\[
+\displaystyle
+0\le
+R_N^{(a)}
+=
+\sum_{n=N+1}^{\infty}a_n
+\le
+\sum_{n=N+1}^{\infty}b_n
+=
+R_N^{(b)}.
+\]
+
+La stima vale per ogni \(N\) successivo alla soglia del confronto.
+
+Se \(a_n\ge0\), \(b_n>0\) definitivamente:
+
+\[
+\displaystyle
+\frac{a_n}{b_n}\to\ell,
+\qquad
+0<\ell<+\infty
+\quad\Longrightarrow\quad
+\sum a_n\ \text{e}\ \sum b_n\ \text{hanno lo stesso carattere}.
+\]
+
+Casi unilaterali:
+
+\[
+\displaystyle
+\frac{a_n}{b_n}\to0,\quad
+\sum b_n\ \text{converge}
+\quad\Longrightarrow\quad
+\sum a_n\ \text{converge},
+\]
+
+\[
+\displaystyle
+\frac{a_n}{b_n}\to+\infty,\quad
+\sum b_n\ \text{diverge}
+\quad\Longrightarrow\quad
+\sum a_n\ \text{diverge}.
+\]
+
+\section{Criteri del rapporto, della radice e di Raabe}\label{criteri-del-rapporto-della-radice-e-di-raabe}
+
+Se \(a_n\ne0\) definitivamente ed esiste, finito o esteso,
+
+\[
+\displaystyle
+L=\lim_{n\to\infty}\left\lvert\frac{a_{n+1}}{a_n}\right\rvert,
+\]
+
+allora
+
+\[
+\displaystyle
+\begin{cases}
+L<1 &\Longrightarrow \text{convergenza assoluta},\\
+L>1 &\Longrightarrow \text{divergenza},\\
+L=1 &\Longrightarrow \text{criterio inconcludente}.
+\end{cases}
+\]
+
+Criterio della radice, valido senza richiedere l'esistenza di un limite ordinario:
+
+\[
+\displaystyle
+\rho=\limsup_{n\to\infty}\sqrt[n]{\lvert a_n\rvert},
+\]
+
+\[
+\displaystyle
+\begin{cases}
+\rho<1 &\Longrightarrow \text{convergenza assoluta},\\
+\rho>1 &\Longrightarrow \text{divergenza},\\
+\rho=1 &\Longrightarrow \text{criterio inconcludente}.
+\end{cases}
+\]
+
+Criterio di Raabe, per \(a_n>0\) definitivamente:
+
+\[
+\displaystyle
+L=\lim_{n\to\infty}
+n\left(\frac{a_n}{a_{n+1}}-1\right),
+\]
+
+\[
+\displaystyle
+\begin{cases}
+L>1 &\Longrightarrow \sum a_n\ \text{converge},\\
+L<1 &\Longrightarrow \sum a_n\ \text{diverge},\\
+L=1 &\Longrightarrow \text{criterio inconcludente}.
+\end{cases}
+\]
+
+Teoria generale: \href{https://ingegnerismo.it/matematica/criteri-convergenza-serie/}{criteri di convergenza per serie}.
+
+\section{Criterio integrale e condensazione}\label{criterio-integrale-e-condensazione}
+
+Se \(f:[N_0,+\infty)\to(0,+\infty)\) è continua e decrescente e \(a_n=f(n)\):
+
+\[
+\displaystyle
+\sum_{n=N_0}^{\infty}a_n
+\ \text{e}\
+\int_{N_0}^{+\infty}f(x)\,dx
+\quad
+\text{hanno lo stesso carattere}.
+\]
+
+Se la serie converge, per \(N\ge N_0\):
+
+\[
+\displaystyle
+\int_{N+1}^{+\infty}f(x)\,dx
+\le
+R_N
+=
+\sum_{n=N+1}^{\infty}a_n
+\le
+\int_N^{+\infty}f(x)\,dx.
+\]
+
+Condensazione di Cauchy, per \(a_n\ge0\) decrescente:
+
+\[
+\displaystyle
+\sum_{n=1}^{\infty}a_n
+\ \text{e}\
+\sum_{k=0}^{\infty}2^k a_{2^k}
+\quad
+\text{hanno lo stesso carattere}.
+\]
+
+Teoria: \href{https://ingegnerismo.it/matematica/criterio-dell-integrale/}{criterio dell'integrale} e \href{https://ingegnerismo.it/matematica/criterio-di-condensazione-di-cauchy/}{condensazione di Cauchy}.
+
+\section{Serie alternate}\label{serie-alternate}
+
+Se \(a_n\ge0\), \(a_{n+1}\le a_n\) definitivamente e \(a_n\to0\):
+
+\[
+\displaystyle
+\sum_{n=0}^{\infty}(-1)^n a_n
+\quad\text{converge}.
+\]
+
+Stima del resto, oltre la soglia di monotonia:
+
+\[
+\displaystyle
+R_N
+=
+\sum_{n=N+1}^{\infty}(-1)^n a_n,
+\qquad
+\lvert R_N\rvert\le a_{N+1}.
+\]
+
+Il resto ha inoltre il segno del primo termine omesso, salvo che sia nullo. Per ottenere un errore non superiore a \(\varepsilon\) è sufficiente imporre \(a_{N+1}\le\varepsilon\).
+
+Teoria: \href{https://ingegnerismo.it/matematica/criterio-di-leibniz/}{criterio di Leibniz}.
+
+\section{Sommazione per parti, Dirichlet e Abel}\label{sommazione-per-parti-dirichlet-e-abel}
+
+Posto
+
+\[
+\displaystyle
+A_n=\sum_{k=0}^{n}a_k,
+\qquad
+A_{-1}=0,
+\]
+
+\[
+\displaystyle
+\sum_{n=p}^{q}a_nb_n
+=
+A_qb_q-A_{p-1}b_p
++
+\sum_{n=p}^{q-1}A_n(b_n-b_{n+1}).
+\]
+
+Dirichlet:
+
+\[
+\displaystyle
+\sup_n\left\lvert\sum_{k=0}^{n}a_k\right\rvert<+\infty,
+\qquad
+b_n\ \text{monotona},
+\qquad
+b_n\to0
+\]
+
+\[
+\displaystyle
+\Longrightarrow
+\sum a_nb_n\ \text{converge}.
+\]
+
+Abel:
+
+\[
+\displaystyle
+\sum a_n\ \text{converge},
+\qquad
+b_n\ \text{monotona e limitata}
+\]
+
+\[
+\displaystyle
+\Longrightarrow
+\sum a_nb_n\ \text{converge}.
+\]
+
+Teoria: \href{https://ingegnerismo.it/matematica/criteri-di-abel-e-dirichlet/}{criteri di Abel e Dirichlet}.
+
+\section{Prodotto di Cauchy}\label{prodotto-di-cauchy}
+
+\[
+\displaystyle
+c_n=\sum_{k=0}^{n}a_kb_{n-k}.
+\]
+
+Se
+
+\[
+\displaystyle
+\sum a_n=A,
+\qquad
+\sum b_n=B,
+\]
+
+e almeno una delle due serie converge assolutamente:
+
+\[
+\displaystyle
+\sum_{n=0}^{\infty}c_n=AB.
+\]
+
+Se entrambe convergono assolutamente:
+
+\[
+\displaystyle
+\sum_{n=0}^{\infty}\lvert c_n\rvert<+\infty.
+\]
+
+\section{Convergenza assoluta e condizionata}\label{convergenza-assoluta-e-condizionata}
+
+\[
+\displaystyle
+\sum\lvert a_n\rvert<+\infty
+\quad\Longrightarrow\quad
+\sum a_n\ \text{converge}.
+\]
+
+Per \(q\ge p\):
+
+\[
+\displaystyle
+\left\lvert\sum_{n=p}^{q}a_n\right\rvert
+\le
+\sum_{n=p}^{q}\lvert a_n\rvert.
+\]
+
+Per serie reali:
+
+\[
+\displaystyle
+a_n^+=\frac{\lvert a_n\rvert+a_n}{2},
+\qquad
+a_n^-=\frac{\lvert a_n\rvert-a_n}{2},
+\qquad
+a_n=a_n^+-a_n^-.
+\]
+
+Convergenza condizionata:
+
+\[
+\displaystyle
+\sum a_n\ \text{converge},
+\qquad
+\sum\lvert a_n\rvert\ \text{diverge}.
+\]
+
+Una serie assolutamente convergente può essere riordinata arbitrariamente senza cambiare la somma. Per una serie reale condizionatamente convergente, un riordinamento può invece cambiare la somma oppure distruggere la convergenza.
+
+Teoria: \href{https://ingegnerismo.it/matematica/convergenza-assoluta/}{convergenza assoluta e condizionata}.

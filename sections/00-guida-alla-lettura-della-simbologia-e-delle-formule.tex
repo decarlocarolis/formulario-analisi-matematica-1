@@ -1,0 +1,482 @@
+% Canonical LaTeX source; imported and revised from the legacy Markdown.
+\chapter*{Guida alla lettura della simbologia e delle formule}
+\addcontentsline{toc}{chapter}{Guida alla lettura della simbologia e delle formule}
+\markboth{Guida alla lettura della simbologia e delle formule}{Guida alla lettura della simbologia e delle formule}
+
+\begin{obiettivocapitolo}{leggere senza ambiguità simboli, condizioni e rami}
+Questa guida non è materia da ripetere a memoria. Va consultata quando una notazione non è chiara o quando una formula contiene condizioni che modificano il risultato.
+\end{obiettivocapitolo}
+\begin{proceduraesame}{lettura di una formula}
+\begin{enumerate}
+\item Individua la grandezza a sinistra: è ciò che la formula calcola o definisce.
+\item Leggi quantificatori e condizioni: dominio, segni, valori esclusi e regime di limite.
+\item Distingui uguaglianza, equivalenza e implicazione. Solo l'equivalenza consente di procedere in entrambi i versi.
+\item Se compaiono radici, $\pm$, logaritmi o inverse trigonometriche, identifica tutti i rami ammessi.
+\end{enumerate}
+\end{proceduraesame}
+
+Questa sezione introduce la notazione usata nel formulario. Le condizioni poste accanto a una formula --- dominio, segni, valori esclusi e regolarità --- sono parte integrante della formula.
+
+\section{Come interpretare i diversi tipi di scrittura}\label{come-interpretare-i-diversi-tipi-di-scrittura}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Scrittura
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Si legge
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Uso corretto
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(A:=B\) & «\(A\) è definito come \(B\)» & introduce una definizione \\
+\(A=B\) & «\(A\) è uguale a \(B\)» & uguaglianza valida nelle condizioni indicate \\
+\(A\equiv B\) & «\(A\) è identicamente uguale a \(B\)» & identità valida per tutti i valori del dominio \\
+\(P\Rightarrow Q\) & «\(P\) implica \(Q\)» & da \(P\) segue \(Q\); il converso non è automatico \\
+\(P\Longleftrightarrow Q\) & «\(P\) se e solo se \(Q\)» & valgono sia \(P\Rightarrow Q\) sia \(Q\Rightarrow P\) \\
+\(A\not\Longrightarrow B\) & «\(A\) non implica \(B\)» & segnala che il converso o la deduzione proposta è falsa \\
+\(A\approx B\) & «\(A\) è approssimativamente uguale a \(B\)» & approssimazione numerica o locale, non uguaglianza esatta \\
+\(\pm\) & «più o meno» & rappresenta due casi distinti, uno con \(+\) e uno con \(-\) \\
+\(\mp\) & «meno o più» & usa il segno opposto a quello scelto in \(\pm\) \\
+\(f\sim g\) & «\(f\) è asintoticamente equivalente a \(g\)» & \(f/g\to1\) nel regime specificato \\
+\(f=o(g)\) & «\(f\) è un o-piccolo di \(g\)» & \(f/g\to0\) quando il rapporto è definito \\
+\(f=O(g)\) & «\(f\) è un O-grande di \(g\)» & il modulo di \(f\) è limitato da una costante per il modulo di \(g\) \\
+\end{longtable}
+
+\section{Convenzioni generali sulle lettere}\label{convenzioni-generali-sulle-lettere}
+
+Le condizioni locali prevalgono sempre sulle convenzioni seguenti.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Simbolo
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Uso abituale nel formulario
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(x,y,t,u\) & variabili reali; \(t\) e \(u\) sono spesso variabili di sostituzione \\
+\(a,b,c,h,k\) & parametri, estremi o costanti; il significato è indicato localmente \\
+\(n,m,k\) & indici; l'insieme ammesso è specificato localmente, di solito \(\mathbb N_0\), \(\mathbb N_+\) oppure \(\mathbb Z\) \\
+\(\mathbb N\) & nel formulario coincide con \(\mathbb N_+=\{1,2,3,\ldots\}\) \\
+\(\varepsilon,\delta\) & quantità positive arbitrarie usate nelle definizioni di limite e continuità \\
+\(C,C_0,C_1,\ldots\) & costanti arbitrarie nelle primitive \\
+\(D_f\) & dominio naturale o dominio assegnato della funzione \(f\) \\
+\(\operatorname{Im}f\) & immagine di \(f\), cioè insieme dei valori effettivamente assunti \\
+\(\overline{\mathbb R}\) & retta reale estesa \(\mathbb R\cup\{-\infty,+\infty\}\) \\
+\(\mathbb K\) & campo scalare, di solito \(\mathbb R\) oppure \(\mathbb C\) \\
+\end{longtable}
+
+Gli angoli sono espressi in \textbf{radianti}, salvo indicazione esplicita in gradi. Nelle primitive la costante \(C\) può assumere valori differenti sulle diverse componenti connesse del dominio.
+
+\section{Simboli logici}\label{simboli-logici}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Simbolo
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Si legge
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Significato
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(\forall\) & per ogni & la proprietà vale per tutti gli elementi considerati \\
+\(\exists\) & esiste & esiste almeno un elemento che soddisfa la proprietà \\
+\(\exists!\) & esiste ed è unico & esiste un solo elemento con quella proprietà \\
+\(\nexists\) & non esiste & nessun elemento soddisfa la proprietà \\
+\(\neg P\) & non \(P\) & negazione della proposizione \(P\) \\
+\(P\land Q\) & \(P\) e \(Q\) & entrambe le proposizioni devono essere vere \\
+\(P\lor Q\) & \(P\) oppure \(Q\) & è sufficiente che almeno una sia vera; l'«oppure» è inclusivo \\
+\(P\Rightarrow Q\) & se \(P\), allora \(Q\) & implicazione \\
+\(P\Longleftrightarrow Q\) & \(P\) se e solo se \(Q\) & equivalenza \\
+\(:\) & tale che & separa una condizione dagli oggetti che la soddisfano \\
+\end{longtable}
+
+Esempio:
+
+\[
+\forall x\in A\ \exists!y\in B:\ y=f(x)
+\]
+
+si legge: «per ogni \(x\) appartenente ad \(A\) esiste un unico \(y\) appartenente a \(B\) tale che \(y=f(x)\)».
+
+\section{Insiemi, intervalli e relazioni di appartenenza}\label{insiemi-intervalli-e-relazioni-di-appartenenza}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Simbolo
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Si legge
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Significato
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(x\in A\) & \(x\) appartiene ad \(A\) & \(x\) è un elemento dell'insieme \(A\) \\
+\(x\notin A\) & \(x\) non appartiene ad \(A\) & \(x\) non è elemento di \(A\) \\
+\(A\subseteq B\) & \(A\) è contenuto in \(B\) & ogni elemento di \(A\) appartiene a \(B\); è ammesso \(A=B\) \\
+\(A\subset B\) & \(A\) è contenuto propriamente in \(B\) & \(A\subseteq B\) e \(A\ne B\) \\
+\(\varnothing\) & insieme vuoto & insieme privo di elementi \\
+\(A\cup B\) & unione di \(A\) e \(B\) & elementi che appartengono ad almeno uno dei due insiemi \\
+\(A\cap B\) & intersezione di \(A\) e \(B\) & elementi comuni ad \(A\) e \(B\) \\
+\(A\setminus B\) & \(A\) meno \(B\) & elementi di \(A\) che non appartengono a \(B\) \\
+\(A^c\) & complementare di \(A\) & elementi dell'insieme universo che non appartengono ad \(A\) \\
+\(\mathcal P(A)\) & insieme delle parti di \(A\) & insieme di tutti i sottoinsiemi di \(A\) \\
+\(\operatorname{card}A\) & cardinalità di \(A\) & numero di elementi, o grandezza insiemistica, di \(A\) \\
+\(\{x:P(x)\}\) & insieme degli \(x\) tali che \(P(x)\) & notazione per proprietà caratteristica \\
+\end{longtable}
+
+Intervalli reali:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Scrittura
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Si legge
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Estremi inclusi
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\((a,b)\) & intervallo aperto da \(a\) a \(b\) & nessuno \\
+\([a,b]\) & intervallo chiuso da \(a\) a \(b\) & entrambi \\
+\((a,b]\) & aperto a sinistra e chiuso a destra & soltanto \(b\) \\
+\([a,b)\) & chiuso a sinistra e aperto a destra & soltanto \(a\) \\
+\((a,+\infty)\) & reali maggiori di \(a\) & \(+\infty\) non è mai un estremo incluso \\
+\end{longtable}
+
+Gli oggetti topologici più frequenti sono:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Simbolo
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Si legge
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Significato
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(I(x_0,r)\) & intorno di centro \(x_0\) e raggio \(r\) & \((x_0-r,x_0+r)\) \\
+\(I^*(x_0,r)\) & intorno puntato & intorno dal quale è escluso il centro \(x_0\) \\
+\(A^\circ\) o \(\operatorname{int}A\) & interno di \(A\) & insieme dei punti interni \\
+\(A'\) & derivato di \(A\) & insieme dei punti di accumulazione di \(A\) \\
+\(\overline A\) & chiusura di \(A\) & \(A\) unito ai suoi punti di accumulazione \\
+\(\partial A\) & frontiera di \(A\) & punti di confine tra \(A\) e il suo complementare \\
+\end{longtable}
+
+\section{Insiemi numerici e operatori discreti}\label{insiemi-numerici-e-operatori-discreti}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Simbolo
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Si legge
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Insieme o operatore
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(\mathbb N_0\) & naturali incluso lo zero & \(\{0,1,2,\ldots\}\) \\
+\(\mathbb N\) o \(\mathbb N_+\) & naturali positivi & \(\{1,2,3,\ldots\}\) \\
+\(\mathbb Z\) & interi relativi & \(\ldots,-2,-1,0,1,2,\ldots\) \\
+\(\mathbb Z_{<0}\) & interi negativi & \(\{-1,-2,-3,\ldots\}\) \\
+\(\mathbb Q\) & razionali & numeri rappresentabili come rapporto di interi \\
+\(\mathbb R\) & reali & retta reale \\
+\(\mathbb C\) & complessi & numeri della forma \(a+ib\) \\
+\(\sum_{k=m}^{n}a_k\) & sommatoria da \(k=m\) a \(k=n\) & \(a_m+a_{m+1}+\cdots+a_n\) \\
+\(\prod_{k=m}^{n}a_k\) & produttoria da \(k=m\) a \(k=n\) & \(a_ma_{m+1}\cdots a_n\) \\
+\(n!\) & fattoriale di \(n\) & prodotto degli interi da \(1\) a \(n\) \\
+\(\binom nk\) & coefficiente binomiale \(n\) su \(k\) & numero di scelte di \(k\) elementi fra \(n\) \\
+\(a\mid b\) & \(a\) divide \(b\) & esiste un intero \(k\) tale che \(b=ak\) \\
+\(n\bmod m\) & resto di \(n\) modulo \(m\) & resto della divisione euclidea, con \(m>0\) \\
+\(a\equiv b\pmod m\) & \(a\) congruo a \(b\) modulo \(m\) & \(m\) divide \(a-b\), con \(m\in\mathbb N_+\) \\
+\(\lfloor x\rfloor\) & parte intera inferiore di \(x\) & massimo intero non maggiore di \(x\) \\
+\(\operatorname{sgn}x\) & segno di \(x\) & vale \(-1\), \(0\) oppure \(1\) secondo il segno di \(x\) \\
+\(\gcd(a,b)\) & massimo comune divisore & massimo divisore positivo comune ad \(a\) e \(b\) \\
+\(\operatorname{lcm}(a,b)\) & minimo comune multiplo & minimo multiplo positivo comune ad \(a\) e \(b\) \\
+\(\deg P\) & grado di \(P\) & massimo esponente con coefficiente non nullo \\
+\end{longtable}
+
+\section{Matrici e sistemi lineari}\label{matrici-e-sistemi-lineari}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Scrittura
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Si legge
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Significato
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(A=(a_{ij})\) & matrice \(A\) di elementi \(a_{ij}\) & tabella rettangolare di coefficienti \\
+\([A\mid c]\) & matrice completa o aumentata & matrice dei coefficienti con la colonna dei termini noti \\
+\(\operatorname{rank}A\) & rango di \(A\) & massimo numero di righe o colonne linearmente indipendenti \\
+\(\det A\) & determinante di \(A\) & scalare associato a una matrice quadrata \\
+\(A^{-1}\) & matrice inversa & soddisfa \(AA^{-1}=A^{-1}A=I\), quando esiste \\
+\(I\) & matrice identità & elemento neutro del prodotto tra matrici \\
+\end{longtable}
+
+\section{Funzioni, composizione e inversa}\label{funzioni-composizione-e-inversa}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Scrittura
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Si legge
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Significato
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(f:A\to B\) & \(f\) da \(A\) in \(B\) & \(A\) è il dominio assegnato e \(B\) il codominio \\
+\(x\mapsto f(x)\) & \(x\) viene mandato in \(f(x)\) & legge di corrispondenza \\
+\(f(A)\) & immagine di \(A\) tramite \(f\) & insieme dei valori \(f(x)\) con \(x\in A\) \\
+\(f^{-1}(Y)\) & preimmagine di \(Y\) & insieme degli \(x\) tali che \(f(x)\in Y\) \\
+\(f^{-1}\) & funzione inversa di \(f\) & esiste come funzione soltanto se \(f\) è biiettiva \\
+\((g\circ f)(x)\) & \(g\) composto con \(f\) & si applica prima \(f\), poi \(g\): \(g(f(x))\) \\
+\(\operatorname{id}_A\) & identità su \(A\) & funzione \(x\mapsto x\) \\
+\(G_f\) & grafico di \(f\) & insieme delle coppie \((x,f(x))\) \\
+\(C(I)\) & funzioni continue su \(I\) & spazio delle funzioni continue \\
+\(C^k(I)\) & funzioni di classe \(C^k\) & derivate continue fino all'ordine \(k\) \\
+\(\mathcal R([a,b])\) & funzioni Riemann-integrabili & funzioni integrabili secondo Riemann su \([a,b]\) \\
+\(\mathcal R_{\mathrm{loc}}(I)\) & localmente Riemann-integrabili & integrabili su ogni sottointervallo compatto che evita le singolarità \\
+\end{longtable}
+
+\section{Successioni, limiti e confronto asintotico}\label{successioni-limiti-e-confronto-asintotico}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Scrittura
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Si legge
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Significato
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\((a_n)\) & successione \(a_n\) & funzione definita sugli indici naturali \\
+\(a_n\to L\) & \(a_n\) tende a \(L\) & i termini si avvicinano arbitrariamente a \(L\) \\
+\(n\to\infty\) & \(n\) tende all'infinito & si considerano indici sempre più grandi \\
+\(x\to x_0^-\) & \(x\) tende a \(x_0\) da sinistra & \(x<x_0\) \\
+\(x\to x_0^+\) & \(x\) tende a \(x_0\) da destra & \(x>x_0\) \\
+\(x\to\pm\infty\) & \(x\) tende a più o meno infinito & si studia il comportamento per modulo grande \\
+\(\limsup a_n\) & limite superiore & massimo valore di aderenza per successioni limitate \\
+\(\liminf a_n\) & limite inferiore & minimo valore di aderenza per successioni limitate \\
+\(a_n\nearrow\) & successione non decrescente & i termini non diminuiscono al crescere di \(n\) \\
+\(a_n\searrow\) & successione non crescente & i termini non aumentano al crescere di \(n\) \\
+\(f\ll g\) & \(f\) è trascurabile rispetto a \(g\) & abbreviazione di \(f/g\to0\) \\
+\end{longtable}
+
+«Definitivamente» significa «da un certo indice in poi» per le successioni e «in un opportuno intorno puntato del regime considerato» per i limiti di funzione.
+
+La definizione
+
+\[
+\forall\varepsilon>0\ \exists\delta>0:\
+0<|x-x_0|<\delta
+\Rightarrow
+|f(x)-L|<\varepsilon
+\]
+
+si legge: «per ogni tolleranza positiva \(\varepsilon\), esiste una distanza positiva \(\delta\) tale che, quando \(x\) è diverso da \(x_0\) ma dista da \(x_0\) meno di \(\delta\), il valore \(f(x)\) dista da \(L\) meno di \(\varepsilon\)».
+
+\section{Derivate, differenziali e integrali}\label{derivate-differenziali-e-integrali}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Scrittura
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Si legge
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Significato
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(f'(x)\) & derivata prima di \(f\) in \(x\) & tasso di variazione istantaneo e pendenza della tangente \\
+\(f^{(n)}(x)\) & derivata \(n\)-esima & derivata applicata \(n\) volte \\
+\(f'_-(x_0)\), \(f'_+(x_0)\) & derivate sinistra e destra & limiti laterali del rapporto incrementale \\
+\(df_{x_0}(h)\) & differenziale di \(f\) in \(x_0\) applicato a \(h\) & parte lineare dell'incremento di \(f\) \\
+\(F_x\), \(F_y\) & derivate parziali di \(F\) & derivazione rispetto a \(x\) o a \(y\) mantenendo fissa l'altra variabile \\
+\(\int f(x)\,dx\) & integrale indefinito di \(f\) & famiglia delle primitive \(F+C\) \\
+\(\int_a^b f(x)\,dx\) & integrale di \(f\) da \(a\) a \(b\) & accumulazione o area orientata \\
+\(dx\) & differenziale della variabile \(x\) & indica la variabile rispetto alla quale si integra \\
+\([F(x)]_a^b\) & \(F\) calcolata tra \(a\) e \(b\) & \(F(b)-F(a)\) \\
+\(\operatorname{PV}\int\) & valore principale di Cauchy & limite simmetrico; non coincide necessariamente con la convergenza impropria \\
+\(\lVert f\rVert_{\infty,E}\) & norma uniforme o del supremo & \(\sup_{x\in E}\lvert f(x)\rvert\), per \(E\ne\varnothing\) e \(f:E\to\mathbb R\) limitata \\
+\end{longtable}
+
+La derivata
+
+\[
+f'(x_0)=\lim_{h\to0}\frac{f(x_0+h)-f(x_0)}h
+\]
+
+si legge: «la derivata di \(f\) in \(x_0\) è il limite, per l'incremento \(h\) che tende a zero, del rapporto tra l'incremento della funzione e l'incremento della variabile».
+
+Nelle ipotesi della formula di Newton--Leibniz, l'integrale
+
+\[
+\int_a^b f(x)\,dx=F(b)-F(a),
+\qquad F'=f,
+\]
+
+si legge: «l'integrale di \(f\) da \(a\) a \(b\) è la differenza fra i valori, in \(b\) e in \(a\), di una qualsiasi primitiva \(F\) di \(f\)».
+
+\section{Serie numeriche e serie di funzioni}\label{serie-numeriche-e-serie-di-funzioni}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Scrittura
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Si legge
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Significato
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(\sum_{n=n_0}^{\infty}a_n\) & serie degli \(a_n\) & limite delle somme parziali, non una somma eseguita ``tutta insieme'' \\
+\(s_N=\sum_{n=n_0}^{N}a_n\) & somma parziale \(N\)-esima & somma finita dei termini fino a \(N\) \\
+\(R_N=\sum_{n=N+1}^{\infty}a_n\) & resto dopo il termine \(N\) & quando la serie converge, errore commesso sostituendola con \(s_N\) \\
+\(f_n\xrightarrow[]{p}f\) & convergenza puntuale & la soglia può dipendere dal punto \(x\) \\
+\(f_n\xrightarrow[]{u}f\) & convergenza uniforme & una sola soglia funziona per tutti i punti del dominio \\
+\end{longtable}
+
+La scrittura
+
+\[
+\sum_{n=n_0}^{\infty}a_n=A
+\Longleftrightarrow
+\lim_{N\to\infty}\sum_{n=n_0}^{N}a_n=A
+\]
+
+significa che la successione delle somme parziali converge al numero \(A\).
+
+\section{Numeri complessi}\label{numeri-complessi}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Simbolo
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Si legge
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Significato
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(i\) & unità immaginaria & \(i^2=-1\) \\
+\(\operatorname{Re}z\) & parte reale di \(z\) & coefficiente reale di \(z=a+ib\) \\
+\(\operatorname{Im}z\) & parte immaginaria di \(z\) & coefficiente \(b\) di \(i\) \\
+\(\overline z\) & coniugato di \(z\) & se \(z=a+ib\), allora \(\overline z=a-ib\) \\
+\(\lvert z\rvert\) & modulo di \(z\) & distanza di \(z\) dall'origine nel piano complesso \\
+\(\arg z\) & argomenti di \(z\ne0\) & insieme multivalore degli angoli modulo \(2\pi\) \\
+\(\operatorname{Arg}z\) & argomento principale di \(z\ne0\) & rappresentante scelto in un intervallo prefissato \\
+\end{longtable}
+
+\section{Formule dirette, formule inverse e rami}\label{formule-dirette-formule-inverse-e-rami}
+
+Una \textbf{formula diretta} è risolta rispetto alla grandezza che si vuole calcolare. Una \textbf{formula inversa} è la stessa relazione risolta rispetto a un'altra grandezza. L'isolamento algebrico è lecito soltanto se non si divide per zero e se si rispettano dominio, segno e numero dei rami.
+
+Esempio multivalore:
+
+\[
+y=x^2
+\Longleftrightarrow
+x=\pm\sqrt y,
+\qquad y\ge0.
+\]
+
+La relazione non definisce una funzione inversa globale di \(x\mapsto x^2\). Restringendo il dominio a \([0,+\infty)\) si ottiene \(x=\sqrt y\); restringendolo a \((-\infty,0]\) si ottiene \(x=-\sqrt y\).
+
+Analogamente,
+
+\[
+\sin^2x+\cos^2x=1
+\]
+
+è un'identità, non una formula con una sola inversa. Da essa si ricava
+
+\[
+\sin x=\pm\sqrt{1-\cos^2x},
+\]
+
+ma il segno dipende dal quadrante. Quando compaiono \(\pm\), radici, logaritmi, funzioni goniometriche inverse o elevamenti a potenza, il controllo dei rami è obbligatorio.

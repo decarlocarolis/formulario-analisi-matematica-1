@@ -8,7 +8,7 @@ Il documento è organizzato per risolvere problemi: **riconoscere la traccia →
 
 ## Sorgente canonico
 
-Il sorgente canonico è il progetto LaTeX. Il file Markdown in `archive/` è una copia storica della versione precedente e non deve essere modificato.
+Il sorgente canonico è il progetto LaTeX. La precedente versione Markdown resta un archivio di migrazione separato e non deve essere usata per le revisioni correnti.
 
 ## Struttura
 

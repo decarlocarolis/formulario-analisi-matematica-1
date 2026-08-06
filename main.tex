@@ -1,0 +1,51 @@
+\documentclass{ingegnerismo-formulario}
+\input{metadata}
+\input{commands}
+
+\hypersetup{
+  pdftitle={\FormularioTitolo},
+  pdfauthor={\FormularioAutore},
+  pdfsubject={Formulario operativo di Analisi Matematica I},
+  pdfkeywords={analisi matematica, limiti, derivate, integrali, serie, formulario, esercizi}
+}
+\SetupFormularioHeaders
+
+\begin{document}
+\input{frontmatter/titlepage}
+\frontmatter
+\input{frontmatter/come-usare}
+\input{frontmatter/mappa-esercizi}
+\tableofcontents
+\cleardoublepage
+\input{sections/00-guida-alla-lettura-della-simbologia-e-delle-formule.tex}
+\mainmatter
+\part{Prerequisiti operativi}
+\input{sections/01-logica-insiemi-numeri-e-strumenti-discreti.tex}
+\input{sections/02-algebra-equazioni-e-disequazioni.tex}
+\input{sections/03-funzioni-e-geometria-analitica.tex}
+\input{sections/04-goniometria-e-funzioni-iperboliche.tex}
+\input{sections/05-numeri-complessi.tex}
+\part{Analisi Matematica I}
+\input{sections/06-successioni-numeriche.tex}
+\input{sections/07-limiti-di-funzione.tex}
+\input{sections/08-continuita.tex}
+\input{sections/09-confronto-asintotico-e-simboli-di-landau.tex}
+\input{sections/10-calcolo-differenziale.tex}
+\input{sections/11-teoremi-del-calcolo-differenziale.tex}
+\input{sections/12-taylor-e-sviluppi-di-maclaurin.tex}
+\input{sections/13-studio-di-funzione-e-metodi-numerici.tex}
+\input{sections/14-primitive-e-integrali-indefiniti.tex}
+\input{sections/15-integrale-di-riemann-e-integrali-definiti.tex}
+\input{sections/16-integrali-impropri.tex}
+\input{sections/17-serie-numeriche.tex}
+\part{Estensioni frequenti}
+\input{sections/18-successioni-serie-di-funzioni-e-serie-di-potenze.tex}
+\input{sections/19-funzioni-gamma-e-beta.tex}
+\backmatter
+\input{backmatter/checklist}
+
+\chapter*{Versione e sorgente}
+\addcontentsline{toc}{chapter}{Versione e sorgente}
+Questo PDF è stato generato dal sorgente LaTeX canonico della versione \FormularioVersione. Il repository previsto è \href{\RepositoryURL}{\RepositoryURL}. Le correzioni devono essere applicate al sorgente e seguite da una nuova compilazione; il PDF non va modificato direttamente.
+
+\end{document}

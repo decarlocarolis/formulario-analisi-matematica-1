@@ -1,0 +1,492 @@
+% Canonical LaTeX source; imported and revised from the legacy Markdown.
+\chapter{Funzioni e geometria analitica}
+\label{chap:3}
+
+\begin{obiettivocapitolo}{determinare dominio, inversa, trasformazioni e oggetti geometrici}
+\prioritaalta. Il grafico e il dominio anticipano spesso il comportamento richiesto in limiti, derivate e integrali.
+\end{obiettivocapitolo}
+\begin{proceduraesame}{dominio di una funzione composta}
+\begin{enumerate}
+\item Elenca tutte le condizioni: denominatori $\ne0$, radicandi pari $\ge0$, argomenti logaritmici $>0$, argomenti di inverse trigonometriche negli intervalli ammessi.
+\item Risolvi ciascuna condizione e interseca gli insiemi ottenuti.
+\item Per $g\circ f$, richiedi contemporaneamente $x\in D_f$ e $f(x)\in D_g$.
+\end{enumerate}
+\end{proceduraesame}
+\begin{proceduraesame}{funzione inversa}
+\begin{enumerate}
+\item Verifica o imponi l'iniettività, eventualmente restringendo il dominio a un intervallo monotono.
+\item Scrivi $y=f(x)$, risolvi rispetto a $x$, scegli il ramo compatibile con il dominio ristretto.
+\item Scambia il nome delle variabili e dichiara dominio e immagine dell'inversa.
+\item Controlla $f^{-1}(f(x))=x$ nel dominio e $f(f^{-1}(y))=y$ nell'immagine.
+\end{enumerate}
+\end{proceduraesame}
+\begin{sceltametodo}{trasformazioni del grafico}
+Applica prima le trasformazioni interne all'argomento e poi quelle esterne al valore. In $y=a f(b(x-h))+k$, gestisci $x-h$, poi la scala/riflessione orizzontale $b$, quindi scala verticale $a$ e traslazione $k$.
+\end{sceltametodo}
+\begin{controllofinale}{geometria analitica}
+Verifica che il punto sostituito soddisfi l'equazione; controlla pendenza o vettore normale; nelle distanze il risultato deve essere non negativo.
+\end{controllofinale}
+
+\section{Funzioni elementari di riferimento}\label{funzioni-elementari-di-riferimento}
+
+Per \(n,m\in\mathbb N_+\), salvo diversa indicazione, le funzioni di uso frequente sono:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Funzione
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Dominio
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Immagine
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Proprietà essenziale
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(x^n\), \(n\) pari & \(\mathbb R\) & \([0,+\infty)\) & pari, decrescente su \((-\infty,0]\), crescente su \([0,+\infty)\) \\
+\(x^n\), \(n\) dispari & \(\mathbb R\) & \(\mathbb R\) & dispari, strettamente crescente \\
+\(\lvert x\rvert\) & \(\mathbb R\) & \([0,+\infty)\) & pari, decrescente su \((-\infty,0]\), crescente su \([0,+\infty)\) \\
+\(1/x\) & \(\mathbb R\setminus\{0\}\) & \(\mathbb R\setminus\{0\}\) & dispari, strettamente decrescente su ciascuna componente del dominio \\
+\(\sqrt[2m]{x}\) & \([0,+\infty)\) & \([0,+\infty)\) & strettamente crescente \\
+\(\sqrt[2m+1]{x}\) & \(\mathbb R\) & \(\mathbb R\) & strettamente crescente \\
+\(a^x\), \(a>1\) & \(\mathbb R\) & \((0,+\infty)\) & strettamente crescente \\
+\(a^x\), \(0<a<1\) & \(\mathbb R\) & \((0,+\infty)\) & strettamente decrescente \\
+\(\ln x\) & \((0,+\infty)\) & \(\mathbb R\) & strettamente crescente \\
+\end{longtable}
+
+Parte intera, parte frazionaria e segno:
+
+\[
+\lfloor x\rfloor\le x<\lfloor x\rfloor+1,
+\qquad
+\{x\}=x-\lfloor x\rfloor\in[0,1),
+\]
+
+\[
+\operatorname{sgn}x=
+\begin{cases}
+-1,&x<0,\\
+0,&x=0,\\
+1,&x>0.
+\end{cases}
+\]
+
+\section{Dominio, immagine, preimmagine, composizione e inversa}\label{dominio-immagine-preimmagine-composizione-e-inversa}
+
+Nella scrittura \(f:A\to B\), \(A\) è il dominio e \(B\) il codominio. L'immagine \(f(A)\) può essere un sottoinsieme proprio del codominio; la suriettività richiede \(f(A)=B\).
+
+Il grafico e la preimmagine di un insieme \(Y\subseteq B\) sono
+
+\[
+G_f=\{(x,f(x)):x\in A\},
+\qquad
+f^{-1}(Y)=\{x\in A:f(x)\in Y\}.
+\]
+
+La notazione \(f^{-1}(Y)\) indica una \textbf{preimmagine} ed è definita anche quando \(f\) non è invertibile. La funzione inversa \(f^{-1}:B\to A\) esiste invece solo quando \(f\) è biiettiva.
+
+\[
+f:A\to B,
+\qquad
+f(A)=\{f(x):x\in A\}\subseteq B.
+\]
+
+\[
+f\text{ iniettiva}
+\Longleftrightarrow
+f(x_1)=f(x_2)\Rightarrow x_1=x_2,
+\]
+
+\[
+f\text{ suriettiva su }B
+\Longleftrightarrow
+\forall y\in B,\ \exists x\in A:\ f(x)=y,
+\]
+
+\[
+f\text{ biiettiva}
+\Longleftrightarrow
+f\text{ iniettiva e suriettiva}.
+\]
+
+Se \(f:A\to B\) è biiettiva, per \(x\in A\) e \(y\in B\):
+
+\[
+f^{-1}(y)=x
+\Longleftrightarrow
+f(x)=y.
+\]
+
+\[
+f^{-1}\circ f=\operatorname{id}_A,
+\qquad
+f\circ f^{-1}=\operatorname{id}_B.
+\]
+
+\[
+(g\circ f)(x)=g(f(x)),
+\qquad
+D_{g\circ f}=\{x\in D_f:f(x)\in D_g\}.
+\]
+
+\[
+(g\circ f)^{-1}=f^{-1}\circ g^{-1},
+\]
+
+quando \(f\) e \(g\) sono invertibili.
+
+Coppie diretta/inversa frequenti:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Funzione diretta
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Restrizione che la rende biiettiva
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Funzione inversa
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(y=x^n\), \(n\) pari & \(x\in[0,+\infty)\) & \(x=\sqrt[n]{y}\), \(y\ge0\) \\
+\(y=x^n\), \(n\) pari & \(x\in(-\infty,0]\) & \(x=-\sqrt[n]{y}\), \(y\ge0\) \\
+\(y=x^n\), \(n\) dispari & \(x\in\mathbb R\) & \(x=\sqrt[n]{y}\) \\
+\(y=a^x\), \(a>0\), \(a\ne1\) & \(x\in\mathbb R\) & \(x=\log_a y\), \(y>0\) \\
+\(y=\sin x\) & \(x\in[-\pi/2,\pi/2]\) & \(x=\arcsin y\), \(\lvert y\rvert\le1\) \\
+\(y=\cos x\) & \(x\in[0,\pi]\) & \(x=\arccos y\), \(\lvert y\rvert\le1\) \\
+\(y=\tan x\) & \(x\in(-\pi/2,\pi/2)\) & \(x=\arctan y\) \\
+\end{longtable}
+
+Per \(D_f=-D_f\):
+
+\[
+f(-x)=f(x)\quad\text{pari},
+\qquad
+f(-x)=-f(x)\quad\text{dispari}.
+\]
+
+\[
+D_f+T=D_f,
+\qquad
+f(x+T)=f(x),
+\qquad T>0.
+\]
+
+Qui \(D_f+T=\{x+T:x\in D_f\}\). Un \textbf{periodo fondamentale} è il minimo periodo positivo, quando tale minimo esiste.
+
+Limitatezza su \(E\subseteq D_f\):
+
+\[
+\begin{aligned}
+f\text{ limitata superiormente su }E
+&\Longleftrightarrow \exists M\in\mathbb R:\ f(x)\le M\quad\forall x\in E,\\
+f\text{ limitata inferiormente su }E
+&\Longleftrightarrow \exists m\in\mathbb R:\ m\le f(x)\quad\forall x\in E,\\
+f\text{ limitata su }E
+&\Longleftrightarrow \exists C>0:\ |f(x)|\le C\quad\forall x\in E.
+\end{aligned}
+\]
+
+Monotonia su un intervallo \(I\):
+
+\[
+\begin{aligned}
+x_1<x_2&\Longrightarrow f(x_1)\le f(x_2)
+&&\text{non decrescente},\\
+x_1<x_2&\Longrightarrow f(x_1)<f(x_2)
+&&\text{strettamente crescente},\\
+x_1<x_2&\Longrightarrow f(x_1)\ge f(x_2)
+&&\text{non crescente},\\
+x_1<x_2&\Longrightarrow f(x_1)>f(x_2)
+&&\text{strettamente decrescente}.
+\end{aligned}
+\]
+
+Estremi assoluti su \(E\):
+
+\[
+\begin{aligned}
+x_M\in E\text{ è punto di massimo assoluto}
+&\Longleftrightarrow f(x)\le f(x_M)\quad\forall x\in E,\\
+x_m\in E\text{ è punto di minimo assoluto}
+&\Longleftrightarrow f(x_m)\le f(x)\quad\forall x\in E.
+\end{aligned}
+\]
+
+Per un estremo locale le stesse disuguaglianze sono richieste soltanto in un intorno relativo del punto considerato.
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/funzione-matematica/}{funzione matematica}, \href{https://ingegnerismo.it/matematica/funzione-inversa/}{funzione inversa}, \href{https://ingegnerismo.it/matematica/funzione-monotona/}{funzione monotona}.
+
+\section{Trasformazioni dei grafici}\label{trasformazioni-dei-grafici}
+
+\[
+\begin{array}{c|c}
+\text{funzione}&\text{trasformazione di }y=f(x)\\
+\hline
+f(x)+k&\text{traslazione verticale di }k\\
+f(x-h)&\text{traslazione orizzontale di }h\\
+af(x)&\text{scala verticale }|a|;\ \text{riflessione rispetto all'asse }x\text{ se }a<0\\
+f(bx)&\text{scala orizzontale }1/|b|\ (b\ne0);\ \text{riflessione rispetto all'asse }y\text{ se }b<0\\
+-f(x)&\text{riflessione rispetto all'asse }x\\
+f(-x)&\text{riflessione rispetto all'asse }y\\
+|f(x)|&\text{rami negativi riflessi sopra l'asse }x\\
+f(|x|)&\text{ramo }x\ge0\text{ copiato per }x\le0
+\end{array}
+\]
+
+Per \(b=0\), \(f(bx)=f(0)\) soltanto se \(0\in D_f\).
+
+Se \(f\) è biiettiva, il grafico dell'inversa si ottiene riflettendo il grafico di \(f\) rispetto alla bisettrice \(y=x\):
+
+\[
+G_{f^{-1}}=\text{riflessione di }G_f\text{ rispetto a }y=x.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/trasformazioni-di-grafici/}{trasformazioni di grafici}.
+
+\section{Geometria analitica nel piano}\label{geometria-analitica-nel-piano}
+
+Le coordinate sono espresse in un sistema cartesiano ortonormale. Per \(u=(u_1,u_2)\) e \(v=(v_1,v_2)\):
+
+\[
+u\cdot v=u_1v_1+u_2v_2,
+\qquad
+\lVert u\rVert=\sqrt{u_1^2+u_2^2},
+\]
+
+\[
+u\perp v\Longleftrightarrow u\cdot v=0,
+\qquad
+\cos\theta=\frac{u\cdot v}{\lVert u\rVert\,\lVert v\rVert}
+\quad(u,v\ne0),
+\]
+
+con \(\theta\in[0,\pi]\) angolo non orientato fra i due vettori.
+
+Retta passante per \(P_0=(x_0,y_0)\) con vettore direttore \(v=(v_1,v_2)\ne0\):
+
+\[
+(x,y)=(x_0,y_0)+t(v_1,v_2),
+\qquad t\in\mathbb R.
+\]
+
+Per \(A(x_1,y_1)\) e \(B(x_2,y_2)\), \(AB\) indica la distanza e \(M\) il punto medio del segmento:
+
+\[
+AB=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2},
+\]
+
+\[
+M=\left(\frac{x_1+x_2}{2},\frac{y_1+y_2}{2}\right).
+\]
+
+\[
+m=\frac{y_2-y_1}{x_2-x_1},
+\qquad x_1\ne x_2,
+\]
+
+\[
+y-y_1=m(x-x_1),
+\qquad
+x=x_1\quad(x_1=x_2).
+\]
+
+Forma generale, forma esplicita e forma degli intercetti:
+
+\[
+ax+by+c=0,
+\qquad (a,b)\ne(0,0),
+\]
+
+\[
+y=mx+q,
+\qquad
+m=-\frac ab,
+\qquad
+q=-\frac cb,
+\qquad b\ne0,
+\]
+
+\[
+\frac xp+\frac yq=1,
+\qquad pq\ne0,
+\]
+
+in cui \(p\) e \(q\) sono rispettivamente le intercette sugli assi \(x\) e \(y\). Dalla forma generale:
+
+\[
+p=-\frac ca,
+\qquad
+q=-\frac cb,
+\qquad
+abc\ne0.
+\]
+
+Se \(c=0\), la retta passa per l'origine e la forma degli intercetti con \(pq\ne0\) non è disponibile. Se \(a=0\) oppure \(b=0\), la retta è parallela a uno degli assi e manca la corrispondente intercetta finita.
+
+\[
+r_1\parallel r_2
+\Longleftrightarrow
+a_1b_2-a_2b_1=0,
+\]
+
+\[
+r_1\perp r_2
+\Longleftrightarrow
+a_1a_2+b_1b_2=0.
+\]
+
+La prima condizione confronta le direzioni e comprende anche il caso di rette coincidenti; per richiedere rette parallele distinte occorre escludere la coincidenza.
+
+Se le rette non sono verticali, con coefficienti angolari \(m_1,m_2\):
+
+\[
+r_1\parallel r_2\Longleftrightarrow m_1=m_2,
+\qquad
+r_1\perp r_2\Longleftrightarrow m_1m_2=-1.
+\]
+
+Per \(P=(x_0,y_0)\) e \(r:ax+by+c=0\):
+
+\[
+d(P,r)=\frac{|ax_0+by_0+c|}{\sqrt{a^2+b^2}}.
+\]
+
+Circonferenza:
+
+\[
+(x-h)^2+(y-k)^2=r^2,
+\qquad r\ge0,
+\]
+
+\[
+x^2+y^2+Dx+Ey+F=0.
+\]
+
+Passaggio fra le due forme:
+
+\[
+D=-2h,
+\qquad
+E=-2k,
+\qquad
+F=h^2+k^2-r^2,
+\]
+
+\[
+C=\left(-\frac D2,-\frac E2\right),
+\qquad
+r^2=\frac{D^2+E^2}{4}-F.
+\]
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Condizione & Luogo reale \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(r^2>0\) & circonferenza di raggio \(r=\sqrt{r^2}\) \\
+\(r^2=0\) & il solo punto \(C\) \\
+\(r^2<0\) & insieme vuoto in \(\mathbb R^2\) \\
+\end{longtable}
+
+Parabola con asse verticale:
+
+\[
+y=ax^2+bx+c,
+\qquad a\ne0,
+\]
+
+\[
+x_V=-\frac b{2a},
+\qquad
+y_V=-\frac\Delta{4a},
+\qquad
+\text{asse}:x=x_V,
+\]
+
+\[
+y=a(x-x_V)^2+y_V.
+\]
+
+Dalla forma del vertice alla forma esplicita:
+
+\[
+b=-2ax_V,
+\qquad
+c=ax_V^2+y_V.
+\]
+
+La parabola è rivolta verso l'alto per \(a>0\) e verso il basso per \(a<0\).
+
+Coniche canoniche non ruotate. In tutte le formule \((h,k)\) è il centro; \(a\) indica il semiasse trasverso o maggiore e \(b\) l'altro semiasse.
+
+Ellisse con asse maggiore orizzontale:
+
+\[
+\frac{(x-h)^2}{a^2}+\frac{(y-k)^2}{b^2}=1,
+\qquad a,b>0,
+\]
+
+\[
+c^2=a^2-b^2,
+\qquad a\ge b,
+\qquad
+F_{1,2}=(h\pm c,k).
+\]
+
+Iperbole con asse trasverso orizzontale:
+
+\[
+\frac{(x-h)^2}{a^2}-\frac{(y-k)^2}{b^2}=1,
+\qquad a,b>0,
+\]
+
+\[
+c^2=a^2+b^2,
+\qquad
+F_{1,2}=(h\pm c,k),
+\qquad
+y-k=\pm\frac ba(x-h).
+\]
+
+Ellisse con asse maggiore verticale:
+
+\[
+\frac{(x-h)^2}{b^2}+\frac{(y-k)^2}{a^2}=1,
+\qquad
+c^2=a^2-b^2,
+\qquad
+F_{1,2}=(h,k\pm c),
+\qquad a\ge b>0.
+\]
+
+Iperbole con asse trasverso verticale:
+
+\[
+\frac{(y-k)^2}{a^2}-\frac{(x-h)^2}{b^2}=1,
+\qquad
+c^2=a^2+b^2,
+\qquad
+F_{1,2}=(h,k\pm c),
+\]
+
+\[
+y-k=\pm\frac ab(x-h),
+\qquad a,b>0.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/retta/}{retta}, \href{https://ingegnerismo.it/matematica/circonferenza/}{circonferenza}, \href{https://ingegnerismo.it/matematica/parabola/}{parabola}, \href{https://ingegnerismo.it/matematica/ellisse/}{ellisse}, \href{https://ingegnerismo.it/matematica/iperbole/}{iperbole}.

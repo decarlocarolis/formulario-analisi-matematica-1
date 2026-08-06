@@ -1,0 +1,25 @@
+# LaTeX build output
+build/
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+*.xdv
+
+# Editors / OS
+.DS_Store
+.vscode/
+.idea/
+*~
+
+# Generated distribution artifacts (published through GitHub Actions/Releases)
+dist/

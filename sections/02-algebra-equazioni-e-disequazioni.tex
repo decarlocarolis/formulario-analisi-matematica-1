@@ -1,0 +1,596 @@
+% Canonical LaTeX source; imported and revised from the legacy Markdown.
+\chapter{Algebra, equazioni e disequazioni}
+\label{chap:2}
+
+\begin{obiettivocapitolo}{risolvere equazioni e disequazioni senza perdere né aggiungere soluzioni}
+\prioritaalta. Il dominio si determina prima delle trasformazioni e resta vincolante fino alla risposta finale.
+\end{obiettivocapitolo}
+\begin{sceltametodo}{tipo di espressione}
+\begin{tabularx}{\textwidth}{@{}p{.30\textwidth}X@{}}
+Razionale & imponi denominatori non nulli; porta a un'unica frazione; usa numeratore e tabella dei segni.\\
+Con radicali & isola una radice; controlla il segno del secondo membro; eleva a potenza e verifica i candidati.\\
+Con valore assoluto & usa definizione per casi oppure equivalenze standard in base a $=,<,>,\le,\ge$.\\
+Esponenziale & riconduci alla stessa base o applica il logaritmo, mantenendo basi positive.\\
+Logaritmica & imponi tutti gli argomenti positivi; usa monotonia e proprietà dei logaritmi.\\
+Sistema lineare & Gauss per il metodo generale; Cramer solo nei piccoli sistemi quadrati non singolari.
+\end{tabularx}
+\end{sceltametodo}
+\begin{proceduraesame}{equazione o disequazione generale}
+\begin{enumerate}
+\item Determina il dominio $D$.
+\item Semplifica mediante trasformazioni equivalenti; marca i passaggi solo implicativi, come l'elevamento al quadrato senza condizioni di segno.
+\item Risolvi l'equazione oppure costruisci la tabella dei segni con zeri e punti esclusi ordinati.
+\item Interseca con $D$ e verifica nell'espressione originaria ogni candidato nato da passaggi non equivalenti.
+\item Scrivi la soluzione come insieme o unione di intervalli, rispettando estremi inclusi ed esclusi.
+\end{enumerate}
+\end{proceduraesame}
+\begin{errorefrequente}{disequazioni}
+Moltiplicare per un'espressione di segno ignoto senza separare i casi può invertire il verso in modo non controllato. È generalmente più sicuro portare tutto a primo membro e usare la tabella dei segni.
+\end{errorefrequente}
+
+\section{Espressioni algebriche, dominio e polinomi}\label{espressioni-algebriche-dominio-e-polinomi}
+
+Per \(m\in\mathbb N_+\), le condizioni di esistenza più frequenti sono:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Espressione & Condizione reale \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(P(x)/Q(x)\) & \(Q(x)\ne0\) \\
+\(\sqrt[2m]{A(x)}\) & \(A(x)\ge0\) \\
+\(\log_a A(x)\) & \(a>0\), \(a\ne1\), \(A(x)>0\) \\
+\(A(x)^{g(x)}\) con esponente reale variabile & \(A(x)>0\) \\
+\end{longtable}
+
+\[
+P(x)=a_nx^n+\cdots+a_1x+a_0,
+\qquad a_n\ne0,
+\qquad \deg P=n.
+\]
+
+\[
+\deg(PQ)=\deg P+\deg Q,
+\qquad P,Q\ne0,
+\]
+
+\[
+\deg(P+Q)\le\max(\deg P,\deg Q),
+\qquad P,Q,P+Q\ne0.
+\]
+
+\[
+(a\pm b)^2=a^2\pm2ab+b^2,
+\qquad
+(a+b)(a-b)=a^2-b^2,
+\]
+
+\[
+(a\pm b)^3=a^3\pm3a^2b+3ab^2\pm b^3,
+\]
+
+\[
+a^3-b^3=(a-b)(a^2+ab+b^2),
+\qquad
+a^3+b^3=(a+b)(a^2-ab+b^2).
+\]
+
+\[
+a^n-b^n=(a-b)\sum_{k=0}^{n-1}a^{n-1-k}b^k,
+\qquad n\ge1,
+\]
+
+\[
+a^n+b^n=(a+b)\sum_{k=0}^{n-1}(-1)^k a^{n-1-k}b^k,
+\qquad n\ge1\text{ dispari}.
+\]
+
+\[
+(a+b)^n=\sum_{k=0}^n\binom nk a^{n-k}b^k.
+\]
+
+\[
+ax^2+bx+c=a(x-x_1)(x-x_2),
+\qquad a\ne0,
+\]
+
+quando \(x_1,x_2\) sono le radici reali, anche coincidenti. Il completamento del quadrato fornisce inoltre
+
+\[
+ax^2+bx+c
+=a\left(x+\frac{b}{2a}\right)^2-\frac{\Delta}{4a},
+\qquad
+\Delta=b^2-4ac.
+\]
+
+\[
+P=DQ+R,
+\qquad
+D\ne0,
+\qquad
+R=0\ \lor\ \deg R<\deg D.
+\]
+
+\[
+P(x)=(x-a)Q(x)+P(a),
+\qquad
+(x-a)\mid P(x)\Longleftrightarrow P(a)=0.
+\]
+
+Per \(P\in\mathbb Z[x]\) con coefficiente principale \(a_n\) e termine noto \(a_0\):
+
+\[
+\frac pq\text{ radice razionale ridotta}
+\Longrightarrow
+p\mid a_0,
+\qquad q\mid a_n.
+\]
+
+\[
+\frac{(x-a)P(x)}{x-a}=P(x),
+\qquad x\ne a.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/polinomio/}{polinomio}, \href{https://ingegnerismo.it/matematica/fattorizzazione-di-polinomi/}{fattorizzazione di polinomi}, \href{https://ingegnerismo.it/matematica/divisione-tra-polinomi/}{divisione tra polinomi}.
+
+\section{Equivalenze, implicazioni e trasformazioni lecite}\label{equivalenze-implicazioni-e-trasformazioni-lecite}
+
+Le trasformazioni devono essere eseguite nel dominio comune nel quale tutte le espressioni coinvolte sono definite.
+
+\[
+A=B
+\Longleftrightarrow
+A+C=B+C.
+\]
+
+\[
+A=B
+\Longleftrightarrow
+AC=BC,
+\qquad C\ne0.
+\]
+
+Se \(A\) e \(B\) sono non nulli:
+
+\[
+A=B
+\Longleftrightarrow
+\frac1A=\frac1B.
+\]
+
+L'elevamento al quadrato conserva soltanto un'implicazione in avanti:
+
+\[
+A=B\Longrightarrow A^2=B^2,
+\qquad
+A^2=B^2\Longleftrightarrow A=B\ \lor\ A=-B.
+\]
+
+\[
+\begin{array}{c|c}
+\text{trasformazione in una disequazione}&\text{effetto sul verso}\\
+\hline
++C&\text{invariato}\\
+\times C,\ C>0&\text{invariato}\\
+\times C,\ C<0&\text{invertito}\\
+\times C,\ C\text{ di segno incognito}&\text{separazione dei casi}
+\end{array}
+\]
+
+Per reciproci positivi:
+
+\[
+0<A<B
+\Longleftrightarrow
+\frac1A>\frac1B.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/equazioni-algebriche-elementari/}{equazioni algebriche elementari}, \href{https://ingegnerismo.it/matematica/disequazione/}{disequazione}.
+
+\section{Equazioni di primo e secondo grado}\label{equazioni-di-primo-e-secondo-grado}
+
+L'insieme delle soluzioni reali di \(ax=b\) è
+
+\[
+S=
+\begin{cases}
+\left\{\dfrac ba\right\},&a\ne0,\\[6pt]
+\mathbb R,&a=0,\ b=0,\\
+\varnothing,&a=0,\ b\ne0.
+\end{cases}
+\]
+
+\[
+ax^2+bx+c=0,
+\qquad
+a\ne0,
+\qquad
+\Delta=b^2-4ac,
+\]
+
+\[
+x_{1,2}=\frac{-b\pm\sqrt\Delta}{2a},
+\qquad
+\Delta\ge0.
+\]
+
+La doppia scrittura \(x_{1,2}\) significa
+
+\[
+x_1=\frac{-b-\sqrt\Delta}{2a},
+\qquad
+x_2=\frac{-b+\sqrt\Delta}{2a},
+\]
+
+salvo scambiare l'ordine delle due radici.
+
+\[
+\begin{array}{c|c}
+\Delta&\text{radici reali}\\
+\hline
+\Delta>0&x_1\ne x_2\\
+\Delta=0&x_1=x_2=-b/(2a)\\
+\Delta<0&\varnothing
+\end{array}
+\]
+
+\[
+x_1+x_2=-\frac ba,
+\qquad
+x_1x_2=\frac ca,
+\]
+
+\[
+b=-a(x_1+x_2),
+\qquad
+c=ax_1x_2,
+\qquad
+ax^2+bx+c=a(x-x_1)(x-x_2).
+\]
+
+\[
+x_1,x_2\text{ sono le radici di }x^2-sx+p=0
+\Longleftrightarrow
+x_1+x_2=s,
+\qquad
+x_1x_2=p.
+\]
+
+\[
+P_1(x)\cdots P_m(x)=0
+\Longleftrightarrow
+\bigvee_{j=1}^m\bigl[P_j(x)=0\bigr].
+\]
+
+\[
+\frac{P(x)}{Q(x)}=0
+\Longleftrightarrow
+P(x)=0\ \land\ Q(x)\ne0.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/equazioni-algebriche-elementari/}{equazioni algebriche elementari}.
+
+\section{Disequazioni e segno dei polinomi}\label{disequazioni-e-segno-dei-polinomi}
+
+L'insieme delle soluzioni reali di \(ax>b\) è
+
+\[
+S=
+\begin{cases}
+\left(\dfrac ba,+\infty\right),&a>0,\\[6pt]
+\left(-\infty,\dfrac ba\right),&a<0,\\[6pt]
+\mathbb R,&a=0,\ b<0,\\
+\varnothing,&a=0,\ b\ge0.
+\end{cases}
+\]
+
+Per \(P(x)=ax^2+bx+c\), \(a\ne0\), con \(x_1<x_2\) quando \(\Delta>0\):
+
+\[
+\begin{array}{c|c|c}
+\Delta&\text{insieme}&\operatorname{sgn}P\\
+\hline
+>0&(-\infty,x_1)\cup(x_2,+\infty)&\operatorname{sgn}a\\
+>0&(x_1,x_2)&-\operatorname{sgn}a\\
+=0&\mathbb R\setminus\{-b/(2a)\}&\operatorname{sgn}a\\
+<0&\mathbb R&\operatorname{sgn}a
+\end{array}
+\]
+
+Per \(\Delta>0\) vale \(P(x_1)=P(x_2)=0\); per \(\Delta=0\) vale \(P(-b/(2a))=0\). I punti di annullamento vanno inclusi nelle disequazioni non strette (\(\ge,\le\)) ed esclusi in quelle strette (\(>,<\)).
+
+\[
+\operatorname{sgn}\!\left(\prod_{j=1}^m F_j\right)
+=\prod_{j=1}^m\operatorname{sgn}(F_j),
+\]
+
+\[
+\operatorname{sgn}\!\left(\frac PQ\right)
+=\operatorname{sgn}(P)\operatorname{sgn}(Q),
+\qquad Q\ne0.
+\]
+
+Se \(F(x)=(x-x_0)^mG(x)\), con \(G\) continua in un intorno di \(x_0\) e \(G(x_0)\ne0\), per \(\varepsilon>0\) sufficientemente piccolo:
+
+\[
+\operatorname{sgn}F(x_0-\varepsilon)
+=(-1)^m\operatorname{sgn}F(x_0+\varepsilon).
+\]
+
+\[
+F(x_0)=0
+\Longrightarrow
+x_0\in\{F\ge0\}\cap\{F\le0\},
+\qquad
+Q(x_0)=0
+\Longrightarrow
+x_0\notin\operatorname{Dom}\frac PQ.
+\]
+
+\[
+S_{\text{sistema}}=\bigcap_j S_j,
+\qquad
+S_{\text{alternativa}}=\bigcup_j S_j.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/disequazione/}{disequazione}.
+
+\section{Equazioni e disequazioni con valore assoluto}\label{equazioni-e-disequazioni-con-valore-assoluto}
+
+Per espressioni reali \(A,B\):
+
+\[
+|A|=B
+\Longleftrightarrow
+B\ge0\ \land\ (A=B\ \lor\ A=-B).
+\]
+
+\[
+|A|\le B
+\Longleftrightarrow
+B\ge0\ \land\ (-B\le A\le B),
+\]
+
+\[
+|A|<B
+\Longleftrightarrow
+B>0\ \land\ (-B<A<B).
+\]
+
+\[
+|A|\ge B
+\Longleftrightarrow
+\begin{cases}
+A\le-B\ \lor\ A\ge B,&B>0,\\
+\text{ogni punto del dominio},&B\le0,
+\end{cases}
+\]
+
+\[
+|A|>B
+\Longleftrightarrow
+\begin{cases}
+A<-B\ \lor\ A>B,&B\ge0,\\
+\text{ogni punto del dominio},&B<0.
+\end{cases}
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/valore-assoluto/}{valore assoluto}, \href{https://ingegnerismo.it/matematica/disequazione/}{disequazione}.
+
+\section{Equazioni e disequazioni irrazionali}\label{equazioni-e-disequazioni-irrazionali}
+
+In tutte le formule seguenti \(m\in\mathbb N_+\).
+
+\[
+\sqrt[2m]{A}=B
+\Longleftrightarrow
+\begin{cases}
+A=B^{2m},\\
+B\ge0,
+\end{cases}
+\]
+
+\[
+\sqrt[2m+1]{A}=B
+\Longleftrightarrow
+A=B^{2m+1}.
+\]
+
+\[
+\sqrt A<B
+\Longleftrightarrow
+A\ge0,\ B>0,\ A<B^2,
+\]
+
+\[
+\sqrt A\le B
+\Longleftrightarrow
+A\ge0,\ B\ge0,\ A\le B^2,
+\]
+
+\[
+\sqrt A>B
+\Longleftrightarrow
+A\ge0\ \land\ (B<0\ \lor\ A>B^2),
+\]
+
+\[
+\sqrt A\ge B
+\Longleftrightarrow
+A\ge0\ \land\ (B\le0\ \lor\ A\ge B^2).
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/equazioni-algebriche-elementari/}{equazioni algebriche elementari}, \href{https://ingegnerismo.it/matematica/funzioni-potenza-e-irrazionali/}{funzioni potenza e irrazionali}, \href{https://ingegnerismo.it/matematica/disequazione/}{disequazione}.
+
+\section{Esponenziali e logaritmi}\label{esponenziali-e-logaritmi}
+
+\[
+a^{x+y}=a^xa^y,
+\qquad
+a^{x-y}=\frac{a^x}{a^y},
+\qquad
+(a^x)^y=a^{xy},
+\qquad a>0.
+\]
+
+\[
+y=a^x
+\Longleftrightarrow
+x=\log_a y,
+\qquad a>0,
+\qquad a\ne1,
+\qquad y>0.
+\]
+
+Questa è una vera coppia diretta/inversa perché l'esponenziale di base ammissibile è biiettivo da \(\mathbb R\) a \((0,+\infty)\).
+
+\[
+\begin{array}{c|c|c|c}
+\text{funzione}&\text{dominio}&\text{immagine}&\text{monotonia}\\
+\hline
+a^x&\mathbb R&(0,+\infty)&\nearrow\ a>1,\ \searrow\ 0<a<1\\
+\log_a x&(0,+\infty)&\mathbb R&\nearrow\ a>1,\ \searrow\ 0<a<1
+\end{array}
+\]
+
+\[
+\log_a(xy)=\log_a x+\log_a y,
+\qquad
+\log_a\frac xy=\log_a x-\log_a y,
+\]
+
+\[
+\log_a(x^r)=r\log_a x,
+\qquad
+\log_a x=\frac{\ln x}{\ln a},
+\]
+
+con argomenti positivi.
+
+\[
+a^{\log_a x}=x\quad(x>0),
+\qquad
+\log_a(a^x)=x\quad(x\in\mathbb R),
+\qquad
+a>0,\quad a\ne1.
+\]
+
+Nelle equivalenze seguenti, \(a>0\) e \(a\ne1\).
+
+\[
+a^{f(x)}=a^{g(x)}
+\Longleftrightarrow
+f(x)=g(x),
+\]
+
+\[
+a^{f(x)}=b
+\Longleftrightarrow
+f(x)=\log_a b,
+\qquad b>0,
+\]
+
+\[
+\log_a f(x)=c
+\Longleftrightarrow
+f(x)=a^c,
+\qquad f(x)>0,
+\]
+
+\[
+\log_a f(x)=\log_a g(x)
+\Longleftrightarrow
+f(x)=g(x)>0.
+\]
+
+\[
+a^{f(x)}>a^{g(x)}
+\Longleftrightarrow
+\begin{cases}
+f(x)>g(x),&a>1,\\
+f(x)<g(x),&0<a<1,
+\end{cases}
+\]
+
+\[
+\log_a f(x)>\log_a g(x)
+\Longleftrightarrow
+\begin{cases}
+f(x)>g(x)>0,&a>1,\\
+0<f(x)<g(x),&0<a<1.
+\end{cases}
+\]
+
+Le stesse regole valgono sostituendo \(>\) con \(\ge\), \(<\) o \(\le\): per \(a>1\) il verso si conserva; per \(0<a<1\) si inverte. Nei confronti logaritmici gli argomenti devono restare strettamente positivi.
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/esponenziale/}{esponenziale}, \href{https://ingegnerismo.it/matematica/logaritmo/}{logaritmo}, \href{https://ingegnerismo.it/matematica/proprieta-dei-logaritmi/}{proprietà dei logaritmi}.
+
+\section{Sistemi di equazioni lineari}\label{sistemi-di-equazioni-lineari}
+
+Nel sistema seguente \(x,y\) sono le incognite; \(a_i,b_i\) sono i coefficienti e \(c_i\) i termini noti.
+
+\[
+\begin{cases}
+a_1x+b_1y=c_1,\\
+a_2x+b_2y=c_2,
+\end{cases}
+\]
+
+\[
+D=a_1b_2-a_2b_1,
+\qquad
+D_x=c_1b_2-c_2b_1,
+\qquad
+D_y=a_1c_2-a_2c_1.
+\]
+
+Con
+
+\[
+A=\begin{pmatrix}a_1&b_1\\a_2&b_2\end{pmatrix},
+\qquad
+[A\mid c]=
+\begin{pmatrix}a_1&b_1&c_1\\a_2&b_2&c_2\end{pmatrix},
+\]
+
+il teorema di Rouché--Capelli dà la classificazione completa:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Condizione
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Soluzioni
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(\operatorname{rank}A<\operatorname{rank}[A\mid c]\) & nessuna \\
+\(\operatorname{rank}A=\operatorname{rank}[A\mid c]=2\) & una sola \\
+\(\operatorname{rank}A=\operatorname{rank}[A\mid c]<2\) & infinitamente molte \\
+\end{longtable}
+
+Nel caso \(D\ne0\) la soluzione unica si calcola con Cramer:
+
+\[
+x=\frac{D_x}{D},
+\qquad
+y=\frac{D_y}{D}.
+\]
+
+Se \(D=0\) e almeno uno tra \(a_1,b_1,a_2,b_2\) è non nullo, allora
+
+\[
+D_x=D_y=0
+\Longleftrightarrow
+\text{infinitamente molte soluzioni};
+\]
+
+se invece almeno uno tra \(D_x,D_y\) è non nullo, il sistema è impossibile. Quando tutti i coefficienti delle incognite sono nulli, si controllano direttamente le eventuali equazioni \(0=c_i\).
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/sistemi-di-equazioni/}{sistemi di equazioni}.

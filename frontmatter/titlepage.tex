@@ -1,0 +1,28 @@
+\begin{titlepage}
+\thispagestyle{empty}
+\begin{tikzpicture}[remember picture,overlay]
+  \fill[IngBlue] (current page.north west) rectangle ([yshift=-43mm]current page.north east);
+  \fill[IngTeal] ([yshift=-43mm]current page.north west) rectangle ([yshift=-47mm]current page.north east);
+\end{tikzpicture}
+\vspace*{10mm}
+{\color{white}\sffamily\bfseries\Large ingegnerismo.it\par}
+\vspace{30mm}
+{\sffamily\bfseries\fontsize{30}{34}\selectfont\color{IngBlue}\FormularioTitolo\par}
+\vspace{5mm}
+{\sffamily\fontsize{16}{20}\selectfont\color{IngTeal}\FormularioSottotitolo\par}
+\vspace{12mm}
+\begin{tcolorbox}[colback=IngPaleBlue,colframe=IngBlue,boxrule=.6pt,arc=1.5mm]
+\textbf{Obiettivo.} Individuare rapidamente il tipo di problema, scegliere il metodo adatto, applicare una procedura controllabile e verificare il risultato. Il volume non sostituisce un manuale teorico: raccoglie la teoria strettamente necessaria per usare correttamente formule, criteri e teoremi.
+\end{tcolorbox}
+\vfill
+\begin{tabular}{@{}ll@{}}
+\textbf{Autore:} & \FormularioAutore\\
+\textbf{Versione:} & \FormularioVersione\\
+\textbf{Data:} & \FormularioData\\
+\textbf{Sorgente:} & progetto LaTeX versionato\\
+\textbf{Sito:} & \href{\SitoURL}{ingegnerismo.it}
+\end{tabular}
+\vspace{14mm}
+
+{\small\color{IngGray}© 2026 \FormularioAutore. Tutti i diritti riservati. La disponibilità pubblica del repository non attribuisce automaticamente una licenza di riuso.}
+\end{titlepage}
