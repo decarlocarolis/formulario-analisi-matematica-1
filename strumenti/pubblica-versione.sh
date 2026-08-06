@@ -2,52 +2,57 @@
 set -euo pipefail
 
 DEPOSITO="decarlocarolis/formulario-analisi-matematica-1"
-VERSIONE="${1:-v1.2}"
 
-if [[ ! "$VERSIONE" =~ ^v[0-9]+\.[0-9]+$ ]]; then
-  echo "Formato della versione non valido: usare vMAGGIORE.MINORE, per esempio v1.2" >&2
+if [[ "$#" -ne 1 ]]; then
+  echo "Uso: $0 vMAGGIORE.MINORE" >&2
+  exit 1
+fi
+
+VERSIONE="$1"
+if [[ ! "$VERSIONE" =~ ^v[1-9][0-9]*\.[0-9]+$ ]]; then
+  echo "Formato non valido: usa vMAGGIORE.MINORE, per esempio v1.3 o v1.10." >&2
+  exit 1
+fi
+
+if [[ "$(git branch --show-current)" != "main" ]]; then
+  echo "La pubblicazione deve partire dal ramo main." >&2
+  exit 1
+fi
+if [[ -n "$(git status --porcelain)" ]]; then
+  echo "Il worktree non è pulito: registra o annulla le modifiche prima di pubblicare." >&2
   exit 1
 fi
 
 gh auth status
-make controlla
 make pdf
-make pacchetto-sorgenti
-sha256sum \
-  distribuzione/formulario-analisi-matematica-1.pdf \
-  distribuzione/formulario-analisi-matematica-1-sorgenti.zip \
-  > distribuzione/SOMME-DI-CONTROLLO-SHA256.txt
 
-git add --all
-git commit -m "Aggiorna il Formulario di Analisi Matematica I ${VERSIONE}" || true
-git push origin main
-
-if git rev-parse "$VERSIONE" >/dev/null 2>&1; then
-  git tag -f -a "$VERSIONE" -m "Formulario di Analisi Matematica I ${VERSIONE}"
-  git push --force origin "refs/tags/${VERSIONE}"
-else
-  git tag -a "$VERSIONE" -m "Formulario di Analisi Matematica I ${VERSIONE}"
-  git push origin "$VERSIONE"
+VERSIONE_MANIFESTO="$(python3 -c 'import json; print(json.load(open("formulario.json", encoding="utf-8"))["documento"]["versione"])')"
+ETICHETTA_MANIFESTO="v${VERSIONE_MANIFESTO#v.}"
+if [[ "$VERSIONE" != "$ETICHETTA_MANIFESTO" ]]; then
+  echo "L'etichetta richiesta ${VERSIONE} non coincide con la versione dichiarata ${VERSIONE_MANIFESTO}." >&2
+  exit 1
 fi
 
+git fetch --quiet origin main --tags
+if [[ "$(git rev-parse HEAD)" != "$(git rev-parse refs/remotes/origin/main)" ]]; then
+  echo "Il commit corrente non coincide con origin/main." >&2
+  exit 1
+fi
+if git show-ref --verify --quiet "refs/tags/${VERSIONE}"; then
+  echo "L'etichetta locale ${VERSIONE} esiste già ed è immutabile." >&2
+  exit 1
+fi
+if git ls-remote --exit-code --tags origin "refs/tags/${VERSIONE}" >/dev/null 2>&1; then
+  echo "L'etichetta remota ${VERSIONE} esiste già ed è immutabile." >&2
+  exit 1
+fi
 if gh release view "$VERSIONE" --repo "$DEPOSITO" >/dev/null 2>&1; then
-  gh release upload "$VERSIONE" \
-    distribuzione/formulario-analisi-matematica-1.pdf \
-    distribuzione/formulario-analisi-matematica-1-sorgenti.zip \
-    distribuzione/SOMME-DI-CONTROLLO-SHA256.txt \
-    --clobber --repo "$DEPOSITO"
-  gh release edit "$VERSIONE" \
-    --title "Formulario di Analisi Matematica I ${VERSIONE}" \
-    --notes-file NOTE-DI-PUBBLICAZIONE.md \
-    --repo "$DEPOSITO"
-else
-  gh release create "$VERSIONE" \
-    distribuzione/formulario-analisi-matematica-1.pdf \
-    distribuzione/formulario-analisi-matematica-1-sorgenti.zip \
-    distribuzione/SOMME-DI-CONTROLLO-SHA256.txt \
-    --title "Formulario di Analisi Matematica I ${VERSIONE}" \
-    --notes-file NOTE-DI-PUBBLICAZIONE.md \
-    --repo "$DEPOSITO"
+  echo "La Release ${VERSIONE} esiste già ed è immutabile." >&2
+  exit 1
 fi
 
-echo "Versione pubblicata o aggiornata: https://github.com/${DEPOSITO}/releases/tag/${VERSIONE}"
+git tag -a "$VERSIONE" -m "Formulario di Analisi Matematica I ${VERSIONE}"
+git push origin "refs/tags/${VERSIONE}"
+
+echo "Etichetta ${VERSIONE} inviata. GitHub Actions compilerà e pubblicherà la nuova Release."
+echo "Controlla l'esecuzione: https://github.com/${DEPOSITO}/actions"

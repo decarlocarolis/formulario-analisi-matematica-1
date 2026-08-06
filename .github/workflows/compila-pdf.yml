@@ -1,4 +1,4 @@
-name: Compila e pubblica il PDF
+name: Verifica, compila e pubblica il PDF
 
 on:
   push:
@@ -8,22 +8,59 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   compilazione:
+    name: Controllo e compilazione
     runs-on: ubuntu-latest
+    timeout-minutes: 40
     steps:
       - name: Scarica il deposito
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           fetch-depth: 0
 
-      - name: Controlla la struttura del progetto
+      - name: Configura Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.13'
+          cache: pip
+
+      - name: Installa le dipendenze delle verifiche
+        run: python -m pip install --disable-pip-version-check -r requisiti-verifica.txt
+
+      - name: Controlla struttura, metadati e sicurezza della pubblicazione
         run: python strumenti/controlla_progetto.py
 
+      - name: Esegue le verifiche simboliche
+        run: python strumenti/verifica_formule.py
+
+      - name: Verifica l'etichetta di versione
+        if: github.ref_type == 'tag'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          versione_documento="$(python -c 'import json; print(json.load(open("formulario.json", encoding="utf-8"))["documento"]["versione"])')"
+          etichetta_documento="v${versione_documento#v.}"
+          if [[ "${GITHUB_REF_NAME}" != "${etichetta_documento}" ]]; then
+            echo "L'etichetta ${GITHUB_REF_NAME} non coincide con la versione ${versione_documento}." >&2
+            exit 1
+          fi
+          git fetch --quiet origin main
+          if ! git merge-base --is-ancestor "${GITHUB_SHA}" origin/main; then
+            echo "L'etichetta deve puntare a un commit appartenente al ramo main." >&2
+            exit 1
+          fi
+          if gh release view "${GITHUB_REF_NAME}" >/dev/null 2>&1; then
+            echo "La Release ${GITHUB_REF_NAME} esiste già ed è immutabile." >&2
+            exit 1
+          fi
+
       - name: Compila il documento LaTeX
-        uses: xu-cheng/latex-action@v4
+        uses: xu-cheng/latex-action@6549dc21effb2730855a1281407ecfcececc6c1b # v4
         with:
           root_file: formulario.tex
           args: -file-line-error -halt-on-error -interaction=nonstopmode -outdir=compilazione
@@ -44,46 +81,50 @@ jobs:
             > distribuzione/SOMME-DI-CONTROLLO-SHA256.txt
 
       - name: Conserva i file della compilazione
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: pacchetto-formulario-analisi-matematica-1
           path: |
             distribuzione/formulario-analisi-matematica-1.pdf
             distribuzione/formulario-analisi-matematica-1-sorgenti.zip
             distribuzione/SOMME-DI-CONTROLLO-SHA256.txt
+          if-no-files-found: error
+          retention-days: 30
 
-      - name: Sposta l'etichetta v1.2 sulla correzione editoriale
-        if: github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, '[ripubblica-v1.2]')
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name "Automazione Ingegnerismo"
-          git config user.email "actions@users.noreply.github.com"
-          git tag -f -a v1.2 "${GITHUB_SHA}" \
-            -m "Formulario di Analisi Matematica I v.1.2 - correzioni grafiche e tipografiche"
-          git push --force origin refs/tags/v1.2
+  pubblicazione:
+    name: Pubblicazione della nuova versione
+    if: github.event_name == 'push' && github.ref_type == 'tag'
+    needs: compilazione
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Scarica il deposito
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
 
-      - name: Crea o aggiorna la versione pubblicata su GitHub
-        if: github.ref_type == 'tag'
+      - name: Recupera i file verificati
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
+        with:
+          name: pacchetto-formulario-analisi-matematica-1
+          path: distribuzione
+
+      - name: Pubblica la nuova Release immutabile
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           if gh release view "${GITHUB_REF_NAME}" >/dev/null 2>&1; then
-            gh release upload "${GITHUB_REF_NAME}" \
-              distribuzione/formulario-analisi-matematica-1.pdf \
-              distribuzione/formulario-analisi-matematica-1-sorgenti.zip \
-              distribuzione/SOMME-DI-CONTROLLO-SHA256.txt \
-              --clobber
-            gh release edit "${GITHUB_REF_NAME}" \
-              --title "Formulario di Analisi Matematica I ${GITHUB_REF_NAME}" \
-              --notes-file NOTE-DI-PUBBLICAZIONE.md
-          else
-            gh release create "${GITHUB_REF_NAME}" \
-              distribuzione/formulario-analisi-matematica-1.pdf \
-              distribuzione/formulario-analisi-matematica-1-sorgenti.zip \
-              distribuzione/SOMME-DI-CONTROLLO-SHA256.txt \
-              --title "Formulario di Analisi Matematica I ${GITHUB_REF_NAME}" \
-              --notes-file NOTE-DI-PUBBLICAZIONE.md
+            echo "La Release ${GITHUB_REF_NAME} esiste già: non verrà modificata." >&2
+            exit 1
           fi
+          gh release create "${GITHUB_REF_NAME}" \
+            distribuzione/formulario-analisi-matematica-1.pdf \
+            distribuzione/formulario-analisi-matematica-1-sorgenti.zip \
+            distribuzione/SOMME-DI-CONTROLLO-SHA256.txt \
+            --title "Formulario di Analisi Matematica I ${GITHUB_REF_NAME}" \
+            --notes-file NOTE-DI-PUBBLICAZIONE.md \
+            --verify-tag

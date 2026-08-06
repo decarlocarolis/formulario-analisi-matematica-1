@@ -1,0 +1,34 @@
+{
+  "versioneSchema": 1,
+  "documento": {
+    "slug": "formulario-analisi-1",
+    "titolo": "Formulario di Analisi Matematica I",
+    "sottotitolo": "Metodi, procedure e formule per risolvere gli esercizi d'esame",
+    "versione": "v.1.2",
+    "dataEdizione": "2026-08-06",
+    "lingua": "it"
+  },
+  "autore": {
+    "nome": "Carlo de Carolis",
+    "sitoUrl": "https://ingegnerismo.it/"
+  },
+  "licenza": {
+    "codice": "CC-BY-NC-4.0",
+    "nome": "Creative Commons Attribuzione-Non commerciale 4.0 Internazionale",
+    "url": "https://creativecommons.org/licenses/by-nc/4.0/deed.it",
+    "dettagliUrl": "https://github.com/decarlocarolis/formulario-analisi-matematica-1/blob/main/LICENZA.md"
+  },
+  "sorgente": {
+    "repositoryUrl": "https://github.com/decarlocarolis/formulario-analisi-matematica-1",
+    "commit": "eefc1db6fae65a6c08d00825526366a18461233a",
+    "commitUrl": "https://github.com/decarlocarolis/formulario-analisi-matematica-1/commit/eefc1db6fae65a6c08d00825526366a18461233a"
+  },
+  "pubblicazioneSito": {
+    "canale": "ingegnerismo.it",
+    "paginaUrl": "https://ingegnerismo.it/matematica/formulario-analisi-1/",
+    "pdfUrl": "https://ingegnerismo.it/downloads/formulari/formulario-analisi-1/formulario-analisi-matematica-1-v1.2.pdf",
+    "nomeFile": "formulario-analisi-matematica-1-v1.2.pdf",
+    "pagine": 130,
+    "sha256": "7498b75318c4442a22dc69a5a3d8e390c93ed3eb84551db759c6fabe8eb61519"
+  }
+}

@@ -1,79 +1,98 @@
 # Formulario di Analisi Matematica I
 
-Formulario operativo per la preparazione degli esami di Analisi Matematica I nei corsi di ingegneria e nelle lauree STEM.
+Formulario operativo per la preparazione degli esami di Analisi Matematica I nei
+corsi di ingegneria e nelle lauree STEM.
 
 ## Principio editoriale
 
-Il documento è organizzato per risolvere problemi: **riconoscere la traccia → scegliere il metodo → applicare la procedura → controllare il risultato**. Le definizioni e i teoremi compaiono soltanto nella misura necessaria a usare correttamente formule e criteri. Le equazioni differenziali ordinarie sono escluse e rimangono nel formulario dedicato di EDO e Analisi Numerica.
+Il documento segue il flusso **riconoscere la traccia → scegliere il metodo →
+applicare la procedura → controllare il risultato**. La teoria compare soltanto
+nella misura necessaria a usare correttamente formule, criteri e teoremi. Le EDO
+sono escluse e restano nel formulario dedicato.
 
 ## Sorgente canonico
 
-Il sorgente canonico è il progetto LaTeX. Il file Markdown nella cartella `archivio/` è una copia storica della versione precedente e non deve essere modificato.
+Il sorgente canonico è il progetto LaTeX. Il Markdown in `archivio/` è una copia
+storica e non deve essere aggiornato dopo la migrazione.
 
-## Struttura del deposito
+File principali:
 
 - `formulario.tex`: documento principale;
+- `formulario.json`: metadati verificabili della copia pubblicata;
 - `metadati.tex`: titolo, versione, data e indirizzi;
-- `comandi.tex`: comandi matematici specifici del volume;
-- `formulario-ingegnerismo.cls`: stile tipografico comune;
-- `capitoli/`: capitoli LaTeX;
-- `preliminari/`: copertina, guida d'uso e mappa degli esercizi;
-- `conclusioni/`: lista di controllo finale;
-- `archivio/`: sorgente Markdown storico;
-- `strumenti/`: controlli, compilazione e pubblicazione;
-- `distribuzione/`: PDF e pacchetti generati, esclusi dalla cronologia Git;
-- `.github/workflows/`: compilazione automatica e pubblicazione delle versioni.
+- `formulario-ingegnerismo.cls`: stile tipografico della collana;
+- `STILE-COLLANA.json`: versione e impronte della classe e del logo;
+- `capitoli/`, `preliminari/`, `conclusioni/`: contenuto LaTeX;
+- `strumenti/`: controlli, test, compilazione e pubblicazione;
+- `CONTRIBUTING.md`: modalità di segnalazione e contributo.
 
-I nomi `README.md`, `Makefile`, `.github`, `.gitignore`, `.gitattributes` e alcune chiavi dei file YAML restano invariati perché sono convenzioni tecniche richieste o riconosciute automaticamente dagli strumenti. Tutta la documentazione, i commenti, i messaggi, i nomi scelti liberamente e i contenuti destinati alle persone sono in italiano.
-
-## Identità grafica
-
-La classe `formulario-ingegnerismo.cls` applica la palette derivata dal marchio, la gerarchia dei titoli, i riquadri operativi, le tabelle e le intestazioni. Copertina, aperture di parte e pagina conclusiva condividono lo stesso piè di pagina editoriale: `ingegnerismo.it` è la firma principale, mentre autore e metadati non vengono ripetuti. Il logo sorgente è conservato in `risorse/marchio/` come SVG; il documento utilizza la copia vettoriale PDF per una compilazione stabile. Le regole comuni sono descritte in `LINEE-GUIDA-GRAFICHE.md`.
+Documentazione, commenti e messaggi destinati alle persone sono in italiano. I
+nomi tecnici imposti dagli strumenti, come `README.md`, `Makefile` e `.github`,
+restano invariati.
 
 ## Compilazione locale
 
-Serve una distribuzione TeX completa con XeLaTeX. Il comando seguente controlla il progetto, esegue due passaggi di compilazione e genera il PDF:
+Serve una distribuzione TeX completa con XeLaTeX e Python:
 
 ```bash
+python -m pip install -r requisiti-verifica.txt
 make pdf
 ```
 
-Il PDF viene scritto in:
-
-```text
-distribuzione/formulario-analisi-matematica-1.pdf
-```
-
-Altri comandi disponibili:
+Comandi disponibili:
 
 ```bash
 make controlla
-make pulisci
+make verifica-formule
+make pdf
 make pacchetto-sorgenti
+make pulisci
 ```
 
-## Versionamento
+Il PDF viene scritto in
+`distribuzione/formulario-analisi-matematica-1.pdf`.
 
-- modifiche al sorgente: registrazioni Git;
-- versione editoriale visualizzata: `v.MAGGIORE.MINORE` in `metadati.tex` e `CRONOLOGIA.md`;
-- versione pubblica: etichetta Git `vMAGGIORE.MINORE`, senza il punto dopo `v`;
-- file PDF stabile: `formulario-analisi-matematica-1.pdf`;
-- pacchetto dei sorgenti: `formulario-analisi-matematica-1-sorgenti.zip`.
+## Versionamento e pubblicazione
 
-## Collegamento dal sito
+- versione nel documento: `v.MAGGIORE.MINORE`, per esempio `v.1.3`;
+- tag Git: `vMAGGIORE.MINORE`, per esempio `v1.3`;
+- sono ammessi `v1.9`, `v1.10` e `v2.0`;
+- tag, Release e allegati pubblicati sono immutabili;
+- ogni modifica che cambia il PDF richiede una nuova versione.
 
-Dopo la prima pubblicazione GitHub, l'indirizzo stabile del PDF sarà:
+Lo script `strumenti/pubblica-versione.sh v1.3` controlla il progetto, verifica
+che `main` sia pulito e sincronizzato, rifiuta versioni già esistenti e invia
+soltanto il nuovo tag. GitHub Actions compila e crea la Release.
+
+## Pubblicazione sul sito
+
+Pagina editoriale:
 
 ```text
-https://github.com/decarlocarolis/formulario-analisi-matematica-1/releases/latest/download/formulario-analisi-matematica-1.pdf
+https://ingegnerismo.it/matematica/formulario-analisi-1/
 ```
 
-Il PDF non viene inserito nella cronologia del ramo `main`: viene ricompilato dal flusso automatico e allegato a ogni versione pubblicata. Il sito può conservarne anche una copia sul proprio dominio; GitHub mantiene sorgenti, etichette, versioni pubblicate e somme di controllo.
+La copia pubblicata sul sito, il relativo checksum e il commit sorgente sono
+registrati in `formulario.json`. Copie con lo stesso numero di versione ma hash
+diversi devono essere considerate artefatti distinti.
 
-Quando occorre correggere gli artefatti senza cambiare il numero editoriale, lo script `strumenti/pubblica-versione.sh v1.2` aggiorna l'etichetta e sostituisce i file della versione GitHub esistente. Questa operazione va usata soltanto per correzioni interne alla stessa versione dichiarata.
+## Sicurezza del flusso
+
+Il workflow usa permessi di sola lettura durante controllo e compilazione; il
+permesso di scrittura è concesso soltanto al job che crea una nuova Release. Le
+GitHub Actions sono fissate a commit SHA completi e Dependabot propone gli
+aggiornamenti delle dipendenze.
+
+## Partecipare
+
+I modelli guidati permettono di segnalare errori matematici, proporre
+miglioramenti e descrivere problemi grafici o di accessibilità. Le istruzioni
+complete sono in `CONTRIBUTING.md`; in alternativa è disponibile la pagina
+https://ingegnerismo.it/contribuisci/.
 
 ## Licenza
 
-Salvo diversa indicazione, i contenuti editoriali, il PDF e i sorgenti LaTeX sono concessi con licenza **Creative Commons Attribuzione–Non commerciale 4.0 Internazionale (CC BY-NC 4.0)**. Sono consentite condivisione e modifiche per finalità non commerciali, con attribuzione a **Carlo de Carolis**, collegamento a **ingegnerismo.it**, indicazione della licenza e delle modifiche effettuate.
-
-Il logo e i segni distintivi di ingegnerismo.it sono esclusi dalla licenza. L'autore conserva il diritto di pubblicare e vendere future edizioni, comprese quelle cartacee. La licenza applicata alle versioni già pubblicate resta irrevocabile nei termini della CC BY-NC 4.0. Ambito, attribuzione consigliata ed esclusioni sono specificati in [`LICENZA.md`](LICENZA.md).
+PDF, contenuti editoriali e sorgenti LaTeX sono concessi con licenza **CC BY-NC
+4.0**. Logo e segni distintivi sono esclusi. Gli strumenti tecnici non sono
+inclusi nella licenza editoriale e restano soggetti alle condizioni di
+`LICENZA.md`.

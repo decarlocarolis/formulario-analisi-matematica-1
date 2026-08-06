@@ -67,7 +67,8 @@ sito; il logo deve essere rimosso, salvo autorizzazione separata.
 Eventuali materiali di terzi restano soggetti ai rispettivi diritti e alle
 rispettive licenze. Gli script, i flussi di automazione e gli altri strumenti
 tecnici del deposito non rientrano nella licenza editoriale, salvo indicazione
-esplicita nel relativo file.
+esplicita nel relativo file. In assenza di tale indicazione, tutti i diritti
+sugli strumenti tecnici restano riservati.
 
 Il materiale è fornito senza garanzie. Questa pagina descrive l'ambito applicato
 al progetto; in caso di contrasto prevale il codice legale ufficiale della

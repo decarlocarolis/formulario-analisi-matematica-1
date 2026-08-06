@@ -1,8 +1,6 @@
 name: Segnalazione di errore matematico
 description: Segnala una formula, una condizione, una procedura o un riferimento da correggere.
 title: "[Errore] "
-labels:
-  - errore-matematico
 body:
   - type: input
     id: versione
@@ -18,6 +16,14 @@ body:
       label: Posizione
       description: Indica capitolo, sezione e pagina del PDF.
       placeholder: "Capitolo 7, Limiti di funzione, pagina 64"
+    validations:
+      required: true
+  - type: input
+    id: copia
+    attributes:
+      label: Collegamento o origine della copia consultata
+      description: Indica l'URL del PDF oppure specifica se proviene da ingegnerismo.it, GitHub o un altro canale.
+      placeholder: "https://ingegnerismo.it/downloads/.../formulario-analisi-matematica-1-v1.2.pdf"
     validations:
       required: true
   - type: textarea
@@ -48,3 +54,12 @@ body:
       description: Indica manuale, appunti ufficiali, articolo o calcolo che supporta la segnalazione.
     validations:
       required: false
+  - type: checkboxes
+    id: conferme
+    attributes:
+      label: Conferme
+      options:
+        - label: Ho verificato versione e pagina nella copia indicata.
+          required: true
+        - label: La segnalazione è originale e non riproduce materiale protetto di terzi.
+          required: true
