@@ -1,0 +1,60 @@
+name: Applica la revisione grafica v.1.2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - aggiornamento-grafico-v1.2-avvia.txt
+
+permissions:
+  contents: write
+
+jobs:
+  aggiornamento:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Scarica il ramo principale
+        uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Ricostruisce e verifica il progetto aggiornato
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat aggiornamento-grafico-v1.2/pacchetto.parte-* > /tmp/aggiornamento-grafico.b64
+          base64 --decode /tmp/aggiornamento-grafico.b64 > /tmp/aggiornamento-grafico.tar.xz
+          echo "e71b89457b629b797d894508cd4b474ab7cd3f763edc3760c19d589916f559bf  /tmp/aggiornamento-grafico.tar.xz" | sha256sum --check -
+          rm -rf /tmp/progetto-aggiornato
+          mkdir -p /tmp/progetto-aggiornato
+          tar -xJf /tmp/aggiornamento-grafico.tar.xz -C /tmp/progetto-aggiornato
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp -a /tmp/progetto-aggiornato/. ./
+          python strumenti/controlla_progetto.py
+
+      - name: Compila il PDF per la verifica preventiva
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: formulario.tex
+          args: -file-line-error -halt-on-error -interaction=nonstopmode -outdir=compilazione
+          latexmk_use_xelatex: true
+          texlive_version: 2026
+          os: debian
+
+      - name: Registra il progetto grafico definitivo
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "Automazione Ingegnerismo"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git commit -m "Ridisegna il formulario mantenendo la versione v.1.2"
+          git push origin HEAD:main
+
+      - name: Aggiorna l'etichetta v1.2
+        shell: bash
+        run: |
+          set -euo pipefail
+          git tag -f -a v1.2 -m "Formulario di Analisi Matematica I v.1.2 - revisione grafica"
+          git push --force origin refs/tags/v1.2
