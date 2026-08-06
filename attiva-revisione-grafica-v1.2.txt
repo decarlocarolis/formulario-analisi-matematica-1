@@ -1,3 +1,3 @@
 Questo file attiva esclusivamente il flusso tecnico temporaneo che applica la revisione grafica del Formulario di Analisi Matematica I mantenendo la versione v.1.2.
 
-Quarta esecuzione: pubblicazione definitiva del sorgente, aggiornamento forzato protetto del ramo principale e sostituzione degli allegati della release v1.2.
+Quinta esecuzione: i sorgenti canonici vengono registrati separatamente dai file di workflow; la release v1.2 viene aggiornata con PDF, sorgenti e somme di controllo in italiano.
