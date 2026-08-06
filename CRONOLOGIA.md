@@ -20,7 +20,12 @@ Tutte le modifiche rilevanti del formulario sono registrate in questo file.
 - copertina ridisegnata con logo vettoriale;
 - nuova gerarchia per parti, capitoli e sezioni;
 - riquadri operativi, tabelle, intestazioni e piè di pagina uniformati;
-- versione editoriale e pubblicazione GitHub mantenute a `v.1.2`.
+- versione editoriale e pubblicazione GitHub mantenute a `v.1.2`;
+- associazione cromatica dei riquadri resa semantica e non ambigua: rosso per gli errori, verde per i controlli, giallo per le formule chiave e blu per struttura, metodo e procedure;
+- testate dei riquadri integrate nel bordo, con geometria e spaziature uniformi;
+- dicitura `ingegnerismo.it` ingrandita accanto al logo in copertina, nelle pagine di parte e nella pagina conclusiva;
+- parentesi graffe estensibili affidate a un fallback matematico dedicato per eliminare giunzioni e artefatti di rendering;
+- compilazione automatica fissata a TeX Live 2025 per evitare regressioni dei delimitatori osservate nella toolchain successiva.
 
 ### Modificato
 
