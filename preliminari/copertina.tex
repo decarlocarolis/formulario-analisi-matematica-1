@@ -50,47 +50,18 @@
       \end{minipage}%
     };
 
-  % Linea di base comune a metadati e marchio.
-  \draw[IngLinea,line width=.6pt]
-    ([xshift=35mm,yshift=38mm]current page.south west) --
-    ([xshift=-14mm,yshift=38mm]current page.south east);
+  % Piè di pagina editoriale comune. Il sito è il riferimento principale;
+  % l'autore compare una sola volta, insieme ai dati dell'edizione.
+  \PiedePaginaApertura{%
+    {\sffamily\small\color{IngBluScuro}\textbf{© 2026 \FormularioAutore}\par}
+    \vspace{1.2mm}
+    {\sffamily\footnotesize\color{IngGrigio}
+      \FormularioVersione\quad\textcolor{IngGrigioMedio}{|}\quad\FormularioData\par}
+    \vspace{1.2mm}
+    {\sffamily\scriptsize\color{IngGrigio}
+      \href{\LicenzaURL}{\textcolor{IngBlu}{\LicenzaNome}}\par}
+  }
 
-  % Metadati e licenza sintetica in basso a sinistra.
-  \node[anchor=south west,inner sep=0pt]
-    at ([xshift=35mm,yshift=14mm]current page.south west) {%
-      \begin{minipage}{92mm}
-        {\sffamily\small\color{IngBluScuro}
-          \textbf{\FormularioAutore}\par}
-        \vspace{1.5mm}
-        {\sffamily\footnotesize\color{IngGrigio}
-          \FormularioVersione\quad\textcolor{IngGrigioMedio}{|}\quad\FormularioData\par}
-        \vspace{2.2mm}
-        {\sffamily\scriptsize\color{IngGrigio}
-          © 2026 \FormularioAutore\quad\textcolor{IngGrigioMedio}{|}\quad
-          \href{\LicenzaURL}{\textcolor{IngBlu}{\LicenzaNome}}\par}
-        \vspace{.8mm}
-        {\sffamily\scriptsize\color{IngGrigio}
-          Attribuzione: \href{\SitoURL}{\textcolor{IngBlu}{\LicenzaAttribuzione}}\par}
-      \end{minipage}%
-    };
-
-  % Marchio in basso a destra: firma editoriale, non concorrente del titolo.
-  \node[anchor=south east,inner sep=0pt]
-    at ([xshift=-14mm,yshift=13mm]current page.south east) {%
-      \begin{minipage}{76mm}
-        \raggedleft
-        \begin{minipage}[c]{23mm}
-          \LogoIngegnerismo[21mm]
-        \end{minipage}
-        \hspace{3mm}
-        \begin{minipage}[c]{50mm}
-          \raggedleft
-          {\sffamily\bfseries\fontsize{21}{23}\selectfont\color{IngBluScuro}ingegnerismo.it\par}
-          \vspace{.7mm}
-          {\sffamily\scriptsize\color{IngGrigio}Atlante e strumenti per l'ingegneria\par}
-        \end{minipage}
-      \end{minipage}%
-    };
 \end{tikzpicture}
 
 \end{titlepage}
