@@ -1,9 +1,10 @@
 name: Bootstrap canonical LaTeX source v1.2
 
 on:
-  push:
+  pull_request:
+    branches: [main]
     paths:
-      - ".github/workflows/bootstrap-source.yml"
+      - "trigger-bootstrap.txt"
   workflow_dispatch:
 
 permissions:
@@ -13,9 +14,10 @@ jobs:
   bootstrap:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout staging repository
+      - name: Checkout main staging repository
         uses: actions/checkout@v7
         with:
+          ref: main
           fetch-depth: 0
 
       - name: Restore and validate canonical source
@@ -28,8 +30,6 @@ jobs:
           mkdir -p /tmp/formulario-source
           tar -xJf /tmp/formulario-source.tar.xz -C /tmp/formulario-source
           cp -a /tmp/formulario-source/. ./
-          mkdir -p .github/workflows
-          printf '%s' 'bmFtZTogQnVpbGQgYW5kIHJlbGVhc2UgUERGCgpvbjoKICBwdXNoOgogICAgYnJhbmNoZXM6IFttYWluXQogICAgdGFnczoKICAgICAgLSAidiouKiIKICBwdWxsX3JlcXVlc3Q6CiAgd29ya2Zsb3dfZGlzcGF0Y2g6CgpwZXJtaXNzaW9uczoKICBjb250ZW50czogd3JpdGUKCmpvYnM6CiAgYnVpbGQ6CiAgICBydW5zLW9uOiB1YnVudHUtbGF0ZXN0CiAgICBzdGVwczoKICAgICAgLSBuYW1lOiBDaGVja291dAogICAgICAgIHVzZXM6IGFjdGlvbnMvY2hlY2tvdXRAdjcKICAgICAgICB3aXRoOgogICAgICAgICAgZmV0Y2gtZGVwdGg6IDAKCiAgICAgIC0gbmFtZTogVmFsaWRhdGUgcHJvamVjdAogICAgICAgIHJ1bjogcHl0aG9uIHRvb2xzL2NoZWNrX3Byb2plY3QucHkKCiAgICAgIC0gbmFtZTogQ29tcGlsZSBMYVRlWAogICAgICAgIHVzZXM6IHh1LWNoZW5nL2xhdGV4LWFjdGlvbkB2NAogICAgICAgIHdpdGg6CiAgICAgICAgICByb290X2ZpbGU6IG1haW4udGV4CiAgICAgICAgICBsYXRleG1rX3VzZV94ZWxhdGV4OiB0cnVlCiAgICAgICAgICBhcmdzOiAtZmlsZS1saW5lLWVycm9yIC1oYWx0LW9uLWVycm9yIC1pbnRlcmFjdGlvbj1ub25zdG9wbW9kZSAtb3V0ZGlyPWJ1aWxkCiAgICAgICAgICB0ZXhsaXZlX3ZlcnNpb246IDIwMjYKICAgICAgICAgIG9zOiBkZWJpYW4KCiAgICAgIC0gbmFtZTogUHJlcGFyZSBkaXN0cmlidXRhYmxlIGZpbGVzCiAgICAgICAgcnVuOiB8CiAgICAgICAgICBta2RpciAtcCBkaXN0CiAgICAgICAgICBjcCBidWlsZC9tYWluLnBkZiBkaXN0L2Zvcm11bGFyaW8tYW5hbGlzaS1tYXRlbWF0aWNhLTEucGRmCiAgICAgICAgICBnaXQgYXJjaGl2ZSAtLWZvcm1hdD16aXAgLS1vdXRwdXQ9ZGlzdC9mb3JtdWxhcmlvLWFuYWxpc2ktbWF0ZW1hdGljYS0xLXNvdXJjZS56aXAgSEVBRAogICAgICAgICAgc2hhMjU2c3VtIFwKICAgICAgICAgICAgZGlzdC9mb3JtdWxhcmlvLWFuYWxpc2ktbWF0ZW1hdGljYS0xLnBkZiBcCiAgICAgICAgICAgIGRpc3QvZm9ybXVsYXJpby1hbmFsaXNpLW1hdGVtYXRpY2EtMS1zb3VyY2UuemlwIFwKICAgICAgICAgICAgPiBkaXN0L1NIQTI1NlNVTVMudHh0CgogICAgICAtIG5hbWU6IFVwbG9hZCBidWlsZCBhcnRpZmFjdAogICAgICAgIHVzZXM6IGFjdGlvbnMvdXBsb2FkLWFydGlmYWN0QHY3CiAgICAgICAgd2l0aDoKICAgICAgICAgIG5hbWU6IGZvcm11bGFyaW8tYW5hbGlzaS1tYXRlbWF0aWNhLTEKICAgICAgICAgIHBhdGg6IHwKICAgICAgICAgICAgZGlzdC9mb3JtdWxhcmlvLWFuYWxpc2ktbWF0ZW1hdGljYS0xLnBkZgogICAgICAgICAgICBkaXN0L2Zvcm11bGFyaW8tYW5hbGlzaS1tYXRlbWF0aWNhLTEtc291cmNlLnppcAogICAgICAgICAgICBkaXN0L1NIQTI1NlNVTVMudHh0CgogICAgICAtIG5hbWU6IFB1Ymxpc2ggR2l0SHViIFJlbGVhc2UKICAgICAgICBpZjogZ2l0aHViLnJlZl90eXBlID09ICd0YWcnCiAgICAgICAgdXNlczogc29mdHByb3BzL2FjdGlvbi1naC1yZWxlYXNlQHYzCiAgICAgICAgd2l0aDoKICAgICAgICAgIGdlbmVyYXRlX3JlbGVhc2Vfbm90ZXM6IHRydWUKICAgICAgICAgIGZpbGVzOiB8CiAgICAgICAgICAgIGRpc3QvZm9ybXVsYXJpby1hbmFsaXNpLW1hdGVtYXRpY2EtMS5wZGYKICAgICAgICAgICAgZGlzdC9mb3JtdWxhcmlvLWFuYWxpc2ktbWF0ZW1hdGljYS0xLXNvdXJjZS56aXAKICAgICAgICAgICAgZGlzdC9TSEEyNTZTVU1TLnR4dAo=' | base64 --decode > .github/workflows/build-pdf.yml
           rm -rf bootstrap
           rm -f .github/workflows/bootstrap-source.yml
           python tools/check_project.py
@@ -60,7 +60,10 @@ jobs:
           mkdir -p dist
           cp build/main.pdf dist/formulario-analisi-matematica-1.pdf
           git archive --format=zip --output=dist/formulario-analisi-matematica-1-source.zip HEAD
-          sha256sum dist/formulario-analisi-matematica-1.pdf dist/formulario-analisi-matematica-1-source.zip > dist/SHA256SUMS.txt
+          sha256sum \
+            dist/formulario-analisi-matematica-1.pdf \
+            dist/formulario-analisi-matematica-1-source.zip \
+            > dist/SHA256SUMS.txt
 
       - name: Publish release v1.2
         shell: bash
@@ -68,6 +71,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
+          if gh release view v1.2 >/dev/null 2>&1; then
+            gh release delete v1.2 --yes --cleanup-tag
+          elif git ls-remote --exit-code --tags origin refs/tags/v1.2 >/dev/null 2>&1; then
+            git push origin :refs/tags/v1.2
+          fi
           git tag -a v1.2 -m "Formulario di Analisi Matematica I v.1.2"
           git push origin v1.2
           cat > /tmp/release-notes.md <<'EOF'
@@ -75,4 +83,9 @@ jobs:
 
           Il formulario è orientato alla preparazione degli esami: riconoscimento del problema, scelta del metodo, procedura e controllo del risultato. Le EDO sono escluse e rimangono nel formulario dedicato di EDO e Analisi Numerica.
           EOF
-          gh release create v1.2 dist/formulario-analisi-matematica-1.pdf dist/formulario-analisi-matematica-1-source.zip dist/SHA256SUMS.txt --title "Formulario di Analisi Matematica I v.1.2" --notes-file /tmp/release-notes.md
+          gh release create v1.2 \
+            dist/formulario-analisi-matematica-1.pdf \
+            dist/formulario-analisi-matematica-1-source.zip \
+            dist/SHA256SUMS.txt \
+            --title "Formulario di Analisi Matematica I v.1.2" \
+            --notes-file /tmp/release-notes.md
