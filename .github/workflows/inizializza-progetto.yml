@@ -22,14 +22,14 @@ jobs:
         shell: bash
         run: |
           cat caricamento/pacchetto.parte-* > pacchetto.b64
-          base64 --decode pacchetto.b64 > pacchetto-iniziale.zip
+          base64 --decode pacchetto.b64 > pacchetto-iniziale.tar.xz
           rm -rf estrazione
           mkdir -p estrazione
-          unzip -q pacchetto-iniziale.zip -d estrazione
+          tar -xJf pacchetto-iniziale.tar.xz -C estrazione
           shopt -s dotglob
           cp -a estrazione/formulario-analisi-matematica-1-v1.2-sorgenti/. .
           rm -rf estrazione caricamento
-          rm -f pacchetto.b64 pacchetto-iniziale.zip pacchetto-pronto.txt
+          rm -f pacchetto.b64 pacchetto-iniziale.tar.xz pacchetto-pronto.txt
           rm -f .github/workflows/inizializza-progetto.yml
 
       - name: Controlla la struttura del progetto
