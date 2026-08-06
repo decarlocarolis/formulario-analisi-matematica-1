@@ -145,8 +145,40 @@
   \includegraphics[width=#1]{risorse/marchio/logo-ingegnerismo-bandiera.pdf}%
 }
 \newcommand{\FirmaIngegnerismo}{%
-  \textcolor{IngBlu}{\rule{1.5mm}{1.5mm}}\hspace{1.2mm}%
-  \href{\SitoURL}{\textcolor{IngBluScuro}{\sffamily\bfseries ingegnerismo.it}}%
+  \href{\SitoURL}{\textcolor{IngBluScuro}{\sffamily\bfseries\small ingegnerismo.it}}%
+}
+
+% Piè di pagina comune alle pagine di apertura: il sito è la firma principale.
+% L'argomento contiene soltanto i metadati secondari specifici della pagina.
+\newcommand{\PiedePaginaApertura}[1]{%
+  \draw[IngLinea,line width=.6pt]
+    ([xshift=35mm,yshift=38mm]current page.south west) --
+    ([xshift=-14mm,yshift=38mm]current page.south east);
+
+  \node[anchor=south west,inner sep=0pt]
+    at ([xshift=35mm,yshift=12.5mm]current page.south west) {%
+      \begin{minipage}{96mm}
+        \begin{minipage}[c]{14mm}
+          \LogoIngegnerismo[12mm]
+        \end{minipage}%
+        \hspace{2.8mm}%
+        \begin{minipage}[c]{76mm}
+          \href{\SitoURL}{%
+            \textcolor{IngBluScuro}{\sffamily\bfseries\fontsize{19}{21}\selectfont ingegnerismo.it}%
+          }\par
+          \vspace{.6mm}
+          {\sffamily\scriptsize\color{IngGrigio}Formulari operativi per ingegneria e discipline STEM\par}
+        \end{minipage}
+      \end{minipage}%
+    };
+
+  \node[anchor=south east,inner sep=0pt]
+    at ([xshift=-14mm,yshift=14mm]current page.south east) {%
+      \begin{minipage}{63mm}
+        \raggedleft
+        #1
+      \end{minipage}%
+    };
 }
 
 % Stile comune dei riquadri: testata integrata, bordi sobri e codifica semantica stabile.
@@ -317,31 +349,13 @@
         \end{minipage}%
       };
 
-    % Linea di base comune a metadati e marchio.
-    \draw[IngLinea,line width=.6pt]
-      ([xshift=35mm,yshift=38mm]current page.south west) --
-      ([xshift=-14mm,yshift=38mm]current page.south east);
-
-    % Riferimento al volume in basso a sinistra.
-    \node[anchor=south west,inner sep=0pt]
-      at ([xshift=35mm,yshift=14mm]current page.south west) {%
-        \begin{minipage}{92mm}
-          {\sffamily\small\color{IngBluScuro}\FormularioTitolo\par}
-          \vspace{1.2mm}
-          {\sffamily\footnotesize\color{IngGrigio}
-            \FormularioVersione\quad\textcolor{IngGrigioMedio}{|}\quad\FormularioData\par}
-        \end{minipage}%
-      };
-
-    % Firma editoriale in basso a destra.
-    \node[anchor=south east,inner sep=0pt]
-      at ([xshift=-14mm,yshift=13mm]current page.south east) {%
-        \begin{minipage}{67mm}
-          \raggedleft
-          \LogoIngegnerismo[18mm]\hspace{2.6mm}%
-          \raisebox{5.4mm}{\textcolor{IngBluScuro}{\sffamily\bfseries\fontsize{18}{20}\selectfont ingegnerismo.it}}
-        \end{minipage}%
-      };
+    % Piè di pagina editoriale comune: il sito precede i metadati del volume.
+    \PiedePaginaApertura{%
+      {\sffamily\small\color{IngBluScuro}\FormularioTitolo\par}
+      \vspace{1.1mm}
+      {\sffamily\footnotesize\color{IngGrigio}
+        \FormularioVersione\quad\textcolor{IngGrigioMedio}{|}\quad\FormularioData\par}
+    }
   \end{tikzpicture}%
   \null
   \clearpage
