@@ -27,7 +27,8 @@ Tutte le modifiche rilevanti del formulario sono registrate in questo file.
 - compilazione automatica fissata a TeX Live 2025 per una resa riproducibile;
 - frontespizio semplificato secondo una griglia editoriale, con titolo e sottotitolo dominanti;
 - pagine di apertura delle parti uniformate al frontespizio;
-- marchio collocato in basso a destra come firma editoriale, separato dalla gerarchia del titolo.
+- piè di pagina delle pagine di apertura unificato: `ingegnerismo.it` è la firma principale a sinistra e i metadati restano secondari a destra;
+- nome dell’autore eliminato dai piè di pagina ripetitivi e mantenuto una sola volta sul frontespizio.
 
 ### Licenza e diritti
 
