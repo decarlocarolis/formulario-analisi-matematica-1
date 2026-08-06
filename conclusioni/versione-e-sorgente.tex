@@ -13,15 +13,7 @@
     at ([xshift=-10mm,yshift=10mm]current page.south east) {$\displaystyle\sum$};
 
   \node[anchor=north west,inner sep=0pt]
-    at ([xshift=38mm,yshift=-21mm]current page.north west) {%
-      \begin{minipage}{154mm}
-        \LogoIngegnerismo[24mm]\hspace{5mm}%
-        \raisebox{7mm}{\textcolor{IngBluScuro}{\sffamily\bfseries\fontsize{24}{26}\selectfont ingegnerismo.it}}
-      \end{minipage}%
-    };
-
-  \node[anchor=north west,inner sep=0pt]
-    at ([xshift=38mm,yshift=-73mm]current page.north west) {%
+    at ([xshift=38mm,yshift=-31mm]current page.north west) {%
       \begin{minipage}{154mm}
         {\sffamily\bfseries\small\color{IngBlu}\MakeUppercase{Tracciabilità editoriale}\par}
         \vspace{3mm}
@@ -35,7 +27,7 @@
     };
 
   \node[anchor=north west,inner sep=0pt]
-    at ([xshift=38mm,yshift=-137mm]current page.north west) {%
+    at ([xshift=38mm,yshift=-104mm]current page.north west) {%
       \begin{minipage}{154mm}
         \begin{tcolorbox}[
           enhanced,colback=IngBianco,colframe=IngLinea,boxrule=.5pt,arc=1.8mm,
@@ -61,7 +53,22 @@
           \href{\PDFPubblicoURL}{\textcolor{IngBlu}{\sffamily\bfseries Scarica il PDF pubblico}}
         \end{tcolorbox}
 
-        \vspace{4mm}
+        \vspace{3mm}
+
+        \begin{tcolorbox}[
+          enhanced,colback=IngVerificaPallido,colframe=IngVerifica,boxrule=.5pt,arc=1.8mm,
+          borderline west={3pt}{0pt}{IngVerifica},left=4mm,right=4mm,top=3mm,bottom=3mm
+        ]
+          {\sffamily\bfseries\color{IngVerifica}Licenza editoriale}\par
+          \vspace{1.2mm}
+          {\small Salvo diversa indicazione, contenuti editoriali, PDF e sorgenti LaTeX sono concessi con licenza
+          \href{\LicenzaURL}{\textcolor{IngBlu}{\textbf{Creative Commons Attribuzione--Non commerciale 4.0 Internazionale}}}.
+          Sono consentite condivisione e modifiche per finalità non commerciali, con attribuzione a Carlo de Carolis, collegamento a ingegnerismo.it, indicazione della licenza e delle modifiche. Il logo e i segni distintivi sono esclusi. L'autore conserva il diritto di pubblicare e vendere altre edizioni, comprese quelle cartacee.}\par
+          \vspace{1.5mm}
+          \href{\LicenzaProgettoURL}{\textcolor{IngBlu}{\sffamily\bfseries Leggi l'avviso di licenza completo}}
+        \end{tcolorbox}
+
+        \vspace{3mm}
 
         \begin{tcolorbox}[
           enhanced,colback=IngGialloPallido,colframe=IngGialloScuro,boxrule=.5pt,arc=1.8mm,
@@ -74,16 +81,22 @@
 
   \node[anchor=south west,inner sep=0pt]
     at ([xshift=38mm,yshift=16mm]current page.south west) {%
-      \begin{minipage}{154mm}
+      \begin{minipage}{96mm}
         {\color{IngLinea}\rule{\textwidth}{.6pt}\par}
         \vspace{3mm}
         {\sffamily\small\color{IngBluScuro}
           \textbf{\FormularioTitolo}\quad
-          \textcolor{IngGrigioMedio}{|}\quad\FormularioVersione\quad
-          \textcolor{IngGrigioMedio}{|}\quad\FormularioData\par}
-        \vspace{2mm}
-        {\scriptsize\color{IngGrigio}© 2026 \FormularioAutore. Tutti i diritti riservati. La disponibilità pubblica del deposito non attribuisce automaticamente una licenza di riuso o redistribuzione.}
+          \textcolor{IngGrigioMedio}{|}\quad\FormularioVersione\par}
+        \vspace{1.5mm}
+        {\scriptsize\color{IngGrigio}© 2026 \FormularioAutore. Contenuti, PDF e sorgenti LaTeX:
+        \href{\LicenzaURL}{\textcolor{IngBlu}{\LicenzaNome}}.}
       \end{minipage}%
+    };
+
+  \node[anchor=south east,inner sep=0pt]
+    at ([xshift=-14mm,yshift=14mm]current page.south east) {%
+      \LogoIngegnerismo[18mm]\hspace{2.5mm}%
+      \raisebox{5.3mm}{\textcolor{IngBluScuro}{\sffamily\bfseries\fontsize{18}{20}\selectfont ingegnerismo.it}}
     };
 \end{tikzpicture}
 
