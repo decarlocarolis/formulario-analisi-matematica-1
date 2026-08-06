@@ -5,6 +5,10 @@ on:
     branches: [main]
     paths:
       - aggiornamento-grafico-v1.2-avvia.txt
+  pull_request:
+    branches: [main]
+    paths:
+      - attiva-revisione-grafica-v1.2.txt
 
 permissions:
   contents: write
