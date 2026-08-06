@@ -1,180 +1,174 @@
+"""Controlli non distruttivi del progetto del Formulario di Analisi I."""
+
+from __future__ import annotations
+
+import hashlib
 import json
 import re
 from datetime import date
 from pathlib import Path
-from typing import Optional
 from urllib.parse import urlparse
 
-radice = Path(__file__).resolve().parents[1]
-
-# Il controllo è solo diagnostico: non modifica o elimina mai file del progetto.
-residui_obsoleti = [
-    radice / "main.tex",
-    radice / "metadata.tex",
-    radice / "commands.tex",
-    radice / "ingegnerismo-formulario.cls",
-    radice / "CHANGELOG.md",
-    radice / "NOTICE.md",
-    radice / "REPOSITORY_SETUP.md",
-    radice / "NOTE-DI-VERSIONE.md",
-    radice / "bootstrap-github.sh",
-    radice / "trigger-bootstrap.txt",
-    radice / "archive",
-    radice / "frontmatter",
-    radice / "backmatter",
-    radice / "sections",
-    radice / "tools",
-    radice / "bootstrap",
-    radice / ".github" / "workflows" / "build-pdf.yml",
-    radice / ".github" / "workflows" / "bootstrap-source.yml",
-    radice / ".github" / "ISSUE_TEMPLATE" / "errore-matematico.yml",
-]
-residui_presenti = [
-    str(percorso.relative_to(radice))
-    for percorso in residui_obsoleti
-    if percorso.exists()
-]
-if residui_presenti:
-    raise SystemExit("File o cartelle obsolete presenti: " + ", ".join(residui_presenti))
-
-obbligatori = [
-    radice / "formulario.tex",
-    radice / "metadati.tex",
-    radice / "comandi.tex",
-    radice / "formulario-ingegnerismo.cls",
-    radice / "formulario.json",
-    radice / "README.md",
-    radice / "CONTRIBUTING.md",
-    radice / "CRONOLOGIA.md",
-    radice / "GESTIONE-DEPOSITO-GIT.md",
-    radice / "LINEE-GUIDA-GRAFICHE.md",
-    radice / "strumenti" / "pubblica-versione.sh",
-    radice / ".github" / "workflows" / "compila-pdf.yml",
-    radice / ".github" / "PULL_REQUEST_TEMPLATE.md",
-    radice / ".github" / "ISSUE_TEMPLATE" / "config.yml",
-    radice
-    / ".github"
-    / "ISSUE_TEMPLATE"
-    / "segnalazione-errore-matematico.yml",
-    radice / ".github" / "ISSUE_TEMPLATE" / "proposta-miglioramento.yml",
-    radice
-    / ".github"
-    / "ISSUE_TEMPLATE"
-    / "problema-grafico-accessibilita.yml",
-    radice / "conclusioni" / "versione-e-sorgente.tex",
-    radice / "risorse" / "marchio" / "logo-ingegnerismo-bandiera.svg",
-    radice / "risorse" / "marchio" / "logo-ingegnerismo-bandiera.pdf",
-    radice / "risorse" / "marchio" / "README.md",
-]
-mancanti = [
-    str(percorso.relative_to(radice))
-    for percorso in obbligatori
-    if not percorso.exists()
-]
-if mancanti:
-    raise SystemExit("File mancanti: " + ", ".join(mancanti))
-
-capitoli = sorted((radice / "capitoli").glob("*.tex"))
-if len(capitoli) != 20:
-    raise SystemExit(f"Attesi 20 capitoli, trovati {len(capitoli)}")
-
-metadati = (radice / "metadati.tex").read_text(encoding="utf-8")
-if not re.search(r"\\FormularioVersione\}\{v\.[1-9]\d*\.[0-9]\}", metadati):
-    raise SystemExit(
-        "Versione non valida: usa da v.1.0 a v.1.9, poi v.2.0"
-    )
+RADICE = Path(__file__).resolve().parents[1]
+DEPOSITO = "decarlocarolis/formulario-analisi-matematica-1"
+URL_DEPOSITO = f"https://github.com/{DEPOSITO}"
+NUMERO_CAPITOLI = 20
 
 
-def comando_latex(nome: str) -> str:
+def errore(messaggio: str) -> None:
+    raise SystemExit(messaggio)
+
+
+def leggi(percorso: Path) -> str:
+    try:
+        return percorso.read_text(encoding="utf-8")
+    except UnicodeDecodeError as eccezione:
+        errore(f"File non UTF-8: {percorso.relative_to(RADICE)} ({eccezione})")
+    raise AssertionError("irraggiungibile")
+
+
+def sha256(percorso: Path) -> str:
+    digest = hashlib.sha256()
+    with percorso.open("rb") as file:
+        for blocco in iter(lambda: file.read(1024 * 1024), b""):
+            digest.update(blocco)
+    return digest.hexdigest()
+
+
+def comando_latex(testo: str, nome: str) -> str:
     corrispondenza = re.search(
-        rf"\\newcommand\{{\\{re.escape(nome)}\}}\{{([^}}]+)\}}",
-        metadati,
+        rf"\\newcommand\{{\\{re.escape(nome)}\}}\{{([^}}]+)\}}", testo
     )
     if not corrispondenza:
-        raise SystemExit(f"Comando \\{nome} non trovato in metadati.tex")
+        errore(f"Comando \\{nome} non trovato in metadati.tex")
     return corrispondenza.group(1)
 
 
-def valore_annidato(dati: object, *chiavi: str) -> object:
+def valore(dati: object, *chiavi: str) -> object:
     corrente = dati
     for chiave in chiavi:
         if not isinstance(corrente, dict) or chiave not in corrente:
-            raise SystemExit(
-                "Campo mancante in formulario.json: " + ".".join(chiavi)
-            )
+            errore("Campo mancante in formulario.json: " + ".".join(chiavi))
         corrente = corrente[chiave]
     return corrente
 
 
-def controlla_url(
-    nome: str, valore: object, prefisso: Optional[str] = None
-) -> str:
-    if not isinstance(valore, str):
-        raise SystemExit(f"{nome} deve essere una stringa in formulario.json")
-    url = urlparse(valore)
-    if url.scheme != "https" or not url.netloc:
-        raise SystemExit(f"{nome} deve essere un URL HTTPS assoluto")
-    if prefisso is not None and not valore.startswith(prefisso):
-        raise SystemExit(f"{nome} non appartiene al canale previsto: {prefisso}")
-    return valore
+def url_https(nome: str, dato: object, prefisso: str | None = None) -> str:
+    if not isinstance(dato, str):
+        errore(f"{nome} deve essere una stringa")
+    analizzato = urlparse(dato)
+    if analizzato.scheme != "https" or not analizzato.netloc:
+        errore(f"{nome} deve essere un URL HTTPS assoluto")
+    if prefisso and not dato.startswith(prefisso):
+        errore(f"{nome} non appartiene al canale previsto: {prefisso}")
+    return dato
 
+
+# Il controllo segnala i residui obsoleti ma non elimina mai nulla.
+residui_obsoleti = [
+    "main.tex",
+    "metadata.tex",
+    "commands.tex",
+    "ingegnerismo-formulario.cls",
+    "CHANGELOG.md",
+    "NOTICE.md",
+    "REPOSITORY_SETUP.md",
+    "NOTE-DI-VERSIONE.md",
+    "bootstrap-github.sh",
+    "trigger-bootstrap.txt",
+    "archive",
+    "frontmatter",
+    "backmatter",
+    "sections",
+    "tools",
+    "bootstrap",
+    ".github/workflows/build-pdf.yml",
+    ".github/workflows/bootstrap-source.yml",
+    ".github/ISSUE_TEMPLATE/errore-matematico.yml",
+]
+presenti = [nome for nome in residui_obsoleti if (RADICE / nome).exists()]
+if presenti:
+    errore("File o cartelle obsolete presenti: " + ", ".join(presenti))
+
+obbligatori = [
+    "formulario.tex",
+    "formulario.json",
+    "metadati.tex",
+    "comandi.tex",
+    "formulario-ingegnerismo.cls",
+    "STILE-COLLANA.json",
+    "README.md",
+    "CONTRIBUTING.md",
+    "CRONOLOGIA.md",
+    "GESTIONE-DEPOSITO-GIT.md",
+    "LICENZA.md",
+    "LINEE-GUIDA-GRAFICHE.md",
+    "VERIFICA-MATEMATICA.md",
+    "requisiti-verifica.txt",
+    "strumenti/compila-pdf.sh",
+    "strumenti/controlla_progetto.py",
+    "strumenti/pubblica-versione.sh",
+    "strumenti/verifica_formule.py",
+    ".github/workflows/compila-pdf.yml",
+    ".github/dependabot.yml",
+    ".github/PULL_REQUEST_TEMPLATE.md",
+    ".github/ISSUE_TEMPLATE/config.yml",
+    ".github/ISSUE_TEMPLATE/segnalazione-errore-matematico.yml",
+    ".github/ISSUE_TEMPLATE/proposta-miglioramento.yml",
+    ".github/ISSUE_TEMPLATE/problema-grafico-accessibilita.yml",
+    "conclusioni/versione-e-sorgente.tex",
+    "risorse/marchio/logo-ingegnerismo-bandiera.svg",
+    "risorse/marchio/logo-ingegnerismo-bandiera.pdf",
+    "risorse/marchio/README.md",
+]
+mancanti = [nome for nome in obbligatori if not (RADICE / nome).exists()]
+if mancanti:
+    errore("File mancanti: " + ", ".join(mancanti))
+
+capitoli = sorted((RADICE / "capitoli").glob("*.tex"))
+if len(capitoli) != NUMERO_CAPITOLI:
+    errore(f"Attesi {NUMERO_CAPITOLI} capitoli, trovati {len(capitoli)}")
+
+metadati = leggi(RADICE / "metadati.tex")
+versione = comando_latex(metadati, "FormularioVersione")
+if not re.fullmatch(r"v\.[1-9][0-9]*\.[0-9]+", versione):
+    errore("Versione non valida: usa v.MAGGIORE.MINORE, per esempio v.1.3 o v.1.10")
 
 try:
-    manifesto = json.loads((radice / "formulario.json").read_text(encoding="utf-8"))
-except json.JSONDecodeError as errore:
-    raise SystemExit(f"formulario.json non valido: {errore}") from errore
+    manifesto = json.loads(leggi(RADICE / "formulario.json"))
+except json.JSONDecodeError as eccezione:
+    errore(f"formulario.json non valido: {eccezione}")
 
-versione_schema = valore_annidato(manifesto, "versioneSchema")
-if (
-    not isinstance(versione_schema, int)
-    or isinstance(versione_schema, bool)
-    or versione_schema != 1
-):
-    raise SystemExit("versioneSchema non supportata in formulario.json")
+if valore(manifesto, "versioneSchema") != 1:
+    errore("versioneSchema non supportata in formulario.json")
 
-confronti_metadati = {
-    ("documento", "titolo"): comando_latex("FormularioTitolo"),
-    ("documento", "sottotitolo"): comando_latex("FormularioSottotitolo"),
-    ("documento", "versione"): comando_latex("FormularioVersione"),
-    ("autore", "nome"): comando_latex("FormularioAutore"),
-    ("autore", "sitoUrl"): comando_latex("SitoURL"),
-    ("sorgente", "repositoryUrl"): comando_latex("DepositoGitHubURL"),
+confronti = {
+    ("documento", "titolo"): comando_latex(metadati, "FormularioTitolo"),
+    ("documento", "sottotitolo"): comando_latex(metadati, "FormularioSottotitolo"),
+    ("documento", "versione"): versione,
+    ("autore", "nome"): comando_latex(metadati, "FormularioAutore"),
+    ("autore", "sitoUrl"): comando_latex(metadati, "SitoURL"),
+    ("sorgente", "repositoryUrl"): comando_latex(metadati, "DepositoGitHubURL"),
 }
-for percorso, atteso in confronti_metadati.items():
-    trovato = valore_annidato(manifesto, *percorso)
+for percorso, atteso in confronti.items():
+    trovato = valore(manifesto, *percorso)
     if trovato != atteso:
-        raise SystemExit(
-            f"{'.'.join(percorso)} non coincide con metadati.tex: {trovato!r}"
-        )
+        errore(f"{'.'.join(percorso)} non coincide con metadati.tex")
 
-versione = valore_annidato(manifesto, "documento", "versione")
-if not isinstance(versione, str) or not re.fullmatch(
-    r"v\.[1-9]\d*\.[0-9]", versione
-):
-    raise SystemExit(
-        "documento.versione deve usare da v.1.0 a v.1.9, poi v.2.0"
-    )
+slug = valore(manifesto, "documento", "slug")
+if slug != "formulario-analisi-1":
+    errore("documento.slug deve essere formulario-analisi-1")
+if valore(manifesto, "documento", "lingua") != "it":
+    errore("documento.lingua deve essere it")
 
-slug = valore_annidato(manifesto, "documento", "slug")
-if not isinstance(slug, str) or not re.fullmatch(
-    r"[a-z0-9]+(?:-[a-z0-9]+)*", slug
-):
-    raise SystemExit("documento.slug deve usare il formato kebab-case")
-
-if valore_annidato(manifesto, "documento", "lingua") != "it":
-    raise SystemExit("documento.lingua deve essere it")
-
-data_edizione = valore_annidato(manifesto, "documento", "dataEdizione")
-if not isinstance(data_edizione, str) or not re.fullmatch(
-    r"\d{4}-\d{2}-\d{2}", data_edizione
-):
-    raise SystemExit("documento.dataEdizione deve usare il formato AAAA-MM-GG")
+data_edizione = valore(manifesto, "documento", "dataEdizione")
+if not isinstance(data_edizione, str):
+    errore("documento.dataEdizione deve essere una stringa")
 try:
-    date.fromisoformat(data_edizione)
-except ValueError as errore:
-    raise SystemExit("documento.dataEdizione non e una data valida") from errore
-
-mesi_italiani = {
+    data_iso = date.fromisoformat(data_edizione)
+except ValueError as eccezione:
+    errore(f"documento.dataEdizione non è valida: {eccezione}")
+mesi = {
     "gennaio": 1,
     "febbraio": 2,
     "marzo": 3,
@@ -189,139 +183,142 @@ mesi_italiani = {
     "dicembre": 12,
 }
 try:
-    giorno, mese, anno = comando_latex("FormularioData").split()
-    data_metadati = date(int(anno), mesi_italiani[mese.lower()], int(giorno))
-except (KeyError, TypeError, ValueError) as errore:
-    raise SystemExit("FormularioData non e una data italiana valida") from errore
-if data_edizione != data_metadati.isoformat():
-    raise SystemExit("documento.dataEdizione non coincide con metadati.tex")
+    giorno, mese, anno = comando_latex(metadati, "FormularioData").split()
+    data_latex = date(int(anno), mesi[mese.lower()], int(giorno))
+except (KeyError, TypeError, ValueError) as eccezione:
+    errore(f"FormularioData non è una data italiana valida: {eccezione}")
+if data_iso != data_latex:
+    errore("documento.dataEdizione non coincide con FormularioData")
 
-pagine = valore_annidato(manifesto, "pubblicazioneSito", "pagine")
-if not isinstance(pagine, int) or isinstance(pagine, bool) or pagine <= 0:
-    raise SystemExit("pubblicazioneSito.pagine deve essere un intero positivo")
-
-sha256 = valore_annidato(manifesto, "pubblicazioneSito", "sha256")
-if not isinstance(sha256, str) or not re.fullmatch(r"[0-9a-f]{64}", sha256):
-    raise SystemExit("pubblicazioneSito.sha256 deve essere un digest SHA-256")
-
-commit = valore_annidato(manifesto, "sorgente", "commit")
-if not isinstance(commit, str) or not re.fullmatch(r"[0-9a-f]{40}", commit):
-    raise SystemExit("sorgente.commit deve essere un identificatore Git completo")
-
-repository_url = controlla_url(
-    "sorgente.repositoryUrl",
-    valore_annidato(manifesto, "sorgente", "repositoryUrl"),
-    "https://github.com/decarlocarolis/formulario-analisi-matematica-1",
+repository_url = url_https(
+    "sorgente.repositoryUrl", valore(manifesto, "sorgente", "repositoryUrl"), URL_DEPOSITO
 )
-commit_url = controlla_url(
-    "sorgente.commitUrl",
-    valore_annidato(manifesto, "sorgente", "commitUrl"),
-    repository_url + "/commit/",
+commit = valore(manifesto, "sorgente", "commit")
+if not isinstance(commit, str) or not re.fullmatch(r"[0-9a-f]{40}", commit):
+    errore("sorgente.commit deve essere un identificatore Git completo")
+commit_url = url_https(
+    "sorgente.commitUrl", valore(manifesto, "sorgente", "commitUrl"), repository_url + "/commit/"
 )
 if commit_url != f"{repository_url}/commit/{commit}":
-    raise SystemExit("sorgente.commitUrl non corrisponde a sorgente.commit")
+    errore("sorgente.commitUrl non corrisponde a sorgente.commit")
 
-pagina_url = controlla_url(
-    "pubblicazioneSito.paginaUrl",
-    valore_annidato(manifesto, "pubblicazioneSito", "paginaUrl"),
-    "https://ingegnerismo.it/",
+pubblicazione = valore(manifesto, "pubblicazioneSito")
+if not isinstance(pubblicazione, dict):
+    errore("pubblicazioneSito deve essere un oggetto")
+pagina_url = url_https(
+    "pubblicazioneSito.paginaUrl", pubblicazione.get("paginaUrl"), "https://ingegnerismo.it/"
 )
-if not pagina_url.endswith(f"/matematica/{slug}/"):
-    raise SystemExit("pubblicazioneSito.paginaUrl non corrisponde a documento.slug")
-pdf_url = controlla_url(
-    "pubblicazioneSito.pdfUrl",
-    valore_annidato(manifesto, "pubblicazioneSito", "pdfUrl"),
-    "https://ingegnerismo.it/",
+pdf_url = url_https(
+    "pubblicazioneSito.pdfUrl", pubblicazione.get("pdfUrl"), "https://ingegnerismo.it/"
 )
-if pagina_url == pdf_url or not pdf_url.endswith(".pdf"):
-    raise SystemExit("pubblicazioneSito.pdfUrl deve identificare un file PDF distinto")
-
-versione_file = versione.removeprefix("v.")
-if f"-v{versione_file}.pdf" not in pdf_url:
-    raise SystemExit("Il nome del PDF sul sito non contiene la versione editoriale")
-
-nome_file = valore_annidato(manifesto, "pubblicazioneSito", "nomeFile")
-if (
-    not isinstance(nome_file, str)
-    or nome_file != Path(urlparse(pdf_url).path).name
+if not pagina_url.endswith("/matematica/formulario-analisi-1/"):
+    errore("pubblicazioneSito.paginaUrl non corrisponde allo slug")
+if not pdf_url.endswith(".pdf") or f"-v{versione.removeprefix('v.')}" not in pdf_url:
+    errore("Il PDF del sito deve contenere la versione editoriale nel nome")
+if pubblicazione.get("nomeFile") != Path(urlparse(pdf_url).path).name:
+    errore("pubblicazioneSito.nomeFile non coincide con l'URL del PDF")
+if not isinstance(pubblicazione.get("pagine"), int) or pubblicazione["pagine"] <= 0:
+    errore("pubblicazioneSito.pagine deve essere un intero positivo")
+if not isinstance(pubblicazione.get("sha256"), str) or not re.fullmatch(
+    r"[0-9a-f]{64}", pubblicazione["sha256"]
 ):
-    raise SystemExit(
-        "pubblicazioneSito.nomeFile non coincide con pubblicazioneSito.pdfUrl"
-    )
+    errore("pubblicazioneSito.sha256 deve essere un digest SHA-256")
 
-if valore_annidato(manifesto, "pubblicazioneSito", "canale") != "ingegnerismo.it":
-    raise SystemExit("pubblicazioneSito.canale deve essere ingegnerismo.it")
-
-if valore_annidato(manifesto, "licenza", "codice") != "CC-BY-NC-4.0":
-    raise SystemExit("licenza.codice deve essere CC-BY-NC-4.0")
-controlla_url(
+if valore(manifesto, "licenza", "codice") != "CC-BY-NC-4.0":
+    errore("licenza.codice deve essere CC-BY-NC-4.0")
+url_https(
     "licenza.url",
-    valore_annidato(manifesto, "licenza", "url"),
+    valore(manifesto, "licenza", "url"),
     "https://creativecommons.org/licenses/by-nc/4.0/",
 )
-controlla_url(
+url_https(
     "licenza.dettagliUrl",
-    valore_annidato(manifesto, "licenza", "dettagliUrl"),
-    repository_url + "/blob/main/LICENZA.md",
+    valore(manifesto, "licenza", "dettagliUrl"),
+    URL_DEPOSITO + "/blob/main/LICENZA.md",
 )
 
+try:
+    stile = json.loads(leggi(RADICE / "STILE-COLLANA.json"))
+except json.JSONDecodeError as eccezione:
+    errore(f"STILE-COLLANA.json non valido: {eccezione}")
+if stile.get("versioneSchema") != 1:
+    errore("versioneSchema non supportata in STILE-COLLANA.json")
+for chiave in ("classe", "logoSvg", "logoPdf"):
+    elemento = stile.get(chiave)
+    if not isinstance(elemento, dict):
+        errore(f"Elemento mancante in STILE-COLLANA.json: {chiave}")
+    percorso = RADICE / str(elemento.get("percorso", ""))
+    atteso = elemento.get("sha256")
+    if not percorso.is_file() or not isinstance(atteso, str):
+        errore(f"Elemento di stile non valido: {chiave}")
+    trovato = sha256(percorso)
+    if trovato != atteso:
+        errore(f"Hash dello stile non coerente per {percorso.relative_to(RADICE)}")
 
-# Verifica della palette istituzionale e del logo vettoriale.
-classe = (radice / "formulario-ingegnerismo.cls").read_text(encoding="utf-8")
+classe = leggi(RADICE / "formulario-ingegnerismo.cls")
 for codice in ("006FB9", "00477A", "FFEE84", "1D1D1B", "666665"):
     if codice not in classe:
-        raise SystemExit(f"Colore istituzionale {codice} assente dalla classe grafica")
-
-logo_pdf = radice / "risorse" / "marchio" / "logo-ingegnerismo-bandiera.pdf"
-if logo_pdf.stat().st_size < 1000:
-    raise SystemExit("Logo PDF vettoriale mancante o non valido")
+        errore(f"Colore istituzionale {codice} assente dalla classe grafica")
+if "Atlante dell'Ingegneria" not in classe:
+    errore("Motto istituzionale assente dalla classe grafica")
+if "Formulari operativi per ingegneria e discipline STEM" in classe:
+    errore("Dicitura istituzionale obsoleta presente nella classe grafica")
+if "range={\\lbrace,\\rbrace}" not in classe:
+    errore("Fallback tipografico per le parentesi graffe assente")
 
 file_testuali = [
-    radice / "formulario.tex",
-    radice / "formulario.json",
-    radice / "metadati.tex",
-    radice / "comandi.tex",
-    radice / "formulario-ingegnerismo.cls",
-    radice / "README.md",
-    radice / "CONTRIBUTING.md",
-    radice / "GESTIONE-DEPOSITO-GIT.md",
-    radice / "LINEE-GUIDA-GRAFICHE.md",
-    radice / "strumenti" / "controlla_progetto.py",
-    radice / "strumenti" / "pubblica-versione.sh",
-    radice / ".github" / "workflows" / "compila-pdf.yml",
-    radice / ".github" / "PULL_REQUEST_TEMPLATE.md",
-    radice / ".github" / "ISSUE_TEMPLATE" / "config.yml",
-    radice
-    / ".github"
-    / "ISSUE_TEMPLATE"
-    / "segnalazione-errore-matematico.yml",
-    radice / ".github" / "ISSUE_TEMPLATE" / "proposta-miglioramento.yml",
-    radice
-    / ".github"
-    / "ISSUE_TEMPLATE"
-    / "problema-grafico-accessibilita.yml",
-    radice / "conclusioni" / "versione-e-sorgente.tex",
-    radice / "risorse" / "marchio" / "README.md",
-    radice / "risorse" / "marchio" / "logo-ingegnerismo-bandiera.svg",
-    *capitoli,
-]
-marcatori_conflitto = ("<" * 7, ">" * 7)
+    RADICE / nome
+    for nome in obbligatori
+    if (RADICE / nome).is_file() and (RADICE / nome).suffix.lower() != ".pdf"
+] + capitoli
 for percorso in file_testuali:
-    testo = percorso.read_text(encoding="utf-8")
-    if "\x00" in testo or any(
-        marcatore in testo for marcatore in marcatori_conflitto
-    ):
-        raise SystemExit(f"Contenuto non valido in {percorso.relative_to(radice)}")
+    testo = leggi(percorso)
+    if "\x00" in testo or "<<<<<<<" in testo or ">>>>>>>" in testo:
+        errore(f"Contenuto non valido in {percorso.relative_to(RADICE)}")
 
-# Protezione dei confini editoriali: le EDO appartengono al formulario dedicato.
 for percorso in capitoli:
-    testo = percorso.read_text(encoding="utf-8")
+    testo = leggi(percorso)
     if re.search(r"\bEDO\b|equazion[ei]\s+differenzial", testo, flags=re.IGNORECASE):
-        raise SystemExit(
-            f"Contenuto EDO fuori ambito trovato in {percorso.relative_to(radice)}"
-        )
+        errore(f"Contenuto EDO fuori ambito in {percorso.relative_to(RADICE)}")
+
+workflow = leggi(RADICE / ".github/workflows/compila-pdf.yml")
+for vietato in ("git tag -f", "git push --force", "--clobber"):
+    if vietato in workflow:
+        errore(f"Operazione distruttiva presente nel workflow: {vietato}")
+if not re.search(r"permissions:\s*\n\s+contents: read", workflow):
+    errore("Il workflow deve usare contents: read come permesso generale")
+if not re.search(r"pubblicazione:.*?permissions:\s*\n\s+contents: write", workflow, re.S):
+    errore("Il job di pubblicazione deve dichiarare contents: write")
+for riga in workflow.splitlines():
+    if "uses:" in riga and re.search(r"@[vV][0-9]", riga):
+        errore("Le GitHub Actions devono essere fissate a uno SHA completo")
+
+script = leggi(RADICE / "strumenti/pubblica-versione.sh")
+for vietato in (
+    "git add --all",
+    "git commit",
+    "git push origin main",
+    "git tag -f",
+    "git push --force",
+    "--clobber",
+):
+    if vietato in script:
+        errore(f"Operazione distruttiva presente nello script di pubblicazione: {vietato}")
+for necessario in ("git status --porcelain", "origin/main", "gh release view"):
+    if necessario not in script:
+        errore(f"Controllo mancante nello script di pubblicazione: {necessario}")
+
+config_issue = leggi(RADICE / ".github/ISSUE_TEMPLATE/config.yml")
+if "/discussions" in config_issue:
+    errore("Il modello non deve dipendere da GitHub Discussions")
+if "https://ingegnerismo.it/contribuisci/" not in config_issue:
+    errore("Collegamento a ingegnerismo.it/contribuisci/ mancante")
+
+licenza = leggi(RADICE / "LICENZA.md")
+if "strumenti tecnici" not in licenza.lower() or "diritti riservati" not in licenza.lower():
+    errore("La licenza deve chiarire i diritti sugli strumenti tecnici")
 
 print(
-    f"Controllo superato: {len(capitoli)} capitoli, metadati validi "
-    "e nessun contenuto EDO nei capitoli"
+    f"Controllo superato: {len(capitoli)} capitoli, metadati e manifesto coerenti, "
+    "stile verificato, pubblicazione immutabile e nessun contenuto EDO nei capitoli"
 )
