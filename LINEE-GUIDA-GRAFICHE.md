@@ -39,13 +39,13 @@ Non vengono incorporati font esterni nel deposito: la compilazione usa i font di
 
 ### Frontespizio
 
-Il frontespizio usa una griglia editoriale essenziale: dorso blu ridotto con accento giallo, identificazione della collana, titolo e sottotitolo dominanti, ampio spazio bianco, un segno matematico di fondo molto tenue e metadati compatti. Il marchio è collocato in basso a destra come firma editoriale e non compete con il titolo. Obiettivo e sequenza «Riconosci → Scegli → Esegui → Controlla» sono sviluppati nella pagina «Come usare questo formulario», non sulla copertina.
+Il frontespizio usa una griglia editoriale essenziale: dorso blu ridotto con accento giallo, identificazione della collana, titolo e sottotitolo dominanti, ampio spazio bianco, un segno matematico di fondo molto tenue e metadati compatti. Il piè di pagina comune presenta `ingegnerismo.it` come firma principale; autore, versione, data e licenza restano secondari. L’autore compare una sola volta sul frontespizio. Obiettivo e sequenza «Riconosci → Scegli → Esegui → Controlla» sono sviluppati nella pagina «Come usare questo formulario», non sulla copertina.
 
 ### Parti e capitoli
 
 - le parti hanno una pagina di apertura autonoma costruita sulla stessa griglia del frontespizio;
 - il titolo della parte occupa l'area superiore, il numero funge da filigrana e la descrizione è raccolta in un riquadro neutro;
-- il marchio è allineato in basso a destra e i metadati del volume in basso a sinistra;
+- tutte le pagine di apertura usano lo stesso piè di pagina: sito e marchio compatto a sinistra, metadati secondari a destra;
 - i capitoli usano un numero bianco in campo blu scuro;
 - una linea gialla separa il titolo dal contenuto;
 - sezioni e sottosezioni usano i due blu istituzionali.
@@ -68,10 +68,10 @@ Le tabelle usano righe alternate molto chiare, linee sottili e intestazioni ad a
 
 ### Intestazioni e piè di pagina
 
-L'intestazione riporta capitolo e volume. Il piè di pagina contiene sito, versione e numero di pagina evidenziato con l'accento giallo.
+L'intestazione riporta capitolo e volume. Nel piè di pagina il sito è il riferimento principale; seguono versione e numero di pagina evidenziato con l'accento giallo. Il nome dell’autore non viene ripetuto nelle pagine interne.
 
 ## Marchio
 
 Il file SVG è il sorgente vettoriale del logo. Il PDF vettoriale è la copia utilizzata dalla compilazione LaTeX per evitare dipendenze aggiuntive nella procedura automatica.
 
-Il logo non deve essere deformato, ruotato, ricolorato o collocato su sfondi che ne riducano il contrasto. Quando il dominio `ingegnerismo.it` è affiancato al simbolo, deve avere dimensione tipografica nettamente leggibile e proporzionata all’altezza del marchio.
+Il logo non deve essere deformato, ruotato, ricolorato o collocato su sfondi che ne riducano il contrasto. Nelle pagine di apertura il simbolo è usato in formato compatto, a sinistra del dominio `ingegnerismo.it`. Il dominio ha priorità tipografica sul simbolo e sui metadati secondari.
