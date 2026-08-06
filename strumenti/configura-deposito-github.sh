@@ -34,6 +34,7 @@ if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
 fi
 
 login="$(gh api user --jq .login)"
+utente_id="$(gh api user --jq .id)"
 permesso="$(gh api "repos/${DEPOSITO}/collaborators/${login}/permission" --jq .permission)"
 case "$permesso" in
   admin) ;;
@@ -46,11 +47,18 @@ esac
 intestazioni=(-H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: ${API_VERSIONE}")
 
 crea_payload_ramo() {
-  cat <<'JSON'
+  cat <<JSON
 {
   "name": "Protezione del ramo principale",
   "target": "branch",
   "enforcement": "active",
+  "bypass_actors": [
+    {
+      "actor_id": ${utente_id},
+      "actor_type": "User",
+      "bypass_mode": "pull_request"
+    }
+  ],
   "conditions": {
     "ref_name": {
       "include": ["~DEFAULT_BRANCH"],
