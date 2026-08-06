@@ -27,6 +27,10 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          rm -rf /tmp/flussi-github-esistenti
+          mkdir -p /tmp/flussi-github-esistenti
+          cp -a .github/workflows/. /tmp/flussi-github-esistenti/
+
           cat > /tmp/somme-frammenti.sha256 <<'EOF'
           0b96eca427c6f740a080e816850ea278457d946bbbcfe4816a5616ae24093cac  aggiornamento-grafico-v1.2/pacchetto.parte-000
           d0e37f2b38c34080cf13aaa75e62d0b64181d1d9a2603a88e9d7fc9d178a1a52  aggiornamento-grafico-v1.2/pacchetto.parte-001
@@ -48,6 +52,7 @@ jobs:
           2e8d7f3e86fa0159d2cdaa028d98c605401d3ec4bbb6523588c8920a4d9c1280  aggiornamento-grafico-v1.2/pacchetto.parte-015
           EOF
           sha256sum --check /tmp/somme-frammenti.sha256
+
           {
             cat aggiornamento-grafico-v1.2/pacchetto.parte-000
             cat aggiornamento-grafico-v1.2/pacchetto.parte-001
@@ -68,11 +73,14 @@ jobs:
             cat aggiornamento-grafico-v1.2/pacchetto.parte-014
             cat aggiornamento-grafico-v1.2/pacchetto.parte-015
           } > /tmp/aggiornamento-grafico.b64
+
           base64 --decode /tmp/aggiornamento-grafico.b64 > /tmp/aggiornamento-grafico.tar.xz
           echo "e71b89457b629b797d894508cd4b474ab7cd3f763edc3760c19d589916f559bf  /tmp/aggiornamento-grafico.tar.xz" | sha256sum --check -
+
           rm -rf /tmp/progetto-aggiornato
           mkdir -p /tmp/progetto-aggiornato
           tar -xJf /tmp/aggiornamento-grafico.tar.xz -C /tmp/progetto-aggiornato
+
           find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
           cp -a /tmp/progetto-aggiornato/. ./
           python strumenti/controlla_progetto.py
@@ -90,21 +98,33 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          cp compilazione/formulario.pdf /tmp/formulario-analisi-matematica-1.pdf
+
+          rm -rf .github/workflows
+          mkdir -p .github/workflows
+          cp -a /tmp/flussi-github-esistenti/. .github/workflows/
+
           git config user.name "Automazione Ingegnerismo"
           git config user.email "actions@users.noreply.github.com"
           git add -A
           git commit -m "Ridisegna il formulario mantenendo la versione v.1.2"
-          git fetch origin main
-          REVISIONE_ATTESA="$(git rev-parse origin/main)"
-          git push --force-with-lease=refs/heads/main:"${REVISIONE_ATTESA}" origin HEAD:main
+          git push origin HEAD:main
 
       - name: Prepara gli allegati della release
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p distribuzione
-          cp compilazione/formulario.pdf distribuzione/formulario-analisi-matematica-1.pdf
-          git archive --format=zip --output=distribuzione/formulario-analisi-matematica-1-sorgenti.zip HEAD
+          cp /tmp/formulario-analisi-matematica-1.pdf distribuzione/formulario-analisi-matematica-1.pdf
+          python - <<'PY'
+          import shutil
+          shutil.make_archive(
+              '/tmp/formulario-analisi-matematica-1-sorgenti',
+              'zip',
+              '/tmp/progetto-aggiornato',
+          )
+          PY
+          cp /tmp/formulario-analisi-matematica-1-sorgenti.zip distribuzione/
           sha256sum \
             distribuzione/formulario-analisi-matematica-1.pdf \
             distribuzione/formulario-analisi-matematica-1-sorgenti.zip \
