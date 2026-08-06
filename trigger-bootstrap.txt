@@ -1,0 +1,1 @@
+Trigger the one-time import of the canonical LaTeX source for release v1.2.
