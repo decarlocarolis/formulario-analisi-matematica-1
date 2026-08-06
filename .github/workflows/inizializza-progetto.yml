@@ -1,0 +1,91 @@
+name: Inizializza il progetto LaTeX
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - pacchetto-iniziale-analisi-1-v1.2.zip
+
+permissions:
+  contents: write
+
+jobs:
+  inizializza:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Scarica il contenuto della repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Estrai il progetto definitivo
+        shell: bash
+        run: |
+          rm -rf estrazione
+          mkdir -p estrazione
+          unzip -q pacchetto-iniziale-analisi-1-v1.2.zip -d estrazione
+          shopt -s dotglob
+          cp -a estrazione/formulario-analisi-matematica-1-v1.2-sorgenti/. .
+          rm -rf estrazione
+          rm -f pacchetto-iniziale-analisi-1-v1.2.zip
+          rm -f .github/workflows/inizializza-progetto.yml
+
+      - name: Controlla la struttura del progetto
+        run: python strumenti/controlla_progetto.py
+
+      - name: Compila il sorgente LaTeX
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: formulario.tex
+          compiler: xelatex
+          args: -file-line-error -halt-on-error -interaction=nonstopmode -output-directory=compilazione
+          post_compile: |
+            xelatex -file-line-error -halt-on-error -interaction=nonstopmode -output-directory=compilazione formulario.tex
+          texlive_version: 2026
+          os: debian
+
+      - name: Registra il progetto definitivo nel ramo principale
+        shell: bash
+        run: |
+          git config user.name "Automazione Ingegnerismo"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git commit -m "Pubblica il sorgente LaTeX v.1.2"
+          git push origin main
+
+      - name: Prepara i file della versione
+        shell: bash
+        run: |
+          mkdir -p distribuzione
+          cp compilazione/formulario.pdf distribuzione/formulario-analisi-matematica-1.pdf
+          git archive --format=zip --output=distribuzione/formulario-analisi-matematica-1-sorgenti.zip HEAD
+          sha256sum distribuzione/formulario-analisi-matematica-1.pdf > distribuzione/IMPRONTE-SHA256.txt
+          sha256sum distribuzione/formulario-analisi-matematica-1-sorgenti.zip >> distribuzione/IMPRONTE-SHA256.txt
+
+      - name: Crea l'etichetta della versione
+        shell: bash
+        run: |
+          git tag -a v1.2 -m "Formulario di Analisi Matematica I v.1.2"
+          git push origin v1.2
+
+      - name: Conserva gli artefatti della compilazione
+        uses: actions/upload-artifact@v7
+        with:
+          name: formulario-analisi-matematica-1-v1.2
+          path: |
+            distribuzione/formulario-analisi-matematica-1.pdf
+            distribuzione/formulario-analisi-matematica-1-sorgenti.zip
+            distribuzione/IMPRONTE-SHA256.txt
+
+      - name: Pubblica la versione v.1.2
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: v1.2
+          name: "Formulario di Analisi Matematica I - v.1.2"
+          body_path: NOTE-DI-VERSIONE.md
+          generate_release_notes: false
+          make_latest: true
+          files: |
+            distribuzione/formulario-analisi-matematica-1.pdf
+            distribuzione/formulario-analisi-matematica-1-sorgenti.zip
+            distribuzione/IMPRONTE-SHA256.txt
