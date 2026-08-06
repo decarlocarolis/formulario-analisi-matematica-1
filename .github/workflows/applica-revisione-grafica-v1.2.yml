@@ -31,14 +31,16 @@ jobs:
           0b96eca427c6f740a080e816850ea278457d946bbbcfe4816a5616ae24093cac  aggiornamento-grafico-v1.2/pacchetto.parte-000
           d0e37f2b38c34080cf13aaa75e62d0b64181d1d9a2603a88e9d7fc9d178a1a52  aggiornamento-grafico-v1.2/pacchetto.parte-001
           454bb6aef122d75781e13a6cb5dc404fd80a0898aa644f1965637db090cbc3f7  aggiornamento-grafico-v1.2/pacchetto.parte-002
-          eb64d2b91f7d5d664479165e84f6eb90c5d91337628839e65c18be7ee7bd5f34  aggiornamento-grafico-v1.2/pacchetto.parte-003
+          67ed35962356bed164bc8fc24a691e9280dd1c9c458774f4ff65e48884eef948  aggiornamento-grafico-v1.2/pacchetto.parte-003-0
+          306d9112aedfa8b0e3c86341241d3f17ce5e167230883ebbab5abe97056015c2  aggiornamento-grafico-v1.2/pacchetto.parte-003-1
           66d200256d73a2bf17bc6f6ff8642b8c819de42913373f2190c301c13b85ea60  aggiornamento-grafico-v1.2/pacchetto.parte-004
           115160ee38ab255df3d2ce7a7f39ae744c75021a5e51c93d980972465c483ae9  aggiornamento-grafico-v1.2/pacchetto.parte-005
           c48379723bb6c52ab5370e42af1a2b90ac4931be21304c5a4efd209d6582e5a2  aggiornamento-grafico-v1.2/pacchetto.parte-006
           11cc0c15015719fb691377b168610d9966e26f2dbe8d4fe3bd49da188cd7fa5e  aggiornamento-grafico-v1.2/pacchetto.parte-007
           4ddabb4ff20c4287e8302fa1950dd03e90a953b42c52786c96055c38c1d8af03  aggiornamento-grafico-v1.2/pacchetto.parte-008
           c86d6ba45cddfd27cacd6359fd1341a7095ab817b479f407112be10d775249e1  aggiornamento-grafico-v1.2/pacchetto.parte-009
-          8516fc899ae845851f59df562bc77e99c5e08d00b25c788975308b12ea79ed34  aggiornamento-grafico-v1.2/pacchetto.parte-010
+          c2c9992f8bfe9af84d15161ae27691977d4d918bd900a793b733d58980f6e1af  aggiornamento-grafico-v1.2/pacchetto.parte-010-0
+          88f53316004b954bcab60d149abe23df02e5094e664cb35b3b4b47de6eb95e5a  aggiornamento-grafico-v1.2/pacchetto.parte-010-1
           753a8c3b22c124093cb4249b5f5d74e7e84c381b3282cd62e4e21c4eaecdaf29  aggiornamento-grafico-v1.2/pacchetto.parte-011
           65e98ff048652712c883e1ad06c080b21f510abe04ae37719af962d7222947fe  aggiornamento-grafico-v1.2/pacchetto.parte-012
           65a23b8733e092f3244389eeb04de984b2290e1fc4e8356934aa07c066cec81a  aggiornamento-grafico-v1.2/pacchetto.parte-013
@@ -46,7 +48,26 @@ jobs:
           2e8d7f3e86fa0159d2cdaa028d98c605401d3ec4bbb6523588c8920a4d9c1280  aggiornamento-grafico-v1.2/pacchetto.parte-015
           EOF
           sha256sum --check /tmp/somme-frammenti.sha256
-          cat aggiornamento-grafico-v1.2/pacchetto.parte-* > /tmp/aggiornamento-grafico.b64
+          {
+            cat aggiornamento-grafico-v1.2/pacchetto.parte-000
+            cat aggiornamento-grafico-v1.2/pacchetto.parte-001
+            cat aggiornamento-grafico-v1.2/pacchetto.parte-002
+            cat aggiornamento-grafico-v1.2/pacchetto.parte-003-0
+            cat aggiornamento-grafico-v1.2/pacchetto.parte-003-1
+            cat aggiornamento-grafico-v1.2/pacchetto.parte-004
+            cat aggiornamento-grafico-v1.2/pacchetto.parte-005
+            cat aggiornamento-grafico-v1.2/pacchetto.parte-006
+            cat aggiornamento-grafico-v1.2/pacchetto.parte-007
+            cat aggiornamento-grafico-v1.2/pacchetto.parte-008
+            cat aggiornamento-grafico-v1.2/pacchetto.parte-009
+            cat aggiornamento-grafico-v1.2/pacchetto.parte-010-0
+            cat aggiornamento-grafico-v1.2/pacchetto.parte-010-1
+            cat aggiornamento-grafico-v1.2/pacchetto.parte-011
+            cat aggiornamento-grafico-v1.2/pacchetto.parte-012
+            cat aggiornamento-grafico-v1.2/pacchetto.parte-013
+            cat aggiornamento-grafico-v1.2/pacchetto.parte-014
+            cat aggiornamento-grafico-v1.2/pacchetto.parte-015
+          } > /tmp/aggiornamento-grafico.b64
           base64 --decode /tmp/aggiornamento-grafico.b64 > /tmp/aggiornamento-grafico.tar.xz
           echo "e71b89457b629b797d894508cd4b474ab7cd3f763edc3760c19d589916f559bf  /tmp/aggiornamento-grafico.tar.xz" | sha256sum --check -
           rm -rf /tmp/progetto-aggiornato
