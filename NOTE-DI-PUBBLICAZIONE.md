@@ -16,6 +16,7 @@ Le equazioni differenziali ordinarie non fanno parte di questo volume e rimangon
 - frontespizio editoriale semplificato, con titolo e sottotitolo come elementi dominanti;
 - pagine di apertura delle parti costruite sulla stessa griglia del frontespizio;
 - piè di pagina delle pagine di apertura reso uniforme, con `ingegnerismo.it` come firma principale;
+- sottotitolo del marchio uniformato alla dicitura ufficiale «Atlante dell'Ingegneria»;
 - autore riportato una sola volta sul frontespizio e non ripetuto nei piè di pagina;
 - nuovi stili per capitoli, riquadri operativi e tabelle;
 - riquadri con testate integrate e associazione cromatica semantica;
