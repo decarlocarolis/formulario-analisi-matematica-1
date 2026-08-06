@@ -28,7 +28,7 @@ jobs:
           root_file: formulario.tex
           args: -file-line-error -halt-on-error -interaction=nonstopmode -outdir=compilazione
           latexmk_use_xelatex: true
-          texlive_version: 2026
+          texlive_version: 2025
           os: debian
 
       - name: Prepara i file distribuibili
@@ -51,6 +51,17 @@ jobs:
             distribuzione/formulario-analisi-matematica-1.pdf
             distribuzione/formulario-analisi-matematica-1-sorgenti.zip
             distribuzione/SOMME-DI-CONTROLLO-SHA256.txt
+
+      - name: Sposta l'etichetta v1.2 sulla correzione editoriale
+        if: github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, '[ripubblica-v1.2]')
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "Automazione Ingegnerismo"
+          git config user.email "actions@users.noreply.github.com"
+          git tag -f -a v1.2 "${GITHUB_SHA}" \
+            -m "Formulario di Analisi Matematica I v.1.2 - correzioni grafiche e tipografiche"
+          git push --force origin refs/tags/v1.2
 
       - name: Crea o aggiorna la versione pubblicata su GitHub
         if: github.ref_type == 'tag'
