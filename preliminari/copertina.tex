@@ -2,116 +2,93 @@
 \thispagestyle{empty}
 \null
 
-% Copertina interamente posizionata su una sola pagina.
+% Frontespizio editoriale: titolo dominante, ampio spazio bianco e firma del sito separata.
 \begin{tikzpicture}[remember picture,overlay]
-  % Dorso cromatico e fascia istituzionale.
-  \fill[IngBluScuro] (current page.north west) rectangle ([xshift=18mm]current page.south west);
-  \fill[IngBlu] ([xshift=18mm]current page.north west) rectangle ([xshift=22mm]current page.south west);
-  \fill[IngGiallo] ([xshift=22mm]current page.north west) rectangle ([xshift=24.5mm]current page.south west);
-  \fill[IngBluPallido] ([xshift=24.5mm]current page.north west) rectangle ([yshift=-52mm]current page.north east);
-  \fill[IngBluScuro] ([xshift=24.5mm,yshift=-50mm]current page.north west)
-    rectangle ([yshift=-52mm]current page.north east);
+  % Dorso cromatico ridotto: identifica la collana senza sottrarre spazio al titolo.
+  \fill[IngBluScuro] (current page.north west) rectangle ([xshift=15mm]current page.south west);
+  \fill[IngBlu] ([xshift=15mm]current page.north west) rectangle ([xshift=18.5mm]current page.south west);
+  \fill[IngGiallo] ([xshift=18.5mm]current page.north west) rectangle ([xshift=20mm]current page.south west);
 
-  % Marchio e descrizione della collana.
+  % Segno matematico di fondo, volutamente tenue.
+  \node[anchor=center,text=IngBlu!5,font=\fontsize{148}{148}\selectfont]
+    at ([xshift=51mm,yshift=-6mm]current page.center) {$\displaystyle\int$};
+
+  % Identificazione della collana e della disciplina.
   \node[anchor=north west,inner sep=0pt]
-    at ([xshift=38mm,yshift=-17mm]current page.north west) {%
-      \begin{minipage}{150mm}
-        \begin{minipage}[c]{30mm}
-          \LogoIngegnerismo[27mm]
-        \end{minipage}
-        \hspace{5mm}
-        \begin{minipage}[c]{108mm}
-          {\sffamily\bfseries\fontsize{30}{32}\selectfont\color{IngBluScuro}ingegnerismo.it\par}
-          \vspace{1mm}
-          {\sffamily\normalsize\color{IngGrigio}Formulari operativi per ingegneria e discipline STEM\par}
-        \end{minipage}
+    at ([xshift=35mm,yshift=-27mm]current page.north west) {%
+      \begin{minipage}{155mm}
+        {\sffamily\bfseries\fontsize{10.5}{13}\selectfont\color{IngBlu}
+          \MakeUppercase{Collana formulari operativi}\par}
+        \vspace{1.7mm}
+        {\sffamily\fontsize{9.5}{12}\selectfont\color{IngGrigio}
+          Matematica per ingegneria e discipline STEM\par}
       \end{minipage}%
     };
 
-  % Titolo e sottotitolo.
+  % Titolo e sottotitolo: fulcro visivo della pagina.
   \node[anchor=north west,inner sep=0pt]
-    at ([xshift=38mm,yshift=-79mm]current page.north west) {%
+    at ([xshift=35mm,yshift=-60mm]current page.north west) {%
       \begin{minipage}{154mm}
-        {\sffamily\bfseries\small\color{IngBlu}\MakeUppercase{Formulario operativo}\par}
-        \vspace{3mm}
         {\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000
-          \sffamily\bfseries\fontsize{29}{33}\selectfont\color{IngBluScuro}
+          \sffamily\bfseries\fontsize{34}{38}\selectfont\color{IngBluScuro}
           \FormularioTitolo\par}
-        \vspace{5mm}
-        {\color{IngGialloScuro}\rule{56mm}{2.2pt}\par}
         \vspace{6mm}
-        {\sffamily\fontsize{16}{20}\selectfont\color{IngGrigio}\FormularioSottotitolo\par}
+        {\color{IngGialloScuro}\rule{62mm}{2.1pt}\par}
+        \vspace{7mm}
+        {\raggedright\sffamily\fontsize{16.5}{21}\selectfont\color{IngGrigio}
+          \FormularioSottotitolo\par}
       \end{minipage}%
     };
 
-  % Obiettivo editoriale.
+  % Nota editoriale breve: non sostituisce la pagina «Come usare».
   \node[anchor=north west,inner sep=0pt]
-    at ([xshift=38mm,yshift=-143mm]current page.north west) {%
-      \begin{minipage}{154mm}
-        \begin{tcolorbox}[
-          enhanced,
-          colback=IngBianco,
-          colframe=IngLinea,
-          boxrule=.5pt,
-          arc=1.8mm,
-          borderline west={3pt}{0pt}{IngBlu},
-          left=4mm,right=4mm,top=3mm,bottom=3mm
-        ]
-        \textbf{Obiettivo del volume.} Trasformare una traccia d'esame in una sequenza risolutiva controllabile, usando formule, criteri e teoremi con le rispettive ipotesi, condizioni di esistenza e verifiche finali.
-        \end{tcolorbox}
+    at ([xshift=35mm,yshift=-145mm]current page.north west) {%
+      \begin{minipage}{112mm}
+        {\sffamily\fontsize{11.5}{16}\selectfont\color{IngBluScuro}
+          Dalla forma della traccia alla scelta del metodo, con procedure, formule,
+          condizioni di applicabilità e controlli finali.\par}
       \end{minipage}%
     };
 
-  % Sequenza operativa in quattro fasi.
-  \node[anchor=north west,inner sep=0pt]
-    at ([xshift=38mm,yshift=-184mm]current page.north west) {%
-      \begin{minipage}{154mm}
-        \begin{tcolorbox}[
-          enhanced,
-          colback=IngBluPallido,
-          colframe=IngBluPallido,
-          boxrule=0pt,
-          arc=1.2mm,
-          left=3mm,right=3mm,top=3mm,bottom=3mm
-        ]
-        \begin{tabularx}{\linewidth}{@{}*{4}{>{\centering\arraybackslash}X}@{}}
-          \EtichettaBlu{1}\par\vspace{2mm}
-          {\sffamily\bfseries\color{IngBluScuro}Riconosci\par}
-          {\footnotesize\color{IngGrigio}tipo di problema e dominio}
-          &
-          \EtichettaBlu{2}\par\vspace{2mm}
-          {\sffamily\bfseries\color{IngBluScuro}Scegli\par}
-          {\footnotesize\color{IngGrigio}metodo e criterio adatti}
-          &
-          \EtichettaBlu{3}\par\vspace{2mm}
-          {\sffamily\bfseries\color{IngBluScuro}Esegui\par}
-          {\footnotesize\color{IngGrigio}passaggi ordinati e leggibili}
-          &
-          \EtichettaGialla{4}\par\vspace{2mm}
-          {\sffamily\bfseries\color{IngBluScuro}Controlla\par}
-          {\footnotesize\color{IngGrigio}ipotesi, segni e risultato}
-        \end{tabularx}
-        \end{tcolorbox}
-      \end{minipage}%
-    };
+  % Linea di base comune a metadati e marchio.
+  \draw[IngLinea,line width=.6pt]
+    ([xshift=35mm,yshift=38mm]current page.south west) --
+    ([xshift=-14mm,yshift=38mm]current page.south east);
 
-  % Metadati compatti e diritti d'autore.
+  % Metadati e licenza sintetica in basso a sinistra.
   \node[anchor=south west,inner sep=0pt]
-    at ([xshift=38mm,yshift=15mm]current page.south west) {%
-      \begin{minipage}{154mm}
-        {\color{IngLinea}\rule{\textwidth}{.6pt}\par}
-        \vspace{3mm}
+    at ([xshift=35mm,yshift=14mm]current page.south west) {%
+      \begin{minipage}{92mm}
         {\sffamily\small\color{IngBluScuro}
-          \textbf{\FormularioAutore}\quad
-          \textcolor{IngGrigioMedio}{|}\quad\FormularioVersione\quad
-          \textcolor{IngGrigioMedio}{|}\quad\FormularioData\par}
+          \textbf{\FormularioAutore}\par}
         \vspace{1.5mm}
         {\sffamily\footnotesize\color{IngGrigio}
-          Sorgente LaTeX pubblico e versionato\quad
-          \textcolor{IngGrigioMedio}{|}\quad
-          \href{\SitoURL}{ingegnerismo.it}\par}
-        \vspace{2.5mm}
-        {\scriptsize\color{IngGrigio}© 2026 \FormularioAutore. Tutti i diritti riservati. La disponibilità pubblica del deposito non attribuisce automaticamente una licenza di riuso o redistribuzione.}
+          \FormularioVersione\quad\textcolor{IngGrigioMedio}{|}\quad\FormularioData\par}
+        \vspace{2.2mm}
+        {\sffamily\scriptsize\color{IngGrigio}
+          © 2026 \FormularioAutore\quad\textcolor{IngGrigioMedio}{|}\quad
+          \href{\LicenzaURL}{\textcolor{IngBlu}{\LicenzaNome}}\par}
+        \vspace{.8mm}
+        {\sffamily\scriptsize\color{IngGrigio}
+          Attribuzione: \href{\SitoURL}{\textcolor{IngBlu}{\LicenzaAttribuzione}}\par}
+      \end{minipage}%
+    };
+
+  % Marchio in basso a destra: firma editoriale, non concorrente del titolo.
+  \node[anchor=south east,inner sep=0pt]
+    at ([xshift=-14mm,yshift=13mm]current page.south east) {%
+      \begin{minipage}{76mm}
+        \raggedleft
+        \begin{minipage}[c]{23mm}
+          \LogoIngegnerismo[21mm]
+        \end{minipage}
+        \hspace{3mm}
+        \begin{minipage}[c]{50mm}
+          \raggedleft
+          {\sffamily\bfseries\fontsize{21}{23}\selectfont\color{IngBluScuro}ingegnerismo.it\par}
+          \vspace{.7mm}
+          {\sffamily\scriptsize\color{IngGrigio}Atlante e strumenti per l'ingegneria\par}
+        \end{minipage}
       \end{minipage}%
     };
 \end{tikzpicture}
