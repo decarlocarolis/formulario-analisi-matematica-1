@@ -1,0 +1,64 @@
+name: Problema grafico o di accessibilità
+description: Segnala difficoltà di impaginazione, leggibilità, navigazione o fruizione assistiva.
+title: "[Grafica o accessibilità] "
+body:
+  - type: input
+    id: versione
+    attributes:
+      label: Versione del formulario
+      placeholder: "v.1.2"
+    validations:
+      required: true
+  - type: input
+    id: posizione
+    attributes:
+      label: Posizione
+      description: Indica pagina, sezione ed elemento interessato.
+      placeholder: "Pagina 42, tabella in fondo alla pagina"
+    validations:
+      required: true
+  - type: dropdown
+    id: categoria
+    attributes:
+      label: Tipo di problema
+      options:
+        - Testo, formula o tabella tagliati
+        - Dimensione o leggibilità del testo
+        - Contrasto o uso del colore
+        - Collegamento o indice non funzionante
+        - Ordine di lettura o navigazione assistiva
+        - Resa diversa tra visualizzatori o stampa
+        - Altro problema grafico o di accessibilità
+    validations:
+      required: true
+  - type: input
+    id: ambiente
+    attributes:
+      label: Ambiente di consultazione
+      description: Indica dispositivo, sistema, lettore PDF e modalità di visualizzazione o stampa.
+      placeholder: "Firefox PDF Viewer su Windows 11, zoom 125%"
+    validations:
+      required: true
+  - type: textarea
+    id: problema
+    attributes:
+      label: Problema riscontrato
+      description: Descrivi cosa accade, cosa ti aspettavi e quanto ostacola la consultazione.
+    validations:
+      required: true
+  - type: textarea
+    id: allegati
+    attributes:
+      label: Immagini o altri dettagli
+      description: Se utile, trascina qui una schermata priva di dati personali o materiale riservato.
+    validations:
+      required: false
+  - type: checkboxes
+    id: conferme
+    attributes:
+      label: Conferme
+      options:
+        - label: Ho indicato versione, pagina e ambiente in cui si presenta il problema.
+          required: true
+        - label: Gli eventuali allegati non contengono dati personali o materiale protetto di terzi.
+          required: true

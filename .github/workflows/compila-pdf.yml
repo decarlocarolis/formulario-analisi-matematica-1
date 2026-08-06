@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   compilazione:
@@ -21,6 +21,24 @@ jobs:
 
       - name: Controlla la struttura del progetto
         run: python strumenti/controlla_progetto.py
+
+      - name: Verifica che l'etichetta descriva una versione nuova
+        if: github.ref_type == 'tag'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          versione_documento="$(python -c 'import json; print(json.load(open("formulario.json", encoding="utf-8"))["documento"]["versione"])')"
+          etichetta_documento="v${versione_documento#v.}"
+          if [[ "${GITHUB_REF_NAME}" != "${etichetta_documento}" ]]; then
+            echo "L'etichetta ${GITHUB_REF_NAME} non coincide con la versione ${versione_documento}." >&2
+            exit 1
+          fi
+          if gh release view "${GITHUB_REF_NAME}" >/dev/null 2>&1; then
+            echo "La versione ${GITHUB_REF_NAME} esiste gia ed e immutabile." >&2
+            exit 1
+          fi
 
       - name: Compila il documento LaTeX
         uses: xu-cheng/latex-action@v4
@@ -52,38 +70,40 @@ jobs:
             distribuzione/formulario-analisi-matematica-1-sorgenti.zip
             distribuzione/SOMME-DI-CONTROLLO-SHA256.txt
 
-      - name: Sposta l'etichetta v1.2 sulla correzione editoriale
-        if: github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, '[ripubblica-v1.2]')
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name "Automazione Ingegnerismo"
-          git config user.email "actions@users.noreply.github.com"
-          git tag -f -a v1.2 "${GITHUB_SHA}" \
-            -m "Formulario di Analisi Matematica I v.1.2 - correzioni grafiche e tipografiche"
-          git push --force origin refs/tags/v1.2
+  pubblicazione:
+    if: github.event_name == 'push' && github.ref_type == 'tag'
+    needs: compilazione
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Scarica il deposito
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
 
-      - name: Crea o aggiorna la versione pubblicata su GitHub
-        if: github.ref_type == 'tag'
+      - name: Recupera i file verificati
+        uses: actions/download-artifact@v7
+        with:
+          name: pacchetto-formulario-analisi-matematica-1
+          path: distribuzione
+
+      - name: Pubblica una nuova versione immutabile su GitHub
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           if gh release view "${GITHUB_REF_NAME}" >/dev/null 2>&1; then
-            gh release upload "${GITHUB_REF_NAME}" \
-              distribuzione/formulario-analisi-matematica-1.pdf \
-              distribuzione/formulario-analisi-matematica-1-sorgenti.zip \
-              distribuzione/SOMME-DI-CONTROLLO-SHA256.txt \
-              --clobber
-            gh release edit "${GITHUB_REF_NAME}" \
-              --title "Formulario di Analisi Matematica I ${GITHUB_REF_NAME}" \
-              --notes-file NOTE-DI-PUBBLICAZIONE.md
-          else
-            gh release create "${GITHUB_REF_NAME}" \
-              distribuzione/formulario-analisi-matematica-1.pdf \
-              distribuzione/formulario-analisi-matematica-1-sorgenti.zip \
-              distribuzione/SOMME-DI-CONTROLLO-SHA256.txt \
-              --title "Formulario di Analisi Matematica I ${GITHUB_REF_NAME}" \
-              --notes-file NOTE-DI-PUBBLICAZIONE.md
+            echo "La versione ${GITHUB_REF_NAME} esiste gia: tag e allegati pubblicati sono immutabili." >&2
+            echo "Aggiorna i metadati e crea una nuova versione editoriale." >&2
+            exit 1
           fi
+
+          gh release create "${GITHUB_REF_NAME}" \
+            distribuzione/formulario-analisi-matematica-1.pdf \
+            distribuzione/formulario-analisi-matematica-1-sorgenti.zip \
+            distribuzione/SOMME-DI-CONTROLLO-SHA256.txt \
+            --title "Formulario di Analisi Matematica I ${GITHUB_REF_NAME}" \
+            --notes-file NOTE-DI-PUBBLICAZIONE.md \
+            --verify-tag

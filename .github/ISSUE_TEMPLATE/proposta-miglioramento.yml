@@ -1,0 +1,50 @@
+name: Proposta di miglioramento
+description: Proponi un'aggiunta o una modifica circoscritta a contenuti e organizzazione.
+title: "[Proposta] "
+body:
+  - type: input
+    id: versione
+    attributes:
+      label: Versione di riferimento
+      description: Indica la versione del PDF da cui parte la proposta.
+      placeholder: "v.1.2"
+    validations:
+      required: true
+  - type: input
+    id: posizione
+    attributes:
+      label: Ambito interessato
+      description: Indica capitolo, sezione, pagina o punto dell'indice.
+      placeholder: "Capitolo 12, sviluppi di Taylor, pagina 91"
+    validations:
+      required: true
+  - type: textarea
+    id: esigenza
+    attributes:
+      label: Esigenza
+      description: Spiega quale difficoltà concreta risolverebbe il miglioramento.
+    validations:
+      required: true
+  - type: textarea
+    id: proposta
+    attributes:
+      label: Modifica proposta
+      description: Descrivi in modo circoscritto il contenuto, la formula, la tabella o l'organizzazione suggerita.
+    validations:
+      required: true
+  - type: textarea
+    id: riferimenti
+    attributes:
+      label: Riferimenti verificabili
+      description: Indica fonti o esempi utili senza copiarne il contenuto.
+    validations:
+      required: false
+  - type: checkboxes
+    id: conferme
+    attributes:
+      label: Conferme
+      options:
+        - label: La proposta riguarda un problema circoscritto.
+          required: true
+        - label: Il testo inviato è originale e non riproduce materiale protetto di terzi.
+          required: true

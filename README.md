@@ -13,6 +13,7 @@ Il sorgente canonico è il progetto LaTeX. Il file Markdown nella cartella `arch
 ## Struttura del deposito
 
 - `formulario.tex`: documento principale;
+- `formulario.json`: metadati leggibili dalle macchine della copia pubblicata sul sito;
 - `metadati.tex`: titolo, versione, data e indirizzi;
 - `comandi.tex`: comandi matematici specifici del volume;
 - `formulario-ingegnerismo.cls`: stile tipografico comune;
@@ -21,6 +22,7 @@ Il sorgente canonico è il progetto LaTeX. Il file Markdown nella cartella `arch
 - `conclusioni/`: lista di controllo finale;
 - `archivio/`: sorgente Markdown storico;
 - `strumenti/`: controlli, compilazione e pubblicazione;
+- `CONTRIBUTING.md`: canali e condizioni per segnalazioni e contributi;
 - `distribuzione/`: PDF e pacchetti generati, esclusi dalla cronologia Git;
 - `.github/workflows/`: compilazione automatica e pubblicazione delle versioni.
 
@@ -60,17 +62,54 @@ make pacchetto-sorgenti
 - file PDF stabile: `formulario-analisi-matematica-1.pdf`;
 - pacchetto dei sorgenti: `formulario-analisi-matematica-1-sorgenti.zip`.
 
+Le etichette e le versioni GitHub già pubblicate sono **immutabili**. Qualunque
+modifica che cambi anche un solo byte del PDF — contenuto, grafica, metadati,
+font, collegamenti o processo di generazione — richiede un nuovo numero di
+versione. Non si sposta un'etichetta esistente e non si sostituiscono i suoi
+allegati.
+
+La revisione usa una sola cifra: dopo `v.1.9` viene `v.2.0`; `v.1.10` non è un
+identificativo ammesso per questa collana.
+
 ## Collegamento dal sito
 
-Dopo la prima pubblicazione GitHub, l'indirizzo stabile del PDF sarà:
+La pagina editoriale del formulario è:
 
 ```text
-https://github.com/decarlocarolis/formulario-analisi-matematica-1/releases/latest/download/formulario-analisi-matematica-1.pdf
+https://ingegnerismo.it/matematica/formulario-analisi-1/
 ```
 
-Il PDF non viene inserito nella cronologia del ramo `main`: viene ricompilato dal flusso automatico e allegato a ogni versione pubblicata. Il sito può conservarne anche una copia sul proprio dominio; GitHub mantiene sorgenti, etichette, versioni pubblicate e somme di controllo.
+La copia `v.1.2` distribuita dal sito è disponibile all'indirizzo:
 
-Quando occorre correggere gli artefatti senza cambiare il numero editoriale, lo script `strumenti/pubblica-versione.sh v1.2` aggiorna l'etichetta e sostituisce i file della versione GitHub esistente. Questa operazione va usata soltanto per correzioni interne alla stessa versione dichiarata.
+```text
+https://ingegnerismo.it/downloads/formulari/formulario-analisi-1/formulario-analisi-matematica-1-v1.2.pdf
+```
+
+Il file [`formulario.json`](formulario.json) registra per questa copia versione,
+numero di pagine, checksum SHA-256, pagina pubblica e commit sorgente. I
+metadati descrivono il PDF conservato su ingegnerismo.it: non attestano
+l'identità con un allegato GitHub che riporti lo stesso numero editoriale. Per
+confrontare copie provenienti da canali diversi occorre verificarne i checksum.
+
+Il PDF non viene inserito nella cronologia del ramo `main`. GitHub conserva il
+sorgente, le etichette, le versioni pubblicate e le somme di controllo; il sito
+può distribuire una propria copia verificata.
+
+Lo script `strumenti/pubblica-versione.sh v1.3` può creare soltanto una versione
+nuova. Richiede un ramo `main` pulito e già sincronizzato con `origin/main`, e si
+interrompe se l'etichetta o la versione GitHub esistono già. Lo script invia la
+nuova etichetta; il flusso GitHub Actions è l'unico processo che crea la release
+e i relativi allegati.
+
+## Partecipare al progetto
+
+I modelli guidati permettono di segnalare un errore matematico, proporre un
+miglioramento oppure descrivere un problema grafico o di accessibilità. Le
+domande generali e le proposte ancora da definire appartengono alle
+[Discussioni](https://github.com/decarlocarolis/formulario-analisi-matematica-1/discussions).
+
+Le istruzioni complete, compresi originalità, limiti del contributo e licenza,
+sono raccolte in [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## Licenza
 
