@@ -28,7 +28,7 @@ I nomi `README.md`, `Makefile`, `.github`, `.gitignore`, `.gitattributes` e alcu
 
 ## Identità grafica
 
-La classe `formulario-ingegnerismo.cls` applica la palette derivata dal marchio, la gerarchia dei titoli, i riquadri operativi, le tabelle e le intestazioni. Il logo sorgente è conservato in `risorse/marchio/` come SVG; il documento utilizza la copia vettoriale PDF per una compilazione stabile. Le regole comuni sono descritte in `LINEE-GUIDA-GRAFICHE.md`.
+La classe `formulario-ingegnerismo.cls` applica la palette derivata dal marchio, la gerarchia dei titoli, i riquadri operativi, le tabelle e le intestazioni. Copertina, aperture di parte e pagina conclusiva condividono lo stesso piè di pagina editoriale: `ingegnerismo.it` è la firma principale, mentre autore e metadati non vengono ripetuti. Il logo sorgente è conservato in `risorse/marchio/` come SVG; il documento utilizza la copia vettoriale PDF per una compilazione stabile. Le regole comuni sono descritte in `LINEE-GUIDA-GRAFICHE.md`.
 
 ## Compilazione locale
 
