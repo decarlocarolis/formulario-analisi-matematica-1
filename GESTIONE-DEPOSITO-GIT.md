@@ -31,6 +31,8 @@ Con un account `gh` autenticato e amministratore, il comando seguente:
 - protegge `main` da cancellazioni e force push;
 - richiede pull request, conversazioni risolte e il controllo
   «Controllo e compilazione»;
+- consente al proprietario di superare le regole soltanto all'interno di una
+  pull request, mai mediante push diretto;
 - protegge i tag `v*.*` da modifica e cancellazione;
 - elimina soltanto i rami `agent/*`, `tecnico/*`, `codex/*` e `dependabot/*`
   che non hanno pull request aperte.
