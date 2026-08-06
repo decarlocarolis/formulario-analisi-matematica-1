@@ -1,3 +1,3 @@
 Questo file attiva esclusivamente il flusso tecnico temporaneo che applica la revisione grafica del Formulario di Analisi Matematica I mantenendo la versione v.1.2.
 
-Terza esecuzione: ricostruzione completa mediante i sottoframmenti verificati di 003 e 010.
+Quarta esecuzione: pubblicazione definitiva del sorgente, aggiornamento forzato protetto del ramo principale e sostituzione degli allegati della release v1.2.
