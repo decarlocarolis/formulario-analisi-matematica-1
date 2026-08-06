@@ -1,0 +1,78 @@
+name: Compila e pubblica il PDF
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*.*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  compilazione:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Scarica il deposito
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Controlla la struttura del progetto
+        run: python strumenti/controlla_progetto.py
+
+      - name: Compila il documento LaTeX
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: formulario.tex
+          args: -file-line-error -halt-on-error -interaction=nonstopmode -outdir=compilazione
+          latexmk_use_xelatex: true
+          texlive_version: 2026
+          os: debian
+
+      - name: Prepara i file distribuibili
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p distribuzione
+          cp compilazione/formulario.pdf distribuzione/formulario-analisi-matematica-1.pdf
+          git archive --format=zip --output=distribuzione/formulario-analisi-matematica-1-sorgenti.zip HEAD
+          sha256sum \
+            distribuzione/formulario-analisi-matematica-1.pdf \
+            distribuzione/formulario-analisi-matematica-1-sorgenti.zip \
+            > distribuzione/SOMME-DI-CONTROLLO-SHA256.txt
+
+      - name: Conserva i file della compilazione
+        uses: actions/upload-artifact@v7
+        with:
+          name: pacchetto-formulario-analisi-matematica-1
+          path: |
+            distribuzione/formulario-analisi-matematica-1.pdf
+            distribuzione/formulario-analisi-matematica-1-sorgenti.zip
+            distribuzione/SOMME-DI-CONTROLLO-SHA256.txt
+
+      - name: Crea o aggiorna la versione pubblicata su GitHub
+        if: github.ref_type == 'tag'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if gh release view "${GITHUB_REF_NAME}" >/dev/null 2>&1; then
+            gh release upload "${GITHUB_REF_NAME}" \
+              distribuzione/formulario-analisi-matematica-1.pdf \
+              distribuzione/formulario-analisi-matematica-1-sorgenti.zip \
+              distribuzione/SOMME-DI-CONTROLLO-SHA256.txt \
+              --clobber
+            gh release edit "${GITHUB_REF_NAME}" \
+              --title "Formulario di Analisi Matematica I ${GITHUB_REF_NAME}" \
+              --notes-file NOTE-DI-PUBBLICAZIONE.md
+          else
+            gh release create "${GITHUB_REF_NAME}" \
+              distribuzione/formulario-analisi-matematica-1.pdf \
+              distribuzione/formulario-analisi-matematica-1-sorgenti.zip \
+              distribuzione/SOMME-DI-CONTROLLO-SHA256.txt \
+              --title "Formulario di Analisi Matematica I ${GITHUB_REF_NAME}" \
+              --notes-file NOTE-DI-PUBBLICAZIONE.md
+          fi
