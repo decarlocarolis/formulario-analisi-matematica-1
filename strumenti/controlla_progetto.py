@@ -64,26 +64,12 @@ def url_https(nome: str, dato: object, prefisso: str | None = None) -> str:
     return dato
 
 
-# Il controllo segnala i residui obsoleti ma non elimina mai nulla.
 residui_obsoleti = [
-    "main.tex",
-    "metadata.tex",
-    "commands.tex",
-    "ingegnerismo-formulario.cls",
-    "CHANGELOG.md",
-    "NOTICE.md",
-    "REPOSITORY_SETUP.md",
-    "NOTE-DI-VERSIONE.md",
-    "bootstrap-github.sh",
-    "trigger-bootstrap.txt",
-    "archive",
-    "frontmatter",
-    "backmatter",
-    "sections",
-    "tools",
-    "bootstrap",
-    ".github/workflows/build-pdf.yml",
-    ".github/workflows/bootstrap-source.yml",
+    "main.tex", "metadata.tex", "commands.tex", "ingegnerismo-formulario.cls",
+    "CHANGELOG.md", "NOTICE.md", "REPOSITORY_SETUP.md", "NOTE-DI-VERSIONE.md",
+    "bootstrap-github.sh", "trigger-bootstrap.txt", "archive", "frontmatter",
+    "backmatter", "sections", "tools", "bootstrap",
+    ".github/workflows/build-pdf.yml", ".github/workflows/bootstrap-source.yml",
     ".github/ISSUE_TEMPLATE/errore-matematico.yml",
 ]
 presenti = [nome for nome in residui_obsoleti if (RADICE / nome).exists()]
@@ -91,27 +77,14 @@ if presenti:
     errore("File o cartelle obsolete presenti: " + ", ".join(presenti))
 
 obbligatori = [
-    "formulario.tex",
-    "formulario.json",
-    "metadati.tex",
-    "comandi.tex",
-    "formulario-ingegnerismo.cls",
-    "STILE-COLLANA.json",
-    "README.md",
-    "CONTRIBUTING.md",
-    "CRONOLOGIA.md",
-    "GESTIONE-DEPOSITO-GIT.md",
-    "LICENZA.md",
-    "LINEE-GUIDA-GRAFICHE.md",
-    "VERIFICA-MATEMATICA.md",
-    "requisiti-verifica.txt",
-    "strumenti/compila-pdf.sh",
-    "strumenti/controlla_progetto.py",
-    "strumenti/pubblica-versione.sh",
-    "strumenti/verifica_formule.py",
-    ".github/workflows/compila-pdf.yml",
-    ".github/dependabot.yml",
-    ".github/PULL_REQUEST_TEMPLATE.md",
+    "formulario.tex", "formulario.json", "metadati.tex", "comandi.tex",
+    "formulario-ingegnerismo.cls", "STILE-COLLANA.json", "README.md",
+    "CONTRIBUTING.md", "CRONOLOGIA.md", "GESTIONE-DEPOSITO-GIT.md",
+    "LICENZA.md", "LINEE-GUIDA-GRAFICHE.md", "VERIFICA-MATEMATICA.md",
+    "requisiti-verifica.txt", "strumenti/compila-pdf.sh",
+    "strumenti/controlla_progetto.py", "strumenti/pubblica-versione.sh",
+    "strumenti/verifica_formule.py", ".github/workflows/compila-pdf.yml",
+    ".github/dependabot.yml", ".github/PULL_REQUEST_TEMPLATE.md",
     ".github/ISSUE_TEMPLATE/config.yml",
     ".github/ISSUE_TEMPLATE/segnalazione-errore-matematico.yml",
     ".github/ISSUE_TEMPLATE/proposta-miglioramento.yml",
@@ -151,12 +124,10 @@ confronti = {
     ("sorgente", "repositoryUrl"): comando_latex(metadati, "DepositoGitHubURL"),
 }
 for percorso, atteso in confronti.items():
-    trovato = valore(manifesto, *percorso)
-    if trovato != atteso:
+    if valore(manifesto, *percorso) != atteso:
         errore(f"{'.'.join(percorso)} non coincide con metadati.tex")
 
-slug = valore(manifesto, "documento", "slug")
-if slug != "formulario-analisi-1":
+if valore(manifesto, "documento", "slug") != "formulario-analisi-1":
     errore("documento.slug deve essere formulario-analisi-1")
 if valore(manifesto, "documento", "lingua") != "it":
     errore("documento.lingua deve essere it")
@@ -168,20 +139,9 @@ try:
     data_iso = date.fromisoformat(data_edizione)
 except ValueError as eccezione:
     errore(f"documento.dataEdizione non è valida: {eccezione}")
-mesi = {
-    "gennaio": 1,
-    "febbraio": 2,
-    "marzo": 3,
-    "aprile": 4,
-    "maggio": 5,
-    "giugno": 6,
-    "luglio": 7,
-    "agosto": 8,
-    "settembre": 9,
-    "ottobre": 10,
-    "novembre": 11,
-    "dicembre": 12,
-}
+mesi = {"gennaio": 1, "febbraio": 2, "marzo": 3, "aprile": 4, "maggio": 5,
+        "giugno": 6, "luglio": 7, "agosto": 8, "settembre": 9,
+        "ottobre": 10, "novembre": 11, "dicembre": 12}
 try:
     giorno, mese, anno = comando_latex(metadati, "FormularioData").split()
     data_latex = date(int(anno), mesi[mese.lower()], int(giorno))
@@ -190,27 +150,19 @@ except (KeyError, TypeError, ValueError) as eccezione:
 if data_iso != data_latex:
     errore("documento.dataEdizione non coincide con FormularioData")
 
-repository_url = url_https(
-    "sorgente.repositoryUrl", valore(manifesto, "sorgente", "repositoryUrl"), URL_DEPOSITO
-)
+repository_url = url_https("sorgente.repositoryUrl", valore(manifesto, "sorgente", "repositoryUrl"), URL_DEPOSITO)
 commit = valore(manifesto, "sorgente", "commit")
 if not isinstance(commit, str) or not re.fullmatch(r"[0-9a-f]{40}", commit):
     errore("sorgente.commit deve essere un identificatore Git completo")
-commit_url = url_https(
-    "sorgente.commitUrl", valore(manifesto, "sorgente", "commitUrl"), repository_url + "/commit/"
-)
+commit_url = url_https("sorgente.commitUrl", valore(manifesto, "sorgente", "commitUrl"), repository_url + "/commit/")
 if commit_url != f"{repository_url}/commit/{commit}":
     errore("sorgente.commitUrl non corrisponde a sorgente.commit")
 
 pubblicazione = valore(manifesto, "pubblicazioneSito")
 if not isinstance(pubblicazione, dict):
     errore("pubblicazioneSito deve essere un oggetto")
-pagina_url = url_https(
-    "pubblicazioneSito.paginaUrl", pubblicazione.get("paginaUrl"), "https://ingegnerismo.it/"
-)
-pdf_url = url_https(
-    "pubblicazioneSito.pdfUrl", pubblicazione.get("pdfUrl"), "https://ingegnerismo.it/"
-)
+pagina_url = url_https("pubblicazioneSito.paginaUrl", pubblicazione.get("paginaUrl"), "https://ingegnerismo.it/")
+pdf_url = url_https("pubblicazioneSito.pdfUrl", pubblicazione.get("pdfUrl"), "https://ingegnerismo.it/")
 if not pagina_url.endswith("/matematica/formulario-analisi-1/"):
     errore("pubblicazioneSito.paginaUrl non corrisponde allo slug")
 if not pdf_url.endswith(".pdf") or f"-v{versione.removeprefix('v.')}" not in pdf_url:
@@ -219,23 +171,13 @@ if pubblicazione.get("nomeFile") != Path(urlparse(pdf_url).path).name:
     errore("pubblicazioneSito.nomeFile non coincide con l'URL del PDF")
 if not isinstance(pubblicazione.get("pagine"), int) or pubblicazione["pagine"] <= 0:
     errore("pubblicazioneSito.pagine deve essere un intero positivo")
-if not isinstance(pubblicazione.get("sha256"), str) or not re.fullmatch(
-    r"[0-9a-f]{64}", pubblicazione["sha256"]
-):
+if not isinstance(pubblicazione.get("sha256"), str) or not re.fullmatch(r"[0-9a-f]{64}", pubblicazione["sha256"]):
     errore("pubblicazioneSito.sha256 deve essere un digest SHA-256")
 
 if valore(manifesto, "licenza", "codice") != "CC-BY-NC-4.0":
     errore("licenza.codice deve essere CC-BY-NC-4.0")
-url_https(
-    "licenza.url",
-    valore(manifesto, "licenza", "url"),
-    "https://creativecommons.org/licenses/by-nc/4.0/",
-)
-url_https(
-    "licenza.dettagliUrl",
-    valore(manifesto, "licenza", "dettagliUrl"),
-    URL_DEPOSITO + "/blob/main/LICENZA.md",
-)
+url_https("licenza.url", valore(manifesto, "licenza", "url"), "https://creativecommons.org/licenses/by-nc/4.0/")
+url_https("licenza.dettagliUrl", valore(manifesto, "licenza", "dettagliUrl"), URL_DEPOSITO + "/blob/main/LICENZA.md")
 
 try:
     stile = json.loads(leggi(RADICE / "STILE-COLLANA.json"))
@@ -251,8 +193,7 @@ for chiave in ("classe", "logoSvg", "logoPdf"):
     atteso = elemento.get("sha256")
     if not percorso.is_file() or not isinstance(atteso, str):
         errore(f"Elemento di stile non valido: {chiave}")
-    trovato = sha256(percorso)
-    if trovato != atteso:
+    if sha256(percorso) != atteso:
         errore(f"Hash dello stile non coerente per {percorso.relative_to(RADICE)}")
 
 classe = leggi(RADICE / "formulario-ingegnerismo.cls")
@@ -266,19 +207,15 @@ if "Formulari operativi per ingegneria e discipline STEM" in classe:
 if "range={\\lbrace,\\rbrace}" not in classe:
     errore("Fallback tipografico per le parentesi graffe assente")
 
-file_testuali = [
-    RADICE / nome
-    for nome in obbligatori
-    if (RADICE / nome).is_file() and (RADICE / nome).suffix.lower() != ".pdf"
-] + capitoli
+file_testuali = [RADICE / nome for nome in obbligatori if (RADICE / nome).is_file() and (RADICE / nome).suffix.lower() != ".pdf"] + capitoli
+marcatori_conflitto = ("<" * 7, ">" * 7)
 for percorso in file_testuali:
     testo = leggi(percorso)
-    if "\x00" in testo or "<<<<<<<" in testo or ">>>>>>>" in testo:
+    if "\x00" in testo or any(marcatore in testo for marcatore in marcatori_conflitto):
         errore(f"Contenuto non valido in {percorso.relative_to(RADICE)}")
 
 for percorso in capitoli:
-    testo = leggi(percorso)
-    if re.search(r"\bEDO\b|equazion[ei]\s+differenzial", testo, flags=re.IGNORECASE):
+    if re.search(r"\bEDO\b|equazion[ei]\s+differenzial", leggi(percorso), flags=re.IGNORECASE):
         errore(f"Contenuto EDO fuori ambito in {percorso.relative_to(RADICE)}")
 
 workflow = leggi(RADICE / ".github/workflows/compila-pdf.yml")
@@ -294,14 +231,7 @@ for riga in workflow.splitlines():
         errore("Le GitHub Actions devono essere fissate a uno SHA completo")
 
 script = leggi(RADICE / "strumenti/pubblica-versione.sh")
-for vietato in (
-    "git add --all",
-    "git commit",
-    "git push origin main",
-    "git tag -f",
-    "git push --force",
-    "--clobber",
-):
+for vietato in ("git add --all", "git commit", "git push origin main", "git tag -f", "git push --force", "--clobber"):
     if vietato in script:
         errore(f"Operazione distruttiva presente nello script di pubblicazione: {vietato}")
 for necessario in ("git status --porcelain", "origin/main", "gh release view"):
@@ -315,10 +245,7 @@ if "https://ingegnerismo.it/contribuisci/" not in config_issue:
     errore("Collegamento a ingegnerismo.it/contribuisci/ mancante")
 
 licenza = leggi(RADICE / "LICENZA.md")
-if "strumenti tecnici" not in licenza.lower() or "diritti riservati" not in licenza.lower():
+if "strumenti tecnici" not in licenza.lower() or "restano riservati" not in licenza.lower():
     errore("La licenza deve chiarire i diritti sugli strumenti tecnici")
 
-print(
-    f"Controllo superato: {len(capitoli)} capitoli, metadati e manifesto coerenti, "
-    "stile verificato, pubblicazione immutabile e nessun contenuto EDO nei capitoli"
-)
+print(f"Controllo superato: {len(capitoli)} capitoli, metadati e manifesto coerenti, stile verificato, pubblicazione immutabile e nessun contenuto EDO nei capitoli")
