@@ -16,6 +16,32 @@ https://github.com/decarlocarolis/formulario-analisi-matematica-1
   per il numero minore;
 - il workflow manuale compila ma non pubblica.
 
+## Configurazione amministrativa
+
+Lo script seguente controlla la configurazione senza modificarla:
+
+```bash
+strumenti/configura-deposito-github.sh verifica
+```
+
+Con un account `gh` autenticato e amministratore, il comando seguente:
+
+- abilita la cancellazione automatica dei rami dopo il merge;
+- mantiene soltanto lo squash merge;
+- protegge `main` da cancellazioni e force push;
+- richiede pull request, conversazioni risolte e il controllo
+  «Controllo e compilazione»;
+- protegge i tag `v*.*` da modifica e cancellazione;
+- elimina soltanto i rami `agent/*`, `tecnico/*`, `codex/*` e `dependabot/*`
+  che non hanno pull request aperte.
+
+```bash
+strumenti/configura-deposito-github.sh applica
+```
+
+Lo script è idempotente: aggiorna i ruleset con lo stesso nome e può essere
+rieseguito dopo modifiche amministrative.
+
 ## Pubblicazione
 
 1. aggiorna `metadati.tex`, `formulario.json`, `CRONOLOGIA.md` e le note di
@@ -25,17 +51,6 @@ https://github.com/decarlocarolis/formulario-analisi-matematica-1
 4. esegui `strumenti/pubblica-versione.sh v1.3` sostituendo la versione corretta;
 5. verifica l'esecuzione GitHub Actions e i tre allegati della nuova Release.
 
-Lo script rifiuta worktree sporchi, `main` non sincronizzato, tag esistenti e
-Release esistenti. Non registra file, non invia `main` e non usa force push.
-
-## Protezioni consigliate nelle impostazioni GitHub
-
-Configura un ruleset per:
-
-- richiedere pull request su `main`;
-- richiedere il controllo «Controllo e compilazione»;
-- vietare force push e cancellazione di `main`;
-- proteggere i tag `v*.*` da modifica e cancellazione.
-
-Queste impostazioni appartengono alla configurazione del repository e non ai
-file versionati.
+Lo script di pubblicazione rifiuta worktree sporchi, `main` non sincronizzato,
+tag esistenti e Release esistenti. Non registra file, non invia `main` e non usa
+force push.
