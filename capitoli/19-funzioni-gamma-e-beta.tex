@@ -1,0 +1,70 @@
+% Sorgente LaTeX canonico, importato e revisionato dal precedente sorgente Markdown.
+\chapter{Funzioni Gamma e Beta}
+\label{chap:19}
+
+\begin{obiettivocapitolo}{ricondurre integrali speciali alle funzioni Gamma e Beta}
+\estensione. Le formule sono utili per integrali, probabilità e normalizzazioni.
+\end{obiettivocapitolo}
+\begin{sceltametodo}{riconoscimento}
+Una potenza di $t$ moltiplicata per $e^{-t}$ su $(0,\infty)$ suggerisce Gamma. Un prodotto $t^{p-1}(1-t)^{q-1}$ su $(0,1)$ suggerisce Beta. Per esponenziali $e^{-a x^r}$ usa una sostituzione che produca $t=a x^r$.
+\end{sceltametodo}
+\begin{proceduraesame}{riduzione}
+\begin{enumerate}
+\item Controlla le condizioni sui parametri che garantiscono convergenza.
+\item Esegui una sostituzione per ottenere esattamente una forma standard.
+\item Applica ricorrenza, relazione Beta--Gamma o valori notevoli.
+\item Semplifica fattoriali e potenze mantenendo le costanti di scala.
+\end{enumerate}
+\end{proceduraesame}
+\begin{controllofinale}{integrali speciali}
+Verifica positività quando l'integrando è positivo, dimensione dei parametri e casi interi/seminteri noti.
+\end{controllofinale}
+
+Argomento di approfondimento, utile soprattutto nelle applicazioni scientifiche e probabilistiche. Nelle definizioni, \(t\) è una variabile muta di integrazione. La funzione Gamma estende il fattoriale dagli interi positivi ai reali positivi.
+
+\section{Definizioni e identità fondamentali}\label{definizioni-e-identituxe0-fondamentali}
+
+Per \(x>0\):
+
+\[
+\displaystyle
+\Gamma(x)
+=
+\int_0^{+\infty}t^{x-1}e^{-t}\,dt,
+\]
+
+\[
+\displaystyle
+\Gamma(x+1)=x\Gamma(x),
+\qquad
+\Gamma(n)=(n-1)!\quad(n\in\mathbb N_+),
+\qquad
+\Gamma(n+1)=n!\quad(n\in\mathbb N_0),
+\qquad
+\Gamma\left(\frac12\right)=\sqrt\pi.
+\]
+
+Per \(x,y>0\):
+
+\[
+\displaystyle
+B(x,y)
+=
+\int_0^1 t^{x-1}(1-t)^{y-1}\,dt,
+\]
+
+\[
+\displaystyle
+B(x,y)=B(y,x)
+=
+\frac{\Gamma(x)\Gamma(y)}{\Gamma(x+y)},
+\]
+
+\[
+\displaystyle
+B(x+1,y)=\frac{x}{x+y}B(x,y),
+\qquad
+B(x,y+1)=\frac{y}{x+y}B(x,y).
+\]
+
+Teoria: \href{https://ingegnerismo.it/matematica/funzione-gamma/}{funzione Gamma} e \href{https://ingegnerismo.it/matematica/funzione-beta/}{funzione Beta}.

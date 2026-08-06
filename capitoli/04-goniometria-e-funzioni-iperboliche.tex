@@ -1,0 +1,840 @@
+% Sorgente LaTeX canonico, importato e revisionato dal precedente sorgente Markdown.
+\chapter{Goniometria e funzioni iperboliche}
+\label{chap:4}
+
+\begin{obiettivocapitolo}{semplificare e risolvere problemi goniometrici con tutte le soluzioni}
+\prioritaalta per i prerequisiti di limiti, derivate e integrali.
+\end{obiettivocapitolo}
+\begin{sceltametodo}{equazioni goniometriche}
+\begin{tabularx}{\textwidth}{@{}p{.31\textwidth}X@{}}
+$\sin x=a$, $\cos x=a$, $\tan x=a$ & usa la formula generale e poi restringi all'intervallo richiesto.\\
+Più funzioni dello stesso angolo & porta tutto a seno e coseno oppure fattorizza.\\
+Angoli multipli & usa formule di duplicazione/bisezione o poni $t=\tan(x/2)$ se appropriato.\\
+Espressione $A\sin x+B\cos x$ & riscrivi come $R\sin(x+\varphi)$ o $R\cos(x-\varphi)$.\\
+Disequazione & risolvi sul periodo fondamentale e replica per periodicità.
+\end{tabularx}
+\end{sceltametodo}
+\begin{proceduraesame}{triangolo generico}
+\begin{enumerate}
+\item Associa correttamente lati e angoli opposti.
+\item Usa il teorema del coseno con tre lati o due lati e angolo compreso; usa il teorema dei seni con coppie lato--angolo note.
+\item Nel caso LLA, controlla l'eventuale doppia soluzione prima di scegliere l'arcoseno.
+\item Verifica somma degli angoli, positività dei lati e disuguaglianza triangolare.
+\end{enumerate}
+\end{proceduraesame}
+\begin{errorefrequente}{inverse goniometriche}
+$\arcsin(\sin x)$ non vale sempre $x$: vale il rappresentante nell'intervallo principale. Riduci l'angolo o usa una definizione a tratti.
+\end{errorefrequente}
+
+\section{Angoli, radianti e circonferenza goniometrica}\label{angoli-radianti-e-circonferenza-goniometrica}
+
+\[
+180^\circ=\pi\ \mathrm{rad},
+\qquad
+\theta_{\mathrm{rad}}=\theta_{^\circ}\frac\pi{180},
+\qquad
+\theta_{^\circ}=\theta_{\mathrm{rad}}\frac{180}{\pi}.
+\]
+
+Per un angolo al centro \(\theta\) espresso in radianti, \(r\) è il raggio, \(s\ge0\) la lunghezza dell'arco e \(A_{\mathrm{settore}}\ge0\) l'area del settore:
+
+\[
+s=r|\theta|,
+\qquad
+A_{\mathrm{settore}}=\frac12r^2|\theta|,
+\qquad r>0.
+\]
+
+Forme inverse:
+
+\[
+|\theta|=\frac sr\quad(r>0),
+\qquad
+r=\frac{s}{|\theta|}\quad(s>0,\ \theta\ne0),
+\]
+
+\[
+|\theta|=\frac{2A_{\mathrm{settore}}}{r^2}\quad(r>0),
+\qquad
+r=\sqrt{\frac{2A_{\mathrm{settore}}}{|\theta|}}
+\quad(A_{\mathrm{settore}}>0,\ \theta\ne0).
+\]
+
+Per \(\theta=0\) si ha \(s=A_{\mathrm{settore}}=0\) per ogni \(r>0\): dai soli valori nulli di arco o area non si può quindi ricavare un raggio unico.
+
+\[
+P=(x,y)=(\cos\theta,\sin\theta),
+\]
+
+\[
+\tan\theta=\frac{\sin\theta}{\cos\theta}
+\quad(\cos\theta\ne0),
+\qquad
+\cot\theta=\frac{\cos\theta}{\sin\theta}
+\quad(\sin\theta\ne0),
+\]
+
+\[
+\sec\theta=\frac1{\cos\theta}
+\quad(\cos\theta\ne0),
+\qquad
+\csc\theta=\frac1{\sin\theta}
+\quad(\sin\theta\ne0).
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/angolo/}{angolo}, \href{https://ingegnerismo.it/matematica/cerchio-unitario/}{cerchio unitario}, \href{https://ingegnerismo.it/matematica/trigonometria/}{trigonometria}.
+
+\section{Funzioni goniometriche: domini, immagini, periodicità e valori}\label{funzioni-goniometriche-domini-immagini-periodicituxe0-e-valori}
+
+\[
+\begin{array}{c|c|c|c|c}
+f&\operatorname{Dom}f&\operatorname{Im}f&T&\text{zeri}\\
+\hline
+\sin x&\mathbb R&[-1,1]&2\pi&k\pi\\
+\cos x&\mathbb R&[-1,1]&2\pi&\pi/2+k\pi\\
+\tan x&\mathbb R\setminus\{\pi/2+k\pi\}&\mathbb R&\pi&k\pi\\
+\cot x&\mathbb R\setminus\{k\pi\}&\mathbb R&\pi&\pi/2+k\pi\\
+\sec x&\mathbb R\setminus\{\pi/2+k\pi\}&(-\infty,-1]\cup[1,+\infty)&2\pi&\varnothing\\
+\csc x&\mathbb R\setminus\{k\pi\}&(-\infty,-1]\cup[1,+\infty)&2\pi&\varnothing
+\end{array}
+\]
+
+con \(k\in\mathbb Z\).
+
+\[
+\begin{array}{c|ccc}
+\text{quadrante}&\sin&\cos&\tan,\cot\\
+\hline
+\mathrm I&+&+&+\\
+\mathrm{II}&+&-&-\\
+\mathrm{III}&-&-&+\\
+\mathrm{IV}&-&+&-
+\end{array}
+\]
+
+\[
+\begin{array}{c|ccccc}
+\theta&0&\pi/6&\pi/4&\pi/3&\pi/2\\
+\hline
+\sin\theta&0&1/2&\sqrt2/2&\sqrt3/2&1\\
+\cos\theta&1&\sqrt3/2&\sqrt2/2&1/2&0\\
+\tan\theta&0&1/\sqrt3&1&\sqrt3&\text{n.d.}\\
+\cot\theta&\text{n.d.}&\sqrt3&1&1/\sqrt3&0
+\end{array}
+\]
+
+\[
+\sin(-x)=-\sin x,
+\quad
+\tan(-x)=-\tan x,
+\quad
+\cot(-x)=-\cot x,
+\quad
+\csc(-x)=-\csc x,
+\]
+
+\[
+\cos(-x)=\cos x,
+\qquad
+\sec(-x)=\sec x.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/funzioni-trigonometriche/}{funzioni trigonometriche}, \href{https://ingegnerismo.it/matematica/cerchio-unitario/}{cerchio unitario}.
+
+\section{Angoli associati e identità fondamentali}\label{angoli-associati-e-identituxe0-fondamentali}
+
+\[
+\sin^2x+\cos^2x=1,
+\]
+
+\[
+1+\tan^2x=\sec^2x,
+\qquad
+1+\cot^2x=\csc^2x,
+\]
+
+nei rispettivi domini.
+
+\[
+\begin{array}{c|ccc}
+\theta&\sin\theta&\cos\theta&\tan\theta\\
+\hline
+-x&-\sin x&\cos x&-\tan x\\
+\pi-x&\sin x&-\cos x&-\tan x\\
+\pi+x&-\sin x&-\cos x&\tan x\\
+2\pi-x&-\sin x&\cos x&-\tan x\\
+\pi/2-x&\cos x&\sin x&\cot x\\
+\pi/2+x&\cos x&-\sin x&-\cot x
+\end{array}
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/identita-goniometriche/}{identità goniometriche}.
+
+\section{Addizione, sottrazione, duplicazione e bisezione}\label{addizione-sottrazione-duplicazione-e-bisezione}
+
+\[
+\sin(a\pm b)=\sin a\cos b\pm\cos a\sin b,
+\]
+
+\[
+\cos(a\pm b)=\cos a\cos b\mp\sin a\sin b,
+\]
+
+\[
+\tan(a\pm b)=\frac{\tan a\pm\tan b}{1\mp\tan a\tan b},
+\]
+
+nei punti in cui tutti i membri sono definiti.
+
+\[
+\cot(a+b)=\frac{\cot a\cot b-1}{\cot a+\cot b},
+\qquad
+\cot(a-b)=\frac{\cot a\cot b+1}{\cot b-\cot a},
+\]
+
+nei punti in cui \(\cot a\), \(\cot b\) e i due membri della formula considerata sono definiti.
+
+\[
+\sin2x=2\sin x\cos x,
+\]
+
+\[
+\cos2x=\cos^2x-\sin^2x=1-2\sin^2x=2\cos^2x-1,
+\]
+
+\[
+\tan2x=\frac{2\tan x}{1-\tan^2x},
+\]
+
+nei rispettivi domini.
+
+\[
+\sin3x=3\sin x-4\sin^3x,
+\qquad
+\cos3x=4\cos^3x-3\cos x.
+\]
+
+\[
+\sin^2\frac x2=\frac{1-\cos x}{2},
+\qquad
+\cos^2\frac x2=\frac{1+\cos x}{2},
+\]
+
+\[
+\sin\frac x2=\pm\sqrt{\frac{1-\cos x}{2}},
+\qquad
+\cos\frac x2=\pm\sqrt{\frac{1+\cos x}{2}},
+\]
+
+con segno determinato dal quadrante di \(x/2\).
+
+\[
+\tan\frac x2
+=\frac{\sin x}{1+\cos x}
+=\frac{1-\cos x}{\sin x},
+\]
+
+ciascuna identità nel proprio dominio.
+
+\[
+\sin^2x=\frac{1-\cos2x}{2},
+\qquad
+\cos^2x=\frac{1+\cos2x}{2},
+\qquad
+\sin x\cos x=\frac12\sin2x.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/identita-goniometriche/}{identità goniometriche}.
+
+\section{Formule prodotto-somma e somma-prodotto}\label{formule-prodotto-somma-e-somma-prodotto}
+
+\[
+\sin a\sin b=\frac12[\cos(a-b)-\cos(a+b)],
+\]
+
+\[
+\cos a\cos b=\frac12[\cos(a-b)+\cos(a+b)],
+\]
+
+\[
+\sin a\cos b=\frac12[\sin(a+b)+\sin(a-b)],
+\]
+
+\[
+\cos a\sin b=\frac12[\sin(a+b)-\sin(a-b)].
+\]
+
+\[
+\sin a+\sin b=2\sin\frac{a+b}{2}\cos\frac{a-b}{2},
+\]
+
+\[
+\sin a-\sin b=2\cos\frac{a+b}{2}\sin\frac{a-b}{2},
+\]
+
+\[
+\cos a+\cos b=2\cos\frac{a+b}{2}\cos\frac{a-b}{2},
+\]
+
+\[
+\cos a-\cos b=-2\sin\frac{a+b}{2}\sin\frac{a-b}{2}.
+\]
+
+Per \((A,B)\ne(0,0)\):
+
+\[
+A\sin x+B\cos x=R\sin(x+\varphi),
+\qquad
+R=\sqrt{A^2+B^2},
+\]
+
+\[
+\cos\varphi=\frac AR,
+\qquad
+\sin\varphi=\frac BR,
+\qquad
+\varphi\pmod{2\pi}.
+\]
+
+Per \(A=B=0\), l'espressione è identicamente nulla e \(\varphi\) è indeterminata.
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/identita-goniometriche/}{identità goniometriche}.
+
+\section{Equazioni goniometriche}\label{equazioni-goniometriche}
+
+Le soluzioni sono famiglie infinite. Il parametro \(k\in\mathbb Z\) genera tutti gli angoli coterminali; il simbolo \(\pm\) indica che devono essere considerati entrambi i segni.
+
+Per \(k\in\mathbb Z\):
+
+\[
+\sin x=s
+\Longleftrightarrow
+x=(-1)^k\arcsin s+k\pi,
+\qquad |s|\le1,
+\]
+
+equivalentemente
+
+\[
+x=\arcsin s+2k\pi
+\quad\lor\quad
+x=\pi-\arcsin s+2k\pi.
+\]
+
+\[
+\cos x=c
+\Longleftrightarrow
+x=\pm\arccos c+2k\pi,
+\qquad |c|\le1.
+\]
+
+\[
+\tan x=t
+\Longleftrightarrow
+x=\arctan t+k\pi,
+\]
+
+\[
+\cot x=t
+\Longleftrightarrow
+x=\operatorname{arccot}t+k\pi,
+\qquad
+\operatorname{arccot}t\in(0,\pi).
+\]
+
+\[
+\sec x=q
+\Longleftrightarrow
+\cos x=\frac1q,
+\qquad |q|\ge1,
+\]
+
+\[
+\csc x=q
+\Longleftrightarrow
+\sin x=\frac1q,
+\qquad |q|\ge1.
+\]
+
+Per \(R=\sqrt{A^2+B^2}>0\):
+
+\[
+A\sin x+B\cos x=C
+\Longleftrightarrow
+\sin(x+\varphi)=\frac CR.
+\]
+
+\[
+\begin{array}{c|c}
+|C|>R&\varnothing\\
+|C|=R&\text{una famiglia modulo }2\pi\\
+|C|<R&\text{due famiglie modulo }2\pi
+\end{array}
+\]
+
+Per \(R=0\): ogni \(x\) se \(C=0\), nessuna soluzione se \(C\ne0\).
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/equazioni-goniometriche-elementari/}{equazioni goniometriche elementari}.
+
+\section{Disequazioni goniometriche}\label{disequazioni-goniometriche}
+
+Per \(k\in\mathbb Z\), \(s,c\in[-1,1]\),
+
+\[
+\alpha=\arcsin s\in[-\pi/2,\pi/2],
+\qquad
+\beta=\arccos c\in[0,\pi].
+\]
+
+\[
+\sin x\ge s
+\Longleftrightarrow
+x\in[\alpha+2k\pi,\pi-\alpha+2k\pi],
+\]
+
+\[
+\sin x\le s
+\Longleftrightarrow
+x\in[\pi-\alpha+2k\pi,2\pi+\alpha+2k\pi],
+\]
+
+\[
+\cos x\ge c
+\Longleftrightarrow
+x\in[-\beta+2k\pi,\beta+2k\pi],
+\]
+
+\[
+\cos x\le c
+\Longleftrightarrow
+x\in[\beta+2k\pi,2\pi-\beta+2k\pi].
+\]
+
+Per \(t\in\mathbb R\) e \(\gamma=\arctan t\):
+
+\[
+\tan x\ge t
+\Longleftrightarrow
+x\in[\gamma+k\pi,\pi/2+k\pi),
+\]
+
+\[
+\tan x\le t
+\Longleftrightarrow
+x\in(-\pi/2+k\pi,\gamma+k\pi].
+\]
+
+Per \(\delta=\operatorname{arccot}t\in(0,\pi)\):
+
+\[
+\cot x\ge t
+\Longleftrightarrow
+x\in(k\pi,\delta+k\pi],
+\]
+
+\[
+\cot x\le t
+\Longleftrightarrow
+x\in[\delta+k\pi,(k+1)\pi).
+\]
+
+Per \(s,c\in(-1,1)\):
+
+\[
+\sin x>s
+\Longleftrightarrow
+x\in(\alpha+2k\pi,\pi-\alpha+2k\pi),
+\]
+
+\[
+\sin x<s
+\Longleftrightarrow
+x\in(\pi-\alpha+2k\pi,2\pi+\alpha+2k\pi),
+\]
+
+\[
+\cos x>c
+\Longleftrightarrow
+x\in(-\beta+2k\pi,\beta+2k\pi),
+\]
+
+\[
+\cos x<c
+\Longleftrightarrow
+x\in(\beta+2k\pi,2\pi-\beta+2k\pi).
+\]
+
+\[
+\begin{aligned}
+\tan x>t
+&\Longleftrightarrow
+x\in(\gamma+k\pi,\pi/2+k\pi),\\
+\tan x<t
+&\Longleftrightarrow
+x\in(-\pi/2+k\pi,\gamma+k\pi),\\
+\cot x>t
+&\Longleftrightarrow
+x\in(k\pi,\delta+k\pi),\\
+\cot x<t
+&\Longleftrightarrow
+x\in(\delta+k\pi,(k+1)\pi).
+\end{aligned}
+\]
+
+Per \(h\in\{\sin,\cos\}\):
+
+\[
+\begin{array}{c|cccc}
+&u<-1&u=-1&u=1&u>1\\
+\hline
+\{x:h(x)>u\}&\mathbb R&\mathbb R\setminus h^{-1}(\{-1\})&\varnothing&\varnothing\\
+\{x:h(x)<u\}&\varnothing&\varnothing&\mathbb R\setminus h^{-1}(\{1\})&\mathbb R\\
+\{x:h(x)\ge u\}&\mathbb R&\mathbb R&h^{-1}(\{1\})&\varnothing\\
+\{x:h(x)\le u\}&\varnothing&h^{-1}(\{-1\})&\mathbb R&\mathbb R
+\end{array}
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/disequazioni-goniometriche/}{disequazioni goniometriche}.
+
+\section{Funzioni goniometriche inverse e composizioni}\label{funzioni-goniometriche-inverse-e-composizioni}
+
+\[
+\arcsin:[-1,1]\to[-\pi/2,\pi/2],
+\]
+
+\[
+\arccos:[-1,1]\to[0,\pi],
+\qquad
+\arctan:\mathbb R\to(-\pi/2,\pi/2).
+\]
+
+\[
+\sin(\arcsin y)=y,
+\qquad
+\cos(\arccos y)=y,
+\qquad |y|\le1,
+\]
+
+\[
+\tan(\arctan y)=y,
+\qquad y\in\mathbb R.
+\]
+
+\[
+\cos(\arcsin y)=\sqrt{1-y^2},
+\qquad
+\sin(\arccos y)=\sqrt{1-y^2},
+\qquad |y|\le1,
+\]
+
+\[
+\tan(\arcsin y)=\frac{y}{\sqrt{1-y^2}},
+\qquad |y|<1,
+\]
+
+\[
+\tan(\arccos y)=\frac{\sqrt{1-y^2}}{y},
+\qquad |y|\le1,
+\qquad y\ne0,
+\]
+
+\[
+\sin(\arctan y)=\frac{y}{\sqrt{1+y^2}},
+\qquad
+\cos(\arctan y)=\frac1{\sqrt{1+y^2}}.
+\]
+
+\[
+\arctan(\tan x)=x-k\pi,
+\qquad
+x\in(-\pi/2+k\pi,\pi/2+k\pi).
+\]
+
+\[
+\arcsin(\sin x)=
+\begin{cases}
+x-2k\pi,&x\in[-\pi/2+2k\pi,\pi/2+2k\pi],\\
+\pi-x+2k\pi,&x\in[\pi/2+2k\pi,3\pi/2+2k\pi],
+\end{cases}
+\]
+
+\[
+\arccos(\cos x)=
+\begin{cases}
+x-2k\pi,&x\in[2k\pi,(2k+1)\pi],\\
+2k\pi-x,&x\in[(2k-1)\pi,2k\pi].
+\end{cases}
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/funzioni-trigonometriche/}{funzioni trigonometriche}, \href{https://ingegnerismo.it/matematica/funzione-inversa/}{funzione inversa}.
+
+\section{Trigonometria dei triangoli}\label{trigonometria-dei-triangoli}
+
+In un triangolo qualunque i lati \(a,b,c\) sono opposti rispettivamente agli angoli \(A,B,C\); \(R\) è il raggio della circonferenza circoscritta, \(K\) l'area e \(s\) il semiperimetro.
+
+\textbf{Triangolo rettangolo.} Se \(C=\pi/2\), allora \(c\) è l'ipotenusa e \(a,b\) sono i cateti:
+
+\[
+c^2=a^2+b^2,
+\qquad
+c=\sqrt{a^2+b^2},
+\]
+
+\[
+a=\sqrt{c^2-b^2},
+\qquad
+b=\sqrt{c^2-a^2},
+\]
+
+con \(a,b,c>0\) e \(c>a\), \(c>b\).
+
+Rispetto all'angolo acuto \(A\):
+
+\[
+\sin A=\frac ac,
+\qquad
+\cos A=\frac bc,
+\qquad
+\tan A=\frac ab,
+\]
+
+\[
+a=c\sin A=b\tan A,
+\qquad
+b=c\cos A=\frac a{\tan A},
+\]
+
+\[
+A=\arcsin\frac ac
+=\arccos\frac bc
+=\arctan\frac ab.
+\]
+
+Le formule per l'angolo \(B\) si ottengono scambiando \(a\) e \(b\); inoltre \(A+B=\pi/2\).
+
+\textbf{Triangolo qualunque:}
+
+\[
+A+B+C=\pi,
+\qquad
+A=\pi-B-C,
+\]
+
+con \(0<A,B,C<\pi\).
+
+Teorema dei seni:
+
+\[
+\frac a{\sin A}=\frac b{\sin B}=\frac c{\sin C}=2R,
+\]
+
+\[
+a=2R\sin A,
+\qquad
+R=\frac a{2\sin A},
+\qquad
+\sin A=\frac a{2R},
+\]
+
+\[
+a=b\frac{\sin A}{\sin B}
+=c\frac{\sin A}{\sin C},
+\]
+
+nei casi in cui i denominatori sono non nulli; in un triangolo non degenere lo sono sempre.
+
+Teorema del coseno:
+
+\[
+a^2=b^2+c^2-2bc\cos A,
+\]
+
+\[
+b^2=a^2+c^2-2ac\cos B,
+\qquad
+c^2=a^2+b^2-2ab\cos C.
+\]
+
+Forme inverse per gli angoli:
+
+\[
+A=\arccos\frac{b^2+c^2-a^2}{2bc},
+\qquad
+B=\arccos\frac{a^2+c^2-b^2}{2ac},
+\]
+
+\[
+C=\arccos\frac{a^2+b^2-c^2}{2ab}.
+\]
+
+Condizioni di esistenza del triangolo:
+
+\[
+a,b,c>0,
+\qquad
+a<b+c,
+\qquad
+b<a+c,
+\qquad
+c<a+b.
+\]
+
+Area:
+
+\[
+K=\frac12bc\sin A
+=\frac12ca\sin B
+=\frac12ab\sin C,
+\]
+
+\[
+\sin A=\frac{2K}{bc},
+\qquad
+\sin B=\frac{2K}{ca},
+\qquad
+\sin C=\frac{2K}{ab},
+\]
+
+\[
+s=\frac{a+b+c}{2},
+\qquad
+K=\sqrt{s(s-a)(s-b)(s-c)}.
+\]
+
+Scelta della formula in base ai dati:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Dati noti
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Formula primaria
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+SSS: tre lati & teorema del coseno inverso \\
+SAS: due lati e angolo compreso & teorema del coseno \\
+ASA o AAS: due angoli e un lato & somma degli angoli e teorema dei seni \\
+SSA: due lati e un angolo non compreso & caso ambiguo del teorema dei seni \\
+\end{longtable}
+
+Caso SSA con \(0<A<\pi/2\), lato noto \(a\) opposto ad \(A\), altro lato noto \(b\) e altezza \(h=b\sin A\):
+
+\begin{longtable}[]{@{}lr@{}}
+\toprule\noalign{}
+Condizione & Numero di triangoli \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(a<h\) & \(0\) \\
+\(a=h\) & \(1\), rettangolo \\
+\(h<a<b\) & \(2\) \\
+\(a\ge b\) & \(1\) \\
+\end{longtable}
+
+Per \(A\ge\pi/2\) esiste un solo triangolo se e solo se \(a>b\).
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/trigonometria/}{trigonometria}, \href{https://ingegnerismo.it/matematica/teorema-dei-seni/}{teorema dei seni}, \href{https://ingegnerismo.it/matematica/teorema-del-coseno/}{teorema del coseno}.
+
+\section{Funzioni iperboliche}\label{funzioni-iperboliche}
+
+\[
+\sinh x=\frac{e^x-e^{-x}}2,
+\qquad
+\cosh x=\frac{e^x+e^{-x}}2,
+\]
+
+\[
+\tanh x=\frac{\sinh x}{\cosh x},
+\qquad
+\coth x=\frac{\cosh x}{\sinh x}\quad(x\ne0).
+\]
+
+\[
+\begin{array}{c|c|c|c}
+f&\operatorname{Dom}f&\operatorname{Im}f&\text{parità}\\
+\hline
+\sinh&\mathbb R&\mathbb R&\text{dispari}\\
+\cosh&\mathbb R&[1,+\infty)&\text{pari}\\
+\tanh&\mathbb R&(-1,1)&\text{dispari}\\
+\coth&\mathbb R\setminus\{0\}&(-\infty,-1)\cup(1,+\infty)&\text{dispari}
+\end{array}
+\]
+
+\[
+\cosh^2x-\sinh^2x=1,
+\qquad
+1-\tanh^2x=\frac1{\cosh^2x}.
+\]
+
+\[
+\sinh(x\pm y)=\sinh x\cosh y\pm\cosh x\sinh y,
+\]
+
+\[
+\cosh(x\pm y)=\cosh x\cosh y\pm\sinh x\sinh y.
+\]
+
+\[
+\sinh2x=2\sinh x\cosh x,
+\qquad
+\cosh2x=\cosh^2x+\sinh^2x.
+\]
+
+\[
+\operatorname{arsinh}x=\ln(x+\sqrt{x^2+1}),
+\qquad x\in\mathbb R,
+\]
+
+\[
+\operatorname{arcosh}x=\ln(x+\sqrt{x^2-1}),
+\qquad x\ge1,
+\]
+
+\[
+\operatorname{artanh}x=\frac12\ln\frac{1+x}{1-x},
+\qquad |x|<1,
+\]
+
+\[
+\operatorname{arcoth}x=\frac12\ln\frac{x+1}{x-1},
+\qquad |x|>1.
+\]
+
+Composizioni diretta dopo inversa, nei rispettivi domini:
+
+\[
+\sinh(\operatorname{arsinh}x)=x,
+\qquad
+\cosh(\operatorname{arcosh}x)=x\quad(x\ge1),
+\]
+
+\[
+\tanh(\operatorname{artanh}x)=x\quad(|x|<1),
+\qquad
+\coth(\operatorname{arcoth}x)=x\quad(|x|>1).
+\]
+
+Composizioni inversa dopo diretta:
+
+\[
+\operatorname{arsinh}(\sinh x)=x,
+\qquad
+\operatorname{arcosh}(\cosh x)=|x|,
+\qquad x\in\mathbb R,
+\]
+
+\[
+\operatorname{artanh}(\tanh x)=x\quad(x\in\mathbb R),
+\qquad
+\operatorname{arcoth}(\coth x)=x\quad(x\ne0).
+\]
+
+Il valore assoluto nella composizione con \(\cosh\) è necessario perché \(\cosh\) è pari e diventa invertibile soltanto restringendola a \([0,+\infty)\).
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/funzioni-iperboliche/}{funzioni iperboliche}.

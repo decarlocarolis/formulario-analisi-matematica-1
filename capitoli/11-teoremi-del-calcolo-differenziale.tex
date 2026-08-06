@@ -1,0 +1,250 @@
+% Sorgente LaTeX canonico, importato e revisionato dal precedente sorgente Markdown.
+\chapter{Teoremi del calcolo differenziale}
+\label{chap:11}
+
+\begin{obiettivocapitolo}{scegliere il teorema corretto e verificarne le ipotesi}
+\prioritaalta. Nei problemi di teoremi, la verifica delle ipotesi è parte della soluzione, non un dettaglio formale.
+\end{obiettivocapitolo}
+\begin{sceltametodo}{quale teorema usare}
+\begin{tabularx}{\textwidth}{@{}p{.25\textwidth}p{.31\textwidth}X@{}}
+Fermat & estremo locale interno e derivabilità & conclude $f'(x_0)=0$; è condizione necessaria, non sufficiente.\\
+Rolle & continuità, derivabilità, $f(a)=f(b)$ & produce un punto con tangente orizzontale.\\
+Lagrange & continuità e derivabilità & collega variazione media e derivata; utile per monotonia, stime e unicità.\\
+Cauchy & due funzioni e rapporto di incrementi & generalizza Lagrange; base teorica di de l'Hôpital.\\
+De l'Hôpital & forma $0/0$ o $\infty/\infty$ & deriva numeratore e denominatore, non il quoziente; il nuovo limite deve esistere.
+\end{tabularx}
+\end{sceltametodo}
+\begin{proceduraesame}{applicazione di un teorema}
+\begin{enumerate}
+\item Scrivi l'intervallo e identifica estremi e interno.
+\item Verifica continuità sul chiuso e derivabilità sull'aperto, oltre alle ipotesi specifiche.
+\item Cita il teorema e scrivi la conclusione nella forma esatta.
+\item Se la traccia chiede il punto $c$, risolvi l'equazione prodotta dal teorema e seleziona le soluzioni in $(a,b)$.
+\end{enumerate}
+\end{proceduraesame}
+\begin{errorefrequente}{conversi falsi}
+$f'(x_0)=0$ non implica che $x_0$ sia un estremo; la continuità non implica derivabilità; il soddisfacimento della conclusione non dimostra le ipotesi del teorema.
+\end{errorefrequente}
+
+Nei teoremi seguenti le righe prima della freccia sono le \textbf{ipotesi} e ciò che segue la freccia è la \textbf{conclusione}. Il converso non è valido salvo quando è espressamente dichiarata un'equivalenza.
+
+\section{Teorema di Fermat}\label{teorema-di-fermat}
+
+\[
+\displaystyle
+\left.
+\begin{array}{l}
+x_0\in\operatorname{int}D,\\
+x_0\text{ estremo locale di }f,\\
+f\text{ derivabile in }x_0
+\end{array}
+\right\}
+\quad\Longrightarrow\quad
+f'(x_0)=0.
+\]
+
+Condizione necessaria, non sufficiente:
+
+\[
+\displaystyle
+f(x)=x^3,
+\qquad
+f'(0)=0,
+\qquad
+0\text{ non è un estremo}.
+\]
+
+Caso di frontiera:
+
+\[
+\displaystyle
+f(x)=x\text{ su }[0,1],
+\qquad
+\max f=f(1),
+\qquad
+f'_-(1)=1.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/teorema-di-fermat/}{teorema di Fermat}.
+
+\section{Teorema di Rolle}\label{teorema-di-rolle}
+
+Per \(a<b\):
+
+\[
+\displaystyle
+\left.
+\begin{array}{l}
+f\in C([a,b]),\\
+f\text{ derivabile in }(a,b),\\
+f(a)=f(b)
+\end{array}
+\right\}
+\quad\Longrightarrow\quad
+\exists c\in(a,b):\ f'(c)=0.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/teorema-di-rolle/}{teorema di Rolle}.
+
+\section{Teorema di Lagrange}\label{teorema-di-lagrange}
+
+Per \(a<b\):
+
+\[
+\displaystyle
+\left.
+\begin{array}{l}
+f\in C([a,b]),\\
+f\text{ derivabile in }(a,b)
+\end{array}
+\right\}
+\quad\Longrightarrow\quad
+\exists c\in(a,b):
+f'(c)=\frac{f(b)-f(a)}{b-a}.
+\]
+
+Se \(f\) è derivabile su un intervallo \(I\), valgono le conseguenze:
+
+\[
+\begin{aligned}
+f'\ge0\text{ su }I&\Longrightarrow f\text{ non decrescente su }I,\\
+f'\le0\text{ su }I&\Longrightarrow f\text{ non crescente su }I,\\
+f'=0\text{ su }I&\Longrightarrow f\text{ costante su }I,\\
+f'>0\text{ su }I&\Longrightarrow f\text{ strettamente crescente su }I,\\
+f'<0\text{ su }I&\Longrightarrow f\text{ strettamente decrescente su }I.
+\end{aligned}
+\]
+
+Se \(|f'|\le M\) su \(I\):
+
+\[
+\displaystyle
+|f(y)-f(x)|\le M|y-x|
+\qquad\forall x,y\in I.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/teorema-di-lagrange/}{teorema di Lagrange}.
+
+Esercizi svolti: \href{https://ingegnerismo.it/matematica/fermat-rolle-lagrange-esercizi/}{Fermat, Rolle e Lagrange}.
+
+\section{Teorema di Cauchy}\label{teorema-di-cauchy}
+
+Per \(a<b\):
+
+\[
+\displaystyle
+\left.
+\begin{array}{l}
+f,g\in C([a,b]),\\
+f,g\text{ derivabili in }(a,b)
+\end{array}
+\right\}
+\quad\Longrightarrow\quad
+\exists c\in(a,b):
+\]
+
+\[
+\displaystyle
+f'(c)[g(b)-g(a)]
+=
+g'(c)[f(b)-f(a)].
+\]
+
+Se inoltre \(g'(x)\ne0\) per ogni \(x\in(a,b)\):
+
+\[
+\displaystyle
+\exists c\in(a,b):
+\frac{f'(c)}{g'(c)}
+=
+\frac{f(b)-f(a)}{g(b)-g(a)}.
+\]
+
+Caso particolare \(g(x)=x\): teorema di Lagrange.
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/teorema-di-cauchy/}{teorema di Cauchy}.
+
+Esercizi svolti: \href{https://ingegnerismo.it/matematica/teoremi-calcolo-differenziale-esercizi/}{teorema di Cauchy}.
+
+\section{Teorema di Darboux per le derivate}\label{teorema-di-darboux-per-le-derivate}
+
+Sia \(f\) derivabile su un intervallo \(I\); per \(x_1<x_2\) in \(I\) e
+
+\[
+\min\{f'(x_1),f'(x_2)\}<\lambda<\max\{f'(x_1),f'(x_2)\},
+\]
+
+vale
+
+\[
+\exists c\in(x_1,x_2):\ f'(c)=\lambda.
+\]
+
+\[
+f'(I)\text{ è un intervallo}.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/teorema-di-darboux/}{teorema di Darboux}.
+
+Esercizi svolti: \href{https://ingegnerismo.it/matematica/teorema-di-darboux-esercizi/}{teorema di Darboux per le derivate}.
+
+\section{Teorema di de l'Hôpital}\label{teorema-di-de-lhuxf4pital}
+
+Sia \(a\in\overline{\mathbb R}\) e sia \(I\) un intervallo puntato, eventualmente unilatero, che tende ad \(a\):
+
+\[
+\displaystyle
+f,g\text{ derivabili in }I,
+\qquad
+g(x)\ne0,
+\qquad
+g'(x)\ne0
+\quad\text{in }I.
+\]
+
+Forme ammesse:
+
+\[
+\displaystyle
+f(x)\to0,
+\quad g(x)\to0,
+\]
+
+oppure
+
+\[
+\displaystyle
+|f(x)|\to+\infty,
+\quad |g(x)|\to+\infty.
+\]
+
+Se
+
+\[
+\displaystyle
+\lim_{x\to a}\frac{f'(x)}{g'(x)}=L
+\in\overline{\mathbb R},
+\]
+
+allora
+
+\[
+\displaystyle
+\lim_{x\to a}\frac{f(x)}{g(x)}=L.
+\]
+
+Riduzioni standard:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Forma & Trasformazione \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(0\cdot\infty\) & \(u v=\dfrac{u}{1/v}=\dfrac{v}{1/u}\) \\
+\(\infty-\infty\) & denominatore comune oppure razionalizzazione \\
+\(0^0\), \(1^\infty\), \(\infty^0\) & \(u^v=\exp(v\ln u)\), con \(u>0\) \\
+\end{longtable}
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/teorema-di-de-l-hopital/}{teorema di de l'Hôpital}.

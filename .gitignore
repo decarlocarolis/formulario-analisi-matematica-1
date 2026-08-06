@@ -1,5 +1,6 @@
-# LaTeX build output
-build/
+# File generati dalla compilazione
+/compilazione/
+/distribuzione/
 *.aux
 *.bbl
 *.bcf
@@ -11,15 +12,6 @@ build/
 *.run.xml
 *.synctex.gz
 *.toc
-*.lof
-*.lot
 *.xdv
-
-# Editors / OS
-.DS_Store
-.vscode/
-.idea/
-*~
-
-# Generated distribution artifacts (published through GitHub Actions/Releases)
-dist/
+__pycache__/
+*.pyc

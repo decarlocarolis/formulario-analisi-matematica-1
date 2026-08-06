@@ -1,13 +1,12 @@
-# Normalize source files for reproducible diffs across operating systems.
-*.tex text eol=lf
-*.cls text eol=lf
-*.md text eol=lf
+# Normalizzazione dei file testuali
+* text=auto eol=lf
+*.sh text eol=lf
 *.py text eol=lf
+*.tex text eol=lf
+*.md text eol=lf
 *.yml text eol=lf
 *.yaml text eol=lf
-Makefile text eol=lf
-*.sh text eol=lf
 
-# Binary artifacts.
+# File binari
 *.pdf binary
 *.zip binary

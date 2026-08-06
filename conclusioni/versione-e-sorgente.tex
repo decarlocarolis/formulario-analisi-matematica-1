@@ -1,0 +1,90 @@
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Versione e sorgente}
+\thispagestyle{empty}
+\null
+
+\begin{tikzpicture}[remember picture,overlay]
+  \fill[IngBluPallido] (current page.north west) rectangle (current page.south east);
+  \fill[IngBluScuro] (current page.north west) rectangle ([xshift=18mm]current page.south west);
+  \fill[IngBlu] ([xshift=18mm]current page.north west) rectangle ([xshift=22mm]current page.south west);
+  \fill[IngGiallo] ([xshift=22mm]current page.north west) rectangle ([xshift=24.5mm]current page.south west);
+  \node[anchor=south east,text=IngBlu!8,font=\sffamily\bfseries\fontsize{112}{112}\selectfont]
+    at ([xshift=-10mm,yshift=10mm]current page.south east) {$\displaystyle\sum$};
+
+  \node[anchor=north west,inner sep=0pt]
+    at ([xshift=38mm,yshift=-21mm]current page.north west) {%
+      \begin{minipage}{154mm}
+        \LogoIngegnerismo[21mm]\hspace{4mm}%
+        \raisebox{5.5mm}{\textcolor{IngBluScuro}{\sffamily\bfseries\Large ingegnerismo.it}}
+      \end{minipage}%
+    };
+
+  \node[anchor=north west,inner sep=0pt]
+    at ([xshift=38mm,yshift=-73mm]current page.north west) {%
+      \begin{minipage}{154mm}
+        {\sffamily\bfseries\small\color{IngBlu}\MakeUppercase{Tracciabilità editoriale}\par}
+        \vspace{3mm}
+        {\sffamily\bfseries\fontsize{28}{32}\selectfont\color{IngBluScuro}Versione e sorgente\par}
+        \vspace{4mm}
+        {\color{IngGialloScuro}\rule{48mm}{2.1pt}\par}
+        \vspace{6mm}
+        {\sffamily\large\color{IngGrigio}
+          Il PDF è generato automaticamente dal progetto LaTeX canonico. Ogni correzione va applicata ai sorgenti, verificata mediante compilazione e quindi pubblicata nuovamente.\par}
+      \end{minipage}%
+    };
+
+  \node[anchor=north west,inner sep=0pt]
+    at ([xshift=38mm,yshift=-137mm]current page.north west) {%
+      \begin{minipage}{154mm}
+        \begin{tcolorbox}[
+          enhanced,colback=IngBianco,colframe=IngLinea,boxrule=.5pt,arc=1.8mm,
+          borderline west={3pt}{0pt}{IngBluScuro},left=4mm,right=4mm,top=3.5mm,bottom=3.5mm
+        ]
+          {\sffamily\bfseries\color{IngBluScuro}Sorgente canonico}\par
+          \vspace{1.5mm}
+          {\small Il deposito pubblico conserva i file LaTeX, il logo vettoriale, la documentazione editoriale e la cronologia delle modifiche.}\par
+          \vspace{2mm}
+          \href{\DepositoGitHubURL}{\textcolor{IngBlu}{\sffamily\bfseries github.com/decarlocarolis/formulario-analisi-matematica-1}}
+        \end{tcolorbox}
+
+        \vspace{4mm}
+
+        \begin{tcolorbox}[
+          enhanced,colback=IngBianco,colframe=IngLinea,boxrule=.5pt,arc=1.8mm,
+          borderline west={3pt}{0pt}{IngGialloScuro},left=4mm,right=4mm,top=3.5mm,bottom=3.5mm
+        ]
+          {\sffamily\bfseries\color{IngBluScuro}Edizione pubblicata}\par
+          \vspace{1.5mm}
+          {\small Versione editoriale: \textbf{\FormularioVersione}. Il collegamento seguente punta sempre al PDF associato alla pubblicazione più recente del deposito.}\par
+          \vspace{2mm}
+          \href{\PDFPubblicoURL}{\textcolor{IngBlu}{\sffamily\bfseries Scarica il PDF pubblico}}
+        \end{tcolorbox}
+
+        \vspace{4mm}
+
+        \begin{tcolorbox}[
+          enhanced,colback=IngGialloPallido,colframe=IngGialloScuro,boxrule=.5pt,arc=1.8mm,
+          left=4mm,right=4mm,top=3mm,bottom=3mm
+        ]
+          {\sffamily\bfseries\color{IngNero}Segnalazioni.} Per indicare un errore matematico o tipografico, aprire una segnalazione nel deposito specificando pagina, formula interessata e correzione proposta.
+        \end{tcolorbox}
+      \end{minipage}%
+    };
+
+  \node[anchor=south west,inner sep=0pt]
+    at ([xshift=38mm,yshift=16mm]current page.south west) {%
+      \begin{minipage}{154mm}
+        {\color{IngLinea}\rule{\textwidth}{.6pt}\par}
+        \vspace{3mm}
+        {\sffamily\small\color{IngBluScuro}
+          \textbf{\FormularioTitolo}\quad
+          \textcolor{IngGrigioMedio}{|}\quad\FormularioVersione\quad
+          \textcolor{IngGrigioMedio}{|}\quad\FormularioData\par}
+        \vspace{2mm}
+        {\scriptsize\color{IngGrigio}© 2026 \FormularioAutore. Tutti i diritti riservati. La disponibilità pubblica del deposito non attribuisce automaticamente una licenza di riuso o redistribuzione.}
+      \end{minipage}%
+    };
+\end{tikzpicture}
+
+\clearpage

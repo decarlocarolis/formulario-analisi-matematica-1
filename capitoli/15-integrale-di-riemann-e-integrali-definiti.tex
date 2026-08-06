@@ -1,0 +1,381 @@
+% Sorgente LaTeX canonico, importato e revisionato dal precedente sorgente Markdown.
+\chapter{Integrale di Riemann e integrali definiti}
+\label{chap:15}
+
+\begin{obiettivocapitolo}{calcolare integrali definiti, aree, valori medi e quantità geometriche}
+\prioritaalta. La definizione di Riemann è un richiamo teorico; negli esercizi standard il nucleo operativo è Newton--Leibniz con simmetrie e tecniche di integrazione.
+\end{obiettivocapitolo}
+\begin{sceltametodo}{prima di integrare}
+\begin{tabularx}{\textwidth}{@{}p{.29\textwidth}X@{}}
+Intervallo simmetrico & verifica parità/disparità dell'integrando.\\
+Integrando periodico & riduci a uno o più periodi completi.\\
+Derivata di composizione & usa sostituzione trasformando anche gli estremi.\\
+Prodotto adatto & integrazione per parti con termini di bordo.\\
+Area tra curve & trova le intersezioni e integra la differenza superiore--inferiore a tratti.\\
+Volume/superficie & identifica asse di rotazione e formula geometrica corretta.\\
+Parametro & valuta continuità e derivabilità prima di scambiare derivata e integrale.
+\end{tabularx}
+\end{sceltametodo}
+\begin{proceduraesame}{integrale definito}
+\begin{enumerate}
+\item Controlla integrabilità e orientazione degli estremi.
+\item Semplifica con simmetrie, periodicità e spezzamenti nei punti in cui cambia formula o segno.
+\item Trova una primitiva oppure applica la tecnica adatta.
+\item Calcola $F(b)-F(a)$, non aggiungere $C$.
+\item Per aree geometriche usa il valore assoluto o suddividi dove la funzione cambia segno.
+\end{enumerate}
+\end{proceduraesame}
+\begin{errorefrequente}{integrale e area}
+L'integrale definito è area orientata: può essere negativo o nullo anche quando la regione geometrica ha area positiva.
+\end{errorefrequente}
+\begin{controllofinale}{integrale definito}
+Confronta con il segno dell'integrando, con stime $m(b-a)\le\int_a^b f\le M(b-a)$ e con l'ordine di grandezza dell'area.
+\end{controllofinale}
+
+L'integrale definito \(\int_a^b f(x)\,dx\) è un numero, non una famiglia di primitive, e quindi non contiene la costante \(C\). Il segno dipende dall'orientazione degli estremi; l'interpretazione come area geometrica richiede invece valori non negativi o l'uso del valore assoluto.
+
+\section{Integrale di Riemann}\label{integrale-di-riemann}
+
+Sia \(f:[a,b]\to\mathbb R\) limitata.
+
+Partizione marcata:
+
+\[
+\displaystyle
+P:\ a=x_0<x_1<\cdots<x_n=b,
+\qquad
+\xi_i\in[x_{i-1},x_i],
+\]
+
+\[
+\displaystyle
+\lVert P\rVert=\max_{1\le i\le n}(x_i-x_{i-1}),
+\qquad
+S(f;P,\xi)
+=
+\sum_{i=1}^{n}f(\xi_i)(x_i-x_{i-1}).
+\]
+
+Integrabilità secondo Riemann:
+
+\[
+\displaystyle
+\exists I\in\mathbb R\ \forall\varepsilon>0\ \exists\delta>0\quad
+\forall(P,\xi):
+\quad
+\lVert P\rVert<\delta
+\Longrightarrow
+\lvert S(f;P,\xi)-I\rvert<\varepsilon,
+\]
+
+\[
+\displaystyle
+I=\int_a^b f(x)\,dx.
+\]
+
+Somme di Darboux:
+
+\[
+\displaystyle
+m_i=\inf_{[x_{i-1},x_i]}f,
+\qquad
+M_i=\sup_{[x_{i-1},x_i]}f,
+\]
+
+\[
+\displaystyle
+L(f,P)=\sum_i m_i(x_i-x_{i-1}),
+\qquad
+U(f,P)=\sum_i M_i(x_i-x_{i-1}),
+\]
+
+\[
+\displaystyle
+f\in\mathcal R([a,b])
+\quad\Longleftrightarrow\quad
+\forall\varepsilon>0\ \exists P:
+\ U(f,P)-L(f,P)<\varepsilon.
+\]
+
+Classi sufficienti:
+
+\[
+\displaystyle
+f\in C([a,b])
+\quad\Longrightarrow\quad
+f\in\mathcal R([a,b]),
+\]
+
+\[
+\displaystyle
+f\ \text{monotona su }[a,b]
+\quad\Longrightarrow\quad
+f\in\mathcal R([a,b]),
+\]
+
+\[
+\displaystyle
+f\ \text{limitata con un numero finito di discontinuità}
+\quad\Longrightarrow\quad
+f\in\mathcal R([a,b]).
+\]
+
+Teoria: \href{https://ingegnerismo.it/matematica/integrale-di-riemann/}{integrale di Riemann} e \href{https://ingegnerismo.it/matematica/criteri-di-integrabilita/}{criteri di integrabilità}.
+
+\section{Proprietà dell'integrale definito}\label{proprietuxe0-dellintegrale-definito}
+
+Nelle formule seguenti \(f\) e \(g\) sono Riemann-integrabili su un intervallo che contiene tutti gli estremi utilizzati. Con la convenzione degli integrali orientati, per \(a,b,c\in\mathbb R\):
+
+\[
+\displaystyle
+\int_a^a f=0,
+\qquad
+\int_b^a f=-\int_a^b f,
+\qquad
+\int_a^b f+\int_b^c f=\int_a^c f.
+\]
+
+La linearità vale per ogni orientazione:
+
+\[
+\displaystyle
+\int_a^b(\alpha f+\beta g)
+=
+\alpha\int_a^b f+\beta\int_a^b g.
+\]
+
+Le proprietà d'ordine seguenti richiedono \(a\le b\):
+
+\[
+\displaystyle
+f\le g\text{ su }[a,b]
+\quad\Longrightarrow\quad
+\int_a^b f\le\int_a^b g.
+\]
+
+Se \(m\le f(x)\le M\) su \([a,b]\):
+
+\[
+m(b-a)
+\le
+\int_a^b f(x)\,dx
+\le
+M(b-a).
+\]
+
+\[
+\displaystyle
+\left\lvert\int_a^b f(x)\,dx\right\rvert
+\le
+\int_a^b\lvert f(x)\rvert\,dx
+\le
+(b-a)\lVert f\rVert_{\infty,[a,b]}.
+\]
+
+Teoria: \href{https://ingegnerismo.it/matematica/integrale-definito/}{integrale definito} e \href{https://ingegnerismo.it/matematica/linearita-dell-integrale/}{linearità dell'integrale}.
+
+\section{Simmetrie, periodicità e disuguaglianze}\label{simmetrie-periodicituxe0-e-disuguaglianze}
+
+Se \(f\) è integrabile su \([-a,a]\):
+
+\[
+f\text{ pari}
+\Longrightarrow
+\int_{-a}^{a}f(x)\,dx=2\int_0^a f(x)\,dx,
+\]
+
+\[
+f\text{ dispari}
+\Longrightarrow
+\int_{-a}^{a}f(x)\,dx=0.
+\]
+
+Se \(f\) è periodica di periodo \(T>0\) e integrabile su ogni intervallo compatto:
+
+\[
+\int_{\alpha}^{\alpha+T}f(x)\,dx
+=
+\int_0^T f(x)\,dx,
+\]
+
+\[
+\int_{\alpha}^{\alpha+nT}f(x)\,dx
+=n\int_0^T f(x)\,dx,
+\qquad n\in\mathbb Z.
+\]
+
+Per funzioni reali \(f,g\) continue su \([a,b]\) (più in generale, quadrato-integrabili), vale la disuguaglianza integrale di Cauchy--Schwarz:
+
+\[
+\left|\int_a^b f(x)g(x)\,dx\right|^2
+\le
+\left(\int_a^b |f(x)|^2\,dx\right)
+\left(\int_a^b |g(x)|^2\,dx\right).
+\]
+
+\section{Teorema fondamentale del calcolo}\label{teorema-fondamentale-del-calcolo}
+
+Se \(f\in\mathcal R([a,b])\) e
+
+\[
+\displaystyle
+F(x)=\int_a^x f(t)\,dt,
+\]
+
+allora
+
+\[
+\displaystyle
+\lvert F(y)-F(x)\rvert
+\le
+\lVert f\rVert_{\infty,[a,b]}\lvert y-x\rvert.
+\]
+
+Se \(f\) è continua in \(x\in(a,b)\):
+
+\[
+\displaystyle
+F'(x)=f(x).
+\]
+
+Se \(f\in C([a,b])\):
+
+\[
+\displaystyle
+F'_+(a)=f(a),
+\qquad
+F'_-(b)=f(b).
+\]
+
+Formula di Newton--Leibniz: se \(f\in\mathcal R([a,b])\) e \(F\) è una sua primitiva su \([a,b]\) (derivabile in \((a,b)\) e continua agli estremi), allora
+
+\[
+\displaystyle
+\int_a^b f(x)\,dx
+=
+F(b)-F(a)
+=
+\bigl[F(x)\bigr]_a^b.
+\]
+
+Teoria: \href{https://ingegnerismo.it/matematica/teorema-fondamentale-calcolo/}{teorema fondamentale del calcolo} e \href{https://ingegnerismo.it/matematica/funzione-integrale/}{funzione integrale}.
+
+\section{Integrali dipendenti da un parametro}\label{integrali-dipendenti-da-un-parametro}
+
+Per un intervallo aperto \(I\) e \(f\in C([a,b]\times I)\):
+
+\[
+F(t)=\int_a^b f(x,t)\,dx
+\quad\Longrightarrow\quad
+F\in C(I).
+\]
+
+Se inoltre \(\partial_t f\in C([a,b]\times I)\):
+
+\[
+F\in C^1(I),
+\qquad
+F'(t)=\int_a^b\partial_t f(x,t)\,dx.
+\]
+
+Per \(\alpha,\beta\in C^1(I)\) e \(f,\partial_t f\) continue su un intorno della striscia compresa tra \(\alpha(t)\) e \(\beta(t)\):
+
+\[
+\begin{aligned}
+G(t)&=\int_{\alpha(t)}^{\beta(t)}f(x,t)\,dx,\\
+G'(t)
+=\;&f(\beta(t),t)\beta'(t)
+-f(\alpha(t),t)\alpha'(t)\\
+&+\int_{\alpha(t)}^{\beta(t)}
+\partial_t f(x,t)\,dx.
+\end{aligned}
+\]
+
+Casi particolari:
+
+\[
+\alpha,\beta\ \text{costanti}
+\quad\Longrightarrow\quad
+G'(t)=\int_\alpha^\beta\partial_t f(x,t)\,dx,
+\]
+
+\[
+\partial_t f=0
+\quad\Longrightarrow\quad
+G'(t)=f(\beta(t),t)\beta'(t)-f(\alpha(t),t)\alpha'(t),
+\]
+
+\[
+\alpha=\beta
+\quad\Longrightarrow\quad
+G=G'=0.
+\]
+
+Esercizi svolti: \href{https://ingegnerismo.it/matematica/integrali-dipendenti-parametro-esercizi/}{integrali dipendenti da un parametro}.
+
+\section{Valore medio integrale}\label{valore-medio-integrale}
+
+Per \(a<b\):
+
+\[
+\displaystyle
+f_{\mathrm{medio}}
+=
+\frac1{b-a}\int_a^b f(x)\,dx,
+\qquad
+\int_a^b f(x)\,dx=(b-a)f_{\mathrm{medio}}.
+\]
+
+Se \(f\in C([a,b])\):
+
+\[
+\displaystyle
+\exists c\in[a,b]:
+\qquad
+\int_a^b f(x)\,dx=f(c)(b-a).
+\]
+
+Versione pesata, con \(f\in C([a,b])\), \(g\in\mathcal R([a,b])\), \(g\ge0\) e \(\int_a^b g>0\):
+
+\[
+\displaystyle
+\exists c\in[a,b]:
+\qquad
+\int_a^b f(x)g(x)\,dx
+=
+f(c)\int_a^b g(x)\,dx.
+\]
+
+Teoria: \href{https://ingegnerismo.it/matematica/teorema-della-media-integrale/}{teorema della media integrale}.
+
+\section{Formule geometriche}\label{formule-geometriche}
+
+Per funzioni continue e intervalli sui quali le condizioni indicate sono soddisfatte:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Grandezza
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Formula
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Condizioni
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Area orientata & \(A_{\mathrm{or}}=\displaystyle\int_a^b f(x)\,dx\) & --- \\
+Area tra grafico e asse & \(A=\displaystyle\int_a^b\lvert f(x)\rvert\,dx\) & --- \\
+Area tra curve & \(A=\displaystyle\int_a^b\lvert f(x)-g(x)\rvert\,dx\) & --- \\
+Dischi attorno all'asse \(x\) & \(V=\pi\displaystyle\int_a^b R(x)^2\,dx\) & \(R\ge0\) \\
+Corone attorno all'asse \(x\) & \(V=\pi\displaystyle\int_a^b\bigl(R(x)^2-r(x)^2\bigr)\,dx\) & \(R\ge r\ge0\) \\
+Gusci attorno all'asse \(y\) & \(V=2\pi\displaystyle\int_a^b x\,h(x)\,dx\) & \(x\ge0,\ h\ge0\) \\
+Lunghezza del grafico & \(L=\displaystyle\int_a^b\sqrt{1+\bigl(f'(x)\bigr)^2}\,dx\) & \(f\in C^1([a,b])\) \\
+Superficie attorno all'asse \(x\) & \(S=2\pi\displaystyle\int_a^b f(x)\sqrt{1+\bigl(f'(x)\bigr)^2}\,dx\) & \(f\in C^1,\ f\ge0\) \\
+\end{longtable}
+
+Teoria generale: \href{https://ingegnerismo.it/matematica/integrale-definito/}{integrale definito}.

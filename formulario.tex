@@ -1,0 +1,49 @@
+\documentclass{formulario-ingegnerismo}
+\input{metadati}
+\input{comandi}
+
+\hypersetup{
+  pdftitle={\FormularioTitolo},
+  pdfauthor={\FormularioAutore},
+  pdfsubject={Formulario operativo di Analisi Matematica I},
+  pdfkeywords={analisi matematica, limiti, derivate, integrali, serie, formulario, esercizi}
+}
+\ImpostaIntestazioniFormulario
+
+\begin{document}
+\input{preliminari/copertina}
+\frontmatter
+\input{preliminari/come-usare}
+\input{preliminari/mappa-esercizi}
+\tableofcontents
+\cleardoublepage
+\input{capitoli/00-guida-alla-lettura-della-simbologia-e-delle-formule.tex}
+\mainmatter
+\ParteFormulario{Prerequisiti operativi}{Strumenti algebrici, funzioni elementari, goniometria e numeri complessi indispensabili per affrontare gli esercizi di Analisi I.}
+\input{capitoli/01-logica-insiemi-numeri-e-strumenti-discreti.tex}
+\input{capitoli/02-algebra-equazioni-e-disequazioni.tex}
+\input{capitoli/03-funzioni-e-geometria-analitica.tex}
+\input{capitoli/04-goniometria-e-funzioni-iperboliche.tex}
+\input{capitoli/05-numeri-complessi.tex}
+\ParteFormulario{Analisi Matematica I}{Successioni, limiti, continuità, derivate, Taylor, studio di funzione, integrali e serie numeriche.}
+\input{capitoli/06-successioni-numeriche.tex}
+\input{capitoli/07-limiti-di-funzione.tex}
+\input{capitoli/08-continuita.tex}
+\input{capitoli/09-confronto-asintotico-e-simboli-di-landau.tex}
+\input{capitoli/10-calcolo-differenziale.tex}
+\input{capitoli/11-teoremi-del-calcolo-differenziale.tex}
+\input{capitoli/12-taylor-e-sviluppi-di-maclaurin.tex}
+\input{capitoli/13-studio-di-funzione-e-metodi-numerici.tex}
+\input{capitoli/14-primitive-e-integrali-indefiniti.tex}
+\input{capitoli/15-integrale-di-riemann-e-integrali-definiti.tex}
+\input{capitoli/16-integrali-impropri.tex}
+\input{capitoli/17-serie-numeriche.tex}
+\ParteFormulario{Estensioni frequenti}{Successioni e serie di funzioni, serie di potenze e funzioni speciali collocate in alcuni corsi alla fine del programma.}
+\input{capitoli/18-successioni-serie-di-funzioni-e-serie-di-potenze.tex}
+\input{capitoli/19-funzioni-gamma-e-beta.tex}
+\backmatter
+\input{conclusioni/lista-controllo}
+
+\input{conclusioni/versione-e-sorgente}
+
+\end{document}

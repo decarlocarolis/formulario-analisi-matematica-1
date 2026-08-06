@@ -1,0 +1,193 @@
+% Sorgente LaTeX canonico, importato e revisionato dal precedente sorgente Markdown.
+\chapter{Confronto asintotico e simboli di Landau}
+\label{chap:9}
+
+\begin{obiettivocapitolo}{confrontare ordini di infinitesimo e infinito senza perdere termini decisivi}
+\prioritaalta nei limiti e in Taylor. Ogni simbolo $o$, $O$ o $\sim$ deve avere un regime esplicito.
+\end{obiettivocapitolo}
+\begin{sceltametodo}{equivalenza oppure Taylor}
+Usa $f\sim g$ quando l'espressione compare come fattore in un prodotto o in un quoziente e non vi è cancellazione. Usa Taylor quando compaiono somme/differenze di termini equivalenti, quando occorre il coefficiente del primo termine non nullo o quando serve una stima dell'errore.
+\end{sceltametodo}
+\begin{proceduraesame}{calcolo dell'ordine}
+\begin{enumerate}
+\item Porta tutte le funzioni allo stesso regime, spesso mediante $h=x-x_0$.
+\item Sostituisci gli sviluppi fino all'ordine necessario.
+\item Esegui prodotti, quozienti e differenze mantenendo i termini fino alla prima mancata cancellazione.
+\item Raccogli la potenza dominante e concludi con equivalente, $o(\cdot)$ oppure $O(\cdot)$.
+\end{enumerate}
+\end{proceduraesame}
+\begin{errorefrequente}{ordine insufficiente}
+Se tutti i termini scritti si cancellano, non significa che il risultato sia zero: significa che lo sviluppo è stato arrestato troppo presto.
+\end{errorefrequente}
+
+Ogni scrittura asintotica deve essere accompagnata dal regime, per esempio \(x\to0\), \(x\to+\infty\) oppure \(n\to\infty\). Le equivalenze si possono sostituire in prodotti e quozienti, ma non in generale in somme o differenze nelle quali può verificarsi cancellazione.
+
+Esempio:
+
+\[
+\sin x\sim x\quad(x\to0),
+\]
+
+ma sostituire direttamente \(\sin x\) con \(x\) in \(\sin x-x\) cancellerebbe il termine principale; serve uno sviluppo di ordine superiore:
+
+\[
+\sin x-x\sim-\frac{x^3}{6}.
+\]
+
+\section{Simboli di Landau}\label{simboli-di-landau}
+
+Siano \(D\subseteq\mathbb R\), \(a\in\overline{\mathbb R}\) un punto di accumulazione nel regime considerato e \(f,g:D\to\mathbb R\). Gli insiemi \(U_\varepsilon\) e \(U\) indicano intorni del regime, puntati quando \(a\in\mathbb R\).
+
+\[
+\displaystyle
+f=o(g)
+\quad\Longleftrightarrow\quad
+\forall\varepsilon>0\ \exists U_\varepsilon:
+|f(x)|\le\varepsilon|g(x)|
+\quad\forall x\in D\cap U_\varepsilon.
+\]
+
+Se \(g\) è definitivamente non nulla:
+
+\[
+\displaystyle
+f=o(g)
+\quad\Longleftrightarrow\quad
+\frac{f}{g}\to0.
+\]
+
+\[
+\displaystyle
+f=O(g)
+\quad\Longleftrightarrow\quad
+\exists C>0\ \exists U:
+|f(x)|\le C|g(x)|
+\quad\forall x\in D\cap U.
+\]
+
+\[
+\displaystyle
+f=\Theta(g)
+\quad\Longleftrightarrow\quad
+\exists c,C>0\ \exists U:
+c|g(x)|\le |f(x)|\le C|g(x)|
+\quad\forall x\in D\cap U.
+\]
+
+Se \(g\) è definitivamente non nulla:
+
+\[
+\displaystyle
+f\sim g
+\quad\Longleftrightarrow\quad
+\frac{f}{g}\to1
+\quad\Longleftrightarrow\quad
+f=g+o(g).
+\]
+
+Approfondimenti: \href{https://ingegnerismo.it/matematica/simboli-di-landau/}{simboli di Landau} ed \href{https://ingegnerismo.it/matematica/equivalenza-asintotica/}{equivalenza asintotica}.
+
+Esercizi svolti: \href{https://ingegnerismo.it/matematica/simboli-di-landau-esercizi/}{simboli di Landau}.
+
+\section{Algebra degli ordini}\label{algebra-degli-ordini}
+
+Nel medesimo dominio e regime:
+
+\[
+\begin{aligned}
+o(g)+o(g)&=o(g),&
+O(g)+O(g)&=O(g),\\
+f=o(g),\ g=O(h)&\Rightarrow f=o(h),&
+f=O(g),\ g=o(h)&\Rightarrow f=o(h),\\
+f=O(g),\ g=O(h)&\Rightarrow f=O(h),&
+o(g)\,O(h)&=o(gh),\\
+O(g)\,O(h)&=O(gh).&&
+\end{aligned}
+\]
+
+\[
+\displaystyle
+g=\Theta(h)
+\quad\Longrightarrow\quad
+O(g)=O(h),
+\qquad
+o(g)=o(h).
+\]
+
+Se \(q\) è definitivamente non nulla:
+
+\[
+\displaystyle
+r=o(g)
+\quad\Longrightarrow\quad
+\frac rq=o\!\left(\frac gq\right),
+\]
+
+e analogamente per \(O\).
+
+\[
+\displaystyle
+\frac{a+o(1)}{b+o(1)}
+=\frac ab+o(1),
+\qquad b\ne0.
+\]
+
+Se \(f\sim g\) e \(h\sim k\), con denominatori definitivamente non nulli:
+
+\[
+\displaystyle
+fh\sim gk,
+\qquad
+\frac fh\sim\frac gk.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/algebra-degli-o-piccoli/}{algebra degli o-piccoli}.
+
+Esercizi svolti: \href{https://ingegnerismo.it/matematica/algebra-degli-o-piccoli-esercizi/}{algebra degli o-piccoli}.
+
+\section{\texorpdfstring{Equivalenze fondamentali per \(x\to0\)}{Equivalenze fondamentali per x\textbackslash to0}}\label{equivalenze-fondamentali-per-xto0}
+
+\[
+\begin{gathered}
+\sin x\sim x,
+\qquad
+\tan x\sim x,
+\qquad
+\arcsin x\sim x,
+\qquad
+\arctan x\sim x,\\[4pt]
+1-\cos x\sim\frac{x^2}{2},\\[4pt]
+e^x-1\sim x,
+\qquad
+\ln(1+x)\sim x,\\[4pt]
+(1+x)^\alpha-1\sim\alpha x,
+\qquad \alpha\ne0.
+\end{gathered}
+\]
+
+\section{Gerarchie di crescita}\label{gerarchie-di-crescita}
+
+Per \(x\to+\infty\), \(\alpha,\beta>0\) e \(a>1\):
+
+\[
+\displaystyle
+(\ln x)^\beta=o(x^\alpha),
+\qquad
+x^\alpha=o(a^x).
+\]
+
+In notazione compatta:
+
+\[
+\displaystyle
+(\ln x)^\beta\ll x^\alpha\ll a^x.
+\]
+
+Per \(n\to\infty\) e \(a>1\):
+
+\[
+\displaystyle
+a^n\ll n!\ll n^n.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/gerarchia-degli-infiniti/}{gerarchia degli infiniti}.

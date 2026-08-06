@@ -1,0 +1,316 @@
+% Sorgente LaTeX canonico, importato e revisionato dal precedente sorgente Markdown.
+\chapter{Continuità}
+\label{chap:8}
+
+\begin{obiettivocapitolo}{verificare continuità, prolungamenti e parametri in funzioni definite a tratti}
+\prioritaalta. Nei punti interni alle espressioni elementari la continuità segue dalle regole; il lavoro reale è nei punti di raccordo, negli estremi del dominio e nelle singolarità eliminabili.
+\end{obiettivocapitolo}
+\begin{proceduraesame}{continuità in un punto di raccordo}
+\begin{enumerate}
+\item Calcola $f(x_0)$ se definito.
+\item Calcola separatamente $\lim_{x\to x_0^-}f(x)$ e $\lim_{x\to x_0^+}f(x)$ usando i rami corretti.
+\item La continuità richiede l'uguaglianza dei due laterali e del valore $f(x_0)$.
+\item Se compaiono parametri, risolvi il sistema ottenuto dalle uguaglianze necessarie.
+\end{enumerate}
+\end{proceduraesame}
+\begin{proceduraesame}{prolungamento continuo}
+Se $f$ non è definita in $x_0$ ma esiste finito $L=\lim_{x\to x_0}f(x)$, definisci $\widetilde f(x_0)=L$. Se il limite è infinito, diverso nei due lati o inesistente, il prolungamento continuo non è possibile.
+\end{proceduraesame}
+\begin{sceltametodo}{teoremi globali}
+Usa Weierstrass per esistenza di massimo/minimo su compatto; il teorema degli zeri per garantire una radice da un cambio di segno; i valori intermedi per raggiungere un livello; Heine--Cantor per continuità uniforme su compatto.
+\end{sceltametodo}
+\begin{errorefrequente}{teorema degli zeri}
+Il cambio di segno senza continuità non basta; la continuità senza cambio di segno non garantisce una radice. Il teorema garantisce esistenza, non il valore né l'unicità.
+\end{errorefrequente}
+
+Quando \(x_0\) è un punto di accumulazione del dominio, la continuità richiede tre elementi: \(f(x_0)\) deve essere definita, il limite per \(x\to x_0\) deve esistere ed essere finito, e deve coincidere con \(f(x_0)\). Nei punti isolati la continuità è automatica.
+
+\section{Definizione e caratterizzazione mediante il limite}\label{definizione-e-caratterizzazione-mediante-il-limite}
+
+Per \(f:D\to\mathbb R\) e \(x_0\in D\):
+
+\[
+f\text{ continua in }x_0
+\]
+
+\[
+\Longleftrightarrow
+\forall\varepsilon>0,\ \exists\delta>0,\ \forall x\in D:\
+|x-x_0|<\delta
+\Rightarrow
+|f(x)-f(x_0)|<\varepsilon.
+\]
+
+Se \(x_0\in D\cap D'\):
+
+\[
+f\text{ continua in }x_0
+\Longleftrightarrow
+\lim_{\substack{x\to x_0\\x\in D}}f(x)=f(x_0).
+\]
+
+Caratterizzazione sequenziale:
+
+\[
+f\text{ continua in }x_0
+\Longleftrightarrow
+\forall(x_n)\subseteq D:\ x_n\to x_0
+\Rightarrow
+f(x_n)\to f(x_0).
+\]
+
+Agli estremi di un intervallo \([a,b]\):
+
+\[
+f\text{ continua in }a
+\Longleftrightarrow
+\lim_{x\to a^+}f(x)=f(a),
+\qquad
+f\text{ continua in }b
+\Longleftrightarrow
+\lim_{x\to b^-}f(x)=f(b).
+\]
+
+Se \(x_0\) è isolato in \(D\), \(f\) è continua in \(x_0\).
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/continuita/}{continuità}.
+
+\section{Operazioni con funzioni continue}\label{operazioni-con-funzioni-continue}
+
+Se \(f,g\) sono continue in \(x_0\):
+
+\[
+\alpha f+\beta g,
+\qquad
+fg,
+\qquad
+|f|,
+\qquad
+f^n\ (n\in\mathbb N_+)
+\]
+
+sono continue in \(x_0\) nei rispettivi domini.
+
+Se \(g(x_0)\ne0\):
+
+\[
+\frac1g,
+\qquad
+\frac fg
+\]
+
+sono continue in \(x_0\).
+
+\[
+D_{f\pm g}=D_f\cap D_g,
+\qquad
+D_{fg}=D_f\cap D_g,
+\]
+
+\[
+D_{f/g}=\{x\in D_f\cap D_g:g(x)\ne0\}.
+\]
+
+\[
+\max(f,g)=\frac{f+g+|f-g|}{2},
+\qquad
+\min(f,g)=\frac{f+g-|f-g|}{2}.
+\]
+
+Se \(f\) è continua in \(x_0\) e \(g\) è continua in \(f(x_0)\):
+
+\[
+g\circ f\text{ è continua in }x_0,
+\]
+
+\[
+D_{g\circ f}=\{x\in D_f:f(x)\in D_g\}.
+\]
+
+\[
+\begin{array}{c|c}
+\text{famiglia}&\text{dominio naturale di continuità}\\
+\hline
+\text{polinomi}&\mathbb R\\
+\text{razionali}&\{Q\ne0\}\\
+\sqrt[2m]{f}&\{f\ge0\}\\
+\log_a f&\{f>0\},\ a>0,\ a\ne1\\
+a^x&\mathbb R,\ a>0\\
+\sin,\cos,\sinh,\cosh,\tanh&\mathbb R\\
+\tan,\sec&\mathbb R\setminus\{\pi/2+k\pi\}\\
+\cot,\csc&\mathbb R\setminus\{k\pi\}
+\end{array}
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/continuita/}{continuità}.
+
+\section{Continuità dell'inversa monotona}\label{continuituxe0-dellinversa-monotona}
+
+Se \(I\) è un intervallo e \(f:I\to\mathbb R\) è continua e strettamente monotona:
+
+\[
+J=f(I)\text{ è un intervallo},
+\]
+
+\[
+f^{-1}:J\to I\text{ è continua e strettamente monotona}.
+\]
+
+\[
+f\nearrow\Longrightarrow f^{-1}\nearrow,
+\qquad
+f\searrow\Longrightarrow f^{-1}\searrow.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/continuita-della-funzione-inversa/}{continuità della funzione inversa}, \href{https://ingegnerismo.it/matematica/funzione-inversa/}{funzione inversa}.
+
+\section{Continuità uniforme e funzioni lipschitziane}\label{continuituxe0-uniforme-e-funzioni-lipschitziane}
+
+La continuità uniforme è una proprietà dell'intero dominio, non di un singolo punto. Una funzione \(f:D\to\mathbb R\) è uniformemente continua su \(D\) se
+
+\[
+\forall\varepsilon>0\ \exists\delta>0\ \forall x,y\in D:
+|x-y|<\delta
+\Longrightarrow
+|f(x)-f(y)|<\varepsilon.
+\]
+
+Negazione:
+
+\[
+\exists\varepsilon_0>0\ \forall\delta>0\ \exists x,y\in D:
+|x-y|<\delta,
+\qquad
+|f(x)-f(y)|\ge\varepsilon_0.
+\]
+
+Condizione di Lipschitz:
+
+\[
+|f(x)-f(y)|\le L|x-y|
+\quad\forall x,y\in D,
+\qquad L\ge0,
+\]
+
+\[
+f\text{ lipschitziana}
+\Longrightarrow
+f\text{ uniformemente continua}.
+\]
+
+\section{Tipi di discontinuità e prolungamento continuo}\label{tipi-di-discontinuituxe0-e-prolungamento-continuo}
+
+Per \(x_0\in D\) punto di accumulazione del dominio da entrambi i lati:
+
+\[
+\begin{array}{c|c}
+\text{tipo}&\text{condizione}\\
+\hline
+\text{eliminabile}&\lim_{x\to x_0}f(x)=L\in\mathbb R,\ f(x_0)\ne L\\
+\text{a salto}&f(x_0^-),f(x_0^+)\in\mathbb R,\ f(x_0^-)\ne f(x_0^+)\\
+\text{infinita}&f(x_0^-),f(x_0^+)\text{ esistono in }\overline{\mathbb R}
+\text{ e almeno uno vale }\pm\infty\\
+\text{oscillatoria o irregolare}&\text{almeno un limite laterale non esiste in }\overline{\mathbb R}
+\end{array}
+\]
+
+Se \(x_0\notin D\), \(x_0\in D'\) e
+
+\[
+\lim_{\substack{x\to x_0\\x\in D}}f(x)=L\in\mathbb R,
+\]
+
+il prolungamento continuo è
+
+\[
+\widetilde f(x)=
+\begin{cases}
+f(x),&x\in D,\\
+L,&x=x_0.
+\end{cases}
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/punti-di-discontinuita/}{punti di discontinuità}, \href{https://ingegnerismo.it/matematica/continuita/}{continuità}.
+
+\section{Teorema di Weierstrass}\label{teorema-di-weierstrass}
+
+\[
+f\in C([a,b])
+\Longrightarrow
+\exists x_m,x_M\in[a,b],\ \forall x\in[a,b]:
+f(x_m)\le f(x)\le f(x_M).
+\]
+
+\[
+f(x_m)=\min_{[a,b]}f,
+\qquad
+f(x_M)=\max_{[a,b]}f.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/teorema-di-weierstrass/}{teorema di Weierstrass}.
+
+\section{Teorema degli zeri}\label{teorema-degli-zeri}
+
+\[
+f\in C([a,b]),
+\qquad
+f(a)f(b)<0
+\]
+
+\[
+\Longrightarrow
+\exists c\in(a,b):\ f(c)=0.
+\]
+
+\[
+f\in C([a,b]),
+\qquad
+f(a)f(b)<0,
+\qquad
+f\text{ strettamente monotona}
+\Longrightarrow
+\exists!c\in(a,b):\ f(c)=0.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/teorema-degli-zeri/}{teorema degli zeri}.
+
+Esercizi svolti: \href{https://ingegnerismo.it/matematica/teorema-degli-zeri-esercizi/}{teorema degli zeri e bisezione}.
+
+\section{Teorema dei valori intermedi}\label{teorema-dei-valori-intermedi}
+
+\[
+f\in C([a,b]),
+\qquad
+y\in[\min\{f(a),f(b)\},\max\{f(a),f(b)\}]
+\]
+
+\[
+\Longrightarrow
+\exists c\in[a,b]:\ f(c)=y.
+\]
+
+Equivalentemente, per ogni intervallo \(I\):
+
+\[
+f\in C(I)
+\Longrightarrow
+f(I)\text{ è un intervallo}.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/teorema-dei-valori-intermedi/}{teorema dei valori intermedi}.
+
+\section{Teorema di Heine--Cantor}\label{teorema-di-heinecantor}
+
+\[
+f\in C([a,b])
+\Longrightarrow
+\forall\varepsilon>0,\ \exists\delta>0,\ \forall x,y\in[a,b]:
+\]
+
+\[
+|x-y|<\delta
+\Rightarrow
+|f(x)-f(y)|<\varepsilon.
+\]
+
+Approfondimento: \href{https://ingegnerismo.it/matematica/teorema-di-heine-cantor/}{teorema di Heine--Cantor}.

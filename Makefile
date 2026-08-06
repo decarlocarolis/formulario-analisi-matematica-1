@@ -1,18 +1,18 @@
-PDF=dist/formulario-analisi-matematica-1.pdf
+PDF=distribuzione/formulario-analisi-matematica-1.pdf
 
-.PHONY: pdf check clean release-source
+.PHONY: pdf controlla pulisci pacchetto-sorgenti
 
-pdf: check
-	mkdir -p build dist
-	bash tools/build_pdf.sh build
-	cp build/main.pdf $(PDF)
+pdf: controlla
+	mkdir -p compilazione distribuzione
+	bash strumenti/compila-pdf.sh compilazione
+	cp compilazione/formulario.pdf $(PDF)
 
-check:
-	python tools/check_project.py
+controlla:
+	python strumenti/controlla_progetto.py
 
-clean:
-	rm -rf build dist
+pulisci:
+	rm -rf compilazione distribuzione
 
-release-source:
-	mkdir -p dist
-	git archive --format=zip --output=dist/formulario-analisi-matematica-1-source.zip HEAD
+pacchetto-sorgenti:
+	mkdir -p distribuzione
+	git archive --format=zip --output=distribuzione/formulario-analisi-matematica-1-sorgenti.zip HEAD
