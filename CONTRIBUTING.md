@@ -1,9 +1,7 @@
 # Contribuire al formulario
 
-Segnalazioni e contributi aiutano a rendere il formulario più corretto,
-leggibile e utile. Prima di intervenire, individua la versione del PDF, la
-pagina e la sezione interessata: il numero di versione, da solo, non identifica
-necessariamente una copia distribuita da un canale diverso.
+Segnalazioni e contributi devono riferirsi a una copia identificabile del PDF.
+Indica sempre versione, pagina, sezione e provenienza del file consultato.
 
 ## Scegli il canale adatto
 
@@ -13,49 +11,55 @@ necessariamente una copia distribuita da un canale diverso.
   per contenuti mancanti, organizzazione o nuove tabelle;
 - usa il [problema grafico o di accessibilità](https://github.com/decarlocarolis/formulario-analisi-matematica-1/issues/new?template=problema-grafico-accessibilita.yml)
   per impaginazione, leggibilità, contrasto, collegamenti o fruizione assistiva;
-- usa le [Discussioni](https://github.com/decarlocarolis/formulario-analisi-matematica-1/discussions)
-  per domande generali e confronti non ancora traducibili in una modifica
-  circoscritta.
+- usa la pagina [Contribuisci](https://ingegnerismo.it/contribuisci/) se non
+  vuoi o non puoi utilizzare GitHub.
 
 Non pubblicare dati personali, elaborati d'esame riservati o materiale protetto
-da diritti di terzi.
+di terzi.
 
-## Proporre una modifica
+## Pull request
 
-Una pull request deve:
+Una modifica deve essere circoscritta e partire da `main`. Non modificare
+manualmente il PDF: intervieni sui sorgenti LaTeX e lascia che il flusso
+automatico ricompili il documento.
 
-1. riguardare un solo problema o un insieme strettamente collegato;
-2. spiegare il motivo della modifica e indicare pagina, capitolo o file;
-3. evitare riformattazioni, rinominazioni e riordini non necessari;
-4. includere fonti verificabili quando corregge un contenuto matematico;
-5. superare `python strumenti/controlla_progetto.py`.
+Prima di aprire una pull request:
 
-Apri prima una discussione se la proposta cambia l'impostazione editoriale, la
-licenza, l'identità visiva o un'intera parte del formulario.
+```bash
+python -m pip install -r requisiti-verifica.txt
+make controlla
+make verifica-formule
+make pdf
+```
 
-## Originalità, diritti e licenza
+Indica nel testo della pull request:
 
-Inviando una issue o una pull request dichiari che il contributo è originale,
-che hai il diritto di proporlo e che non contiene testi, immagini, tabelle,
-grafici, marchi o altri materiali copiati da terzi. Le fonti possono essere
-citate come riferimento, ma non autorizzano a riprodurne il contenuto.
+- problema risolto;
+- versione, pagina e sezione coinvolte;
+- fonti o calcoli di verifica, quando necessari;
+- eventuali effetti sull'impaginazione.
 
-Accetti inoltre che le porzioni editoriali eventualmente incorporate nel
-formulario e nei sorgenti siano distribuite con la licenza **CC BY-NC 4.0**
-applicata al progetto. Il logo e i segni distintivi di ingegnerismo.it restano
-esclusi dalla licenza, come specificato in [`LICENZA.md`](LICENZA.md).
+## Versioni e Release
 
-Se un contributo richiede eccezioni a queste condizioni, non inviare il
-materiale: apri prima una discussione con una descrizione astratta della
-proposta.
+Tag e Release pubblicati sono immutabili. Qualunque modifica che cambi il PDF
+richiede una nuova versione `v.MAGGIORE.MINORE`. La revisione usa una sola cifra:
+dopo `v1.9` viene `v2.0`.
+
+## Originalità e diritti
+
+Il contributore dichiara di essere titolare del materiale inviato e autorizza
+l'integrazione, la modifica e la distribuzione del contributo nel progetto. Le
+parti editoriali incorporate seguono la licenza CC BY-NC 4.0 del formulario.
+Logo e segni distintivi non sono concessi. Gli strumenti tecnici restano
+soggetti alle condizioni indicate in `LICENZA.md`.
 
 ## Riconoscimento dei contributi
 
 Ogni contributo sostanziale accolto in una nuova edizione viene attribuito
-nella pagina interna «Autori, contributori e licenza», indicando il nome della
-persona, il ruolo e l'ambito del lavoro svolto. Lo stesso elenco è registrato
-nei metadati del progetto. Correzioni puntuali e segnalazioni restano inoltre
-rintracciabili nella cronologia Git e nelle note di pubblicazione.
+nella pagina interna «Autori, contributori e licenza» del PDF, indicando nome,
+ruolo e ambito del lavoro svolto. Lo stesso elenco è registrato nei metadati del
+progetto. Correzioni puntuali e segnalazioni restano inoltre rintracciabili nella
+cronologia Git e nelle note di pubblicazione.
 
 Il riconoscimento è curato editorialmente e non viene ricavato automaticamente
 dal numero di commit: prima della pubblicazione il contributore può verificare

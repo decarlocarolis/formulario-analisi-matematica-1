@@ -1,0 +1,16 @@
+{
+  "versioneSchema": 1,
+  "versioneStile": "1.0",
+  "classe": {
+    "percorso": "formulario-ingegnerismo.cls",
+    "sha256": "933c79435f31206fce8dce88240f9d31874799e46d17fa6c5b7a26ac73dba90b"
+  },
+  "logoSvg": {
+    "percorso": "risorse/marchio/logo-ingegnerismo-bandiera.svg",
+    "sha256": "e85922cb11f0ead0900d6b0cae242cd4b8fe11ca897f352c521a79834d3c5810"
+  },
+  "logoPdf": {
+    "percorso": "risorse/marchio/logo-ingegnerismo-bandiera.pdf",
+    "sha256": "413db79256c920c3c64ca39c2eb3afd84019cc048374da2fecb7655c447034f4"
+  }
+}

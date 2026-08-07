@@ -6,53 +6,53 @@ Deposito pubblico:
 https://github.com/decarlocarolis/formulario-analisi-matematica-1
 ```
 
-## Ramo e versioni
+## Regole
 
-- ramo predefinito: `main`;
-- versione editoriale corrente: `v.1.2`;
-- etichetta Git corrispondente: `v1.2`;
-- le segnalazioni usano modelli distinti per errori matematici, miglioramenti e problemi grafici o di accessibilità;
-- le domande generali usano le Discussioni;
-- ogni nuova etichetta di versione avvia la compilazione e pubblica PDF, sorgenti e somme di controllo.
+- il ramo canonico è `main`;
+- le modifiche passano tramite pull request;
+- tag e Release pubblicati non si spostano e non si sovrascrivono;
+- una modifica del PDF richiede una nuova versione;
+- la versione usa il formato `v.MAGGIORE.MINORE`; la revisione usa una sola
+  cifra e dopo `v1.9` viene `v2.0`;
+- il workflow manuale compila ma non pubblica.
 
-Un'etichetta e una versione GitHub pubblicate non vengono mai spostate,
-modificate o sovrascritte. Qualunque cambiamento che produca un PDF con byte
-diversi richiede un nuovo numero editoriale, anche quando riguarda soltanto
-grafica, metadati, collegamenti o ottimizzazione del file.
-La revisione usa una sola cifra: dopo `v.1.9` viene `v.2.0`.
+## Configurazione amministrativa
 
-## Rami e contributi
+Lo script seguente controlla la configurazione senza modificarla:
 
-Le modifiche si preparano in un ramo dedicato e arrivano su `main` tramite pull
-request. Ogni proposta deve essere circoscritta e rispettare
-[`CONTRIBUTING.md`](CONTRIBUTING.md). Non inserire materiale protetto di terzi;
-le porzioni editoriali incorporate vengono distribuite con licenza CC BY-NC
-4.0.
+```bash
+strumenti/configura-deposito-github.sh verifica
+```
 
-## Sequenza di pubblicazione
+Con un account `gh` autenticato e amministratore, il comando seguente:
 
-1. aggiornare numero e data in `metadati.tex`, cronologia, note di pubblicazione e `formulario.json`;
-2. controllare il progetto con `make controlla`;
-3. compilare e verificare il PDF con `make pdf`;
-4. registrare le modifiche, completare la pull request e sincronizzare `main` con `origin/main`;
-5. verificare che la nuova etichetta e la relativa versione GitHub non esistano;
-6. creare e inviare l'etichetta annotata della nuova versione;
-7. verificare il flusso automatico e i tre allegati pubblicati: PDF, sorgenti e somme di controllo.
+- abilita la cancellazione automatica dei rami dopo il merge;
+- mantiene soltanto lo squash merge;
+- protegge `main` da cancellazioni e force push;
+- richiede pull request, conversazioni risolte e il controllo
+  «Controllo e compilazione»;
+- consente al proprietario di superare le regole soltanto all'interno di una
+  pull request, mai mediante push diretto;
+- protegge i tag `v*.*` da modifica e cancellazione;
+- elimina soltanto i rami `agent/*`, `tecnico/*`, `codex/*` e `dependabot/*`
+  che non hanno pull request aperte.
 
-Lo script `strumenti/pubblica-versione.sh vMAGGIORE.MINORE` automatizza
-controlli, compilazione locale e invio dell'etichetta quando il client `gh` è
-installato e autenticato. L'invio dell'etichetta avvia il flusso GitHub Actions,
-che è l'unico processo incaricato di creare la nuova versione e i suoi
-allegati. Lo script non crea commit e non invia il ramo: prima di iniziare
-richiede esattamente un argomento, il ramo `main`, un worktree pulito, il commit
-corrente già presente su `origin/main` e l'assenza locale e remota
-dell'etichetta e della versione GitHub richieste. Se una di queste condizioni
-manca, si interrompe senza sostituire alcun artefatto.
+```bash
+strumenti/configura-deposito-github.sh applica
+```
 
-## Provenienza delle copie
+Lo script è idempotente: aggiorna i ruleset con lo stesso nome e può essere
+rieseguito dopo modifiche amministrative.
 
-Il file [`formulario.json`](formulario.json) descrive in modo leggibile dalle
-macchine la copia PDF pubblicata su ingegnerismo.it, compresi URL, pagine,
-checksum e commit sorgente. Il numero editoriale non basta a dimostrare che una
-copia del sito e un allegato GitHub abbiano gli stessi byte: ogni canale deve
-essere verificato con il proprio checksum.
+## Pubblicazione
+
+1. aggiorna `metadati.tex`, `formulario.json`, `CRONOLOGIA.md` e le note di
+   pubblicazione;
+2. esegui `make pdf`;
+3. integra la modifica in `main`;
+4. esegui `strumenti/pubblica-versione.sh v1.3` sostituendo la versione corretta;
+5. verifica l'esecuzione GitHub Actions e i tre allegati della nuova Release.
+
+Lo script di pubblicazione rifiuta worktree sporchi, `main` non sincronizzato,
+tag esistenti e Release esistenti. Non registra file, non invia `main` e non usa
+force push.
