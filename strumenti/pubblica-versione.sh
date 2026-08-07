@@ -9,8 +9,8 @@ if [[ "$#" -ne 1 ]]; then
 fi
 
 VERSIONE="$1"
-if [[ ! "$VERSIONE" =~ ^v[1-9][0-9]*\.[0-9]+$ ]]; then
-  echo "Formato non valido: usa vMAGGIORE.MINORE, per esempio v1.3 o v1.10." >&2
+if [[ ! "$VERSIONE" =~ ^v[1-9][0-9]*\.[0-9]$ ]]; then
+  echo "Formato non valido: la revisione usa una sola cifra; dopo v1.9 viene v2.0." >&2
   exit 1
 fi
 

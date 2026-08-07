@@ -42,8 +42,8 @@ Indica nel testo della pull request:
 ## Versioni e Release
 
 Tag e Release pubblicati sono immutabili. Qualunque modifica che cambi il PDF
-richiede una nuova versione `v.MAGGIORE.MINORE`; sono ammessi identificativi come
-`v1.9`, `v1.10` e `v2.0`.
+richiede una nuova versione `v.MAGGIORE.MINORE`. La revisione usa una sola cifra:
+dopo `v1.9` viene `v2.0`.
 
 ## Originalità e diritti
 
@@ -52,3 +52,15 @@ l'integrazione, la modifica e la distribuzione del contributo nel progetto. Le
 parti editoriali incorporate seguono la licenza CC BY-NC 4.0 del formulario.
 Logo e segni distintivi non sono concessi. Gli strumenti tecnici restano
 soggetti alle condizioni indicate in `LICENZA.md`.
+
+## Riconoscimento dei contributi
+
+Ogni contributo sostanziale accolto in una nuova edizione viene attribuito
+nella pagina interna «Autori, contributori e licenza» del PDF, indicando nome,
+ruolo e ambito del lavoro svolto. Lo stesso elenco è registrato nei metadati del
+progetto. Correzioni puntuali e segnalazioni restano inoltre rintracciabili nella
+cronologia Git e nelle note di pubblicazione.
+
+Il riconoscimento è curato editorialmente e non viene ricavato automaticamente
+dal numero di commit: prima della pubblicazione il contributore può verificare
+nome, formulazione del ruolo ed eventuale collegamento personale.

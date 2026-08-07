@@ -12,8 +12,8 @@ https://github.com/decarlocarolis/formulario-analisi-matematica-1
 - le modifiche passano tramite pull request;
 - tag e Release pubblicati non si spostano e non si sovrascrivono;
 - una modifica del PDF richiede una nuova versione;
-- la versione usa il formato `v.MAGGIORE.MINORE`, senza limite a una sola cifra
-  per il numero minore;
+- la versione usa il formato `v.MAGGIORE.MINORE`; la revisione usa una sola
+  cifra e dopo `v1.9` viene `v2.0`;
 - il workflow manuale compila ma non pubblica.
 
 ## Configurazione amministrativa

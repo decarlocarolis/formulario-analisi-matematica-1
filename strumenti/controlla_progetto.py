@@ -89,6 +89,7 @@ obbligatori = [
     ".github/ISSUE_TEMPLATE/segnalazione-errore-matematico.yml",
     ".github/ISSUE_TEMPLATE/proposta-miglioramento.yml",
     ".github/ISSUE_TEMPLATE/problema-grafico-accessibilita.yml",
+    "preliminari/crediti.tex",
     "conclusioni/versione-e-sorgente.tex",
     "risorse/marchio/logo-ingegnerismo-bandiera.svg",
     "risorse/marchio/logo-ingegnerismo-bandiera.pdf",
@@ -104,8 +105,8 @@ if len(capitoli) != NUMERO_CAPITOLI:
 
 metadati = leggi(RADICE / "metadati.tex")
 versione = comando_latex(metadati, "FormularioVersione")
-if not re.fullmatch(r"v\.[1-9][0-9]*\.[0-9]+", versione):
-    errore("Versione non valida: usa v.MAGGIORE.MINORE, per esempio v.1.3 o v.1.10")
+if not re.fullmatch(r"v\.[1-9][0-9]*\.[0-9]", versione):
+    errore("Versione non valida: la revisione usa una sola cifra; dopo v.1.9 viene v.2.0")
 
 try:
     manifesto = json.loads(leggi(RADICE / "formulario.json"))
@@ -120,12 +121,24 @@ confronti = {
     ("documento", "sottotitolo"): comando_latex(metadati, "FormularioSottotitolo"),
     ("documento", "versione"): versione,
     ("autore", "nome"): comando_latex(metadati, "FormularioAutore"),
+    ("autore", "ruolo"): comando_latex(metadati, "FormularioAutoreRuolo"),
     ("autore", "sitoUrl"): comando_latex(metadati, "SitoURL"),
     ("sorgente", "repositoryUrl"): comando_latex(metadati, "DepositoGitHubURL"),
 }
 for percorso, atteso in confronti.items():
     if valore(manifesto, *percorso) != atteso:
         errore(f"{'.'.join(percorso)} non coincide con metadati.tex")
+
+if not isinstance(manifesto.get("contributori"), list):
+    errore("formulario.json deve dichiarare l'elenco dei contributori")
+
+copertina = leggi(RADICE / "preliminari/copertina.tex")
+crediti = leggi(RADICE / "preliminari/crediti.tex")
+if "\\FormularioAutore" in copertina:
+    errore("Il frontespizio non deve mostrare nomi personali")
+for comando in ("\\FormularioAutore", "\\FormularioAutoreRuolo", "\\FormularioContributori"):
+    if comando not in crediti:
+        errore(f"Comando editoriale mancante nella pagina dei crediti: {comando}")
 
 if valore(manifesto, "documento", "slug") != "formulario-analisi-1":
     errore("documento.slug deve essere formulario-analisi-1")

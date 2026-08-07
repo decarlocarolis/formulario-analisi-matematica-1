@@ -30,6 +30,13 @@ Documentazione, commenti e messaggi destinati alle persone sono in italiano. I
 nomi tecnici imposti dagli strumenti, come `README.md`, `Makefile` e `.github`,
 restano invariati.
 
+## Identità e crediti
+
+Il frontespizio presenta il formulario come pubblicazione di ingegnerismo.it e
+non espone nomi personali. Autore, responsabilità editoriale, contributori della
+singola edizione e condizioni di licenza sono raccolti nella pagina interna
+«Autori, contributori e licenza» del PDF.
+
 ## Compilazione locale
 
 Serve una distribuzione TeX completa con XeLaTeX e Python:
@@ -56,7 +63,7 @@ Il PDF viene scritto in
 
 - versione nel documento: `v.MAGGIORE.MINORE`, per esempio `v.1.3`;
 - tag Git: `vMAGGIORE.MINORE`, per esempio `v1.3`;
-- sono ammessi `v1.9`, `v1.10` e `v2.0`;
+- la revisione usa una sola cifra: dopo `v1.9` viene `v2.0`;
 - tag, Release e allegati pubblicati sono immutabili;
 - ogni modifica che cambia il PDF richiede una nuova versione.
 

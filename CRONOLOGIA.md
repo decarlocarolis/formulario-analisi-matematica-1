@@ -2,6 +2,14 @@
 
 Tutte le modifiche rilevanti del formulario sono registrate in questo file.
 
+## [v.1.3] - 2026-08-07
+
+### Modificato
+
+- rimossa l'attribuzione personale dal frontespizio;
+- aggiunta una pagina interna per autore, contributori e licenza;
+- predisposti metadati e criteri espliciti per riconoscere i contributi futuri.
+
 ## [v.1.2] - 2026-08-06
 
 ### Aggiunto

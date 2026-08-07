@@ -1,6 +1,9 @@
 # Licenza del formulario
 
-© 2026 Carlo de Carolis.
+© 2026 Carlo de Carolis per i contenuti originali e la curatela editoriale.
+Gli eventuali contributori conservano i diritti sui propri apporti e sono
+identificati nella pagina «Autori, contributori e licenza» della versione che
+li include.
 
 Salvo dove diversamente indicato, i **contenuti editoriali**, il **PDF** e i
 **sorgenti LaTeX** del *Formulario di Analisi Matematica I* sono concessi secondo
@@ -25,17 +28,20 @@ Nel rispetto della licenza è consentito:
 Ogni copia o adattamento condiviso deve indicare in modo adeguato:
 
 1. il titolo *Formulario di Analisi Matematica I*;
-2. l'autore **Carlo de Carolis**;
+2. l'autore e curatore **Carlo de Carolis**, insieme agli eventuali contributori
+   indicati nei crediti dell'edizione;
 3. il collegamento a **https://ingegnerismo.it/**;
 4. la licenza **CC BY-NC 4.0**, con il relativo collegamento;
 5. le modifiche eventualmente effettuate.
 
 Formula di attribuzione consigliata:
 
-> *Formulario di Analisi Matematica I*, Carlo de Carolis —
+> *Formulario di Analisi Matematica I*, a cura di Carlo de Carolis, con i
+> contributori indicati nei crediti dell'edizione —
 > https://ingegnerismo.it/ — licenza CC BY-NC 4.0. Modifiche: [descrizione].
 
-L'attribuzione non deve suggerire che l'autore o ingegnerismo.it approvino
+L'attribuzione non deve suggerire che l'autore, i contributori o
+ingegnerismo.it approvino
 l'adattamento, chi lo distribuisce o l'uso che ne viene fatto.
 
 ## Utilizzi commerciali ed edizioni dell'autore

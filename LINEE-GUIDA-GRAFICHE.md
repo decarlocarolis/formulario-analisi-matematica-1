@@ -41,7 +41,7 @@ Non vengono incorporati font esterni nel deposito: la compilazione usa i font di
 
 ### Frontespizio
 
-Il frontespizio usa una griglia editoriale essenziale: dorso blu ridotto con accento giallo, identificazione della collana, titolo e sottotitolo dominanti, ampio spazio bianco, un segno matematico di fondo molto tenue e metadati compatti. Il piè di pagina comune presenta `ingegnerismo.it` come firma principale; autore, versione, data e licenza restano secondari. L’autore compare una sola volta sul frontespizio. Obiettivo e sequenza «Riconosci → Scegli → Esegui → Controlla» sono sviluppati nella pagina «Come usare questo formulario», non sulla copertina.
+Il frontespizio usa una griglia editoriale essenziale: dorso blu ridotto con accento giallo, identificazione della collana, titolo e sottotitolo dominanti, ampio spazio bianco, un segno matematico di fondo molto tenue e metadati compatti. Il piè di pagina comune presenta `ingegnerismo.it` come firma principale, seguito soltanto da versione, data e licenza. I nomi personali non compaiono sul frontespizio: autore, responsabilità editoriale, contributori e licenza sono raccolti nella pagina interna dedicata. Obiettivo e sequenza «Riconosci → Scegli → Esegui → Controlla» sono sviluppati nella pagina «Come usare questo formulario», non sulla copertina.
 
 ### Parti e capitoli
 
