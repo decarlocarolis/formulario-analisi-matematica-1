@@ -137,6 +137,7 @@ confronti_metadati = {
     ("documento", "sottotitolo"): comando_latex("FormularioSottotitolo"),
     ("documento", "versione"): comando_latex("FormularioVersione"),
     ("autore", "nome"): comando_latex("FormularioAutore"),
+    ("autore", "ruolo"): comando_latex("FormularioAutoreRuolo"),
     ("autore", "sitoUrl"): comando_latex("SitoURL"),
     ("sorgente", "repositoryUrl"): comando_latex("DepositoGitHubURL"),
 }
@@ -146,6 +147,9 @@ for percorso, atteso in confronti_metadati.items():
         raise SystemExit(
             f"{'.'.join(percorso)} non coincide con metadati.tex: {trovato!r}"
         )
+
+if not isinstance(manifesto.get("contributori"), list):
+    raise SystemExit("formulario.json deve dichiarare l'elenco dei contributori")
 
 versione = valore_annidato(manifesto, "documento", "versione")
 if not isinstance(versione, str) or not re.fullmatch(
@@ -282,6 +286,7 @@ file_testuali = [
     radice / "metadati.tex",
     radice / "comandi.tex",
     radice / "formulario-ingegnerismo.cls",
+    radice / "preliminari" / "crediti.tex",
     radice / "README.md",
     radice / "CONTRIBUTING.md",
     radice / "GESTIONE-DEPOSITO-GIT.md",

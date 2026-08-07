@@ -10,6 +10,11 @@ on:
 permissions:
   contents: read
 
+env:
+  SOURCE_DATE_EPOCH: "1786060800"
+  FORCE_SOURCE_DATE: "1"
+  TZ: UTC
+
 jobs:
   compilazione:
     runs-on: ubuntu-latest

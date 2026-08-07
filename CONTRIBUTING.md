@@ -48,3 +48,15 @@ esclusi dalla licenza, come specificato in [`LICENZA.md`](LICENZA.md).
 Se un contributo richiede eccezioni a queste condizioni, non inviare il
 materiale: apri prima una discussione con una descrizione astratta della
 proposta.
+
+## Riconoscimento dei contributi
+
+Ogni contributo sostanziale accolto in una nuova edizione viene attribuito
+nella pagina interna «Autori, contributori e licenza», indicando il nome della
+persona, il ruolo e l'ambito del lavoro svolto. Lo stesso elenco è registrato
+nei metadati del progetto. Correzioni puntuali e segnalazioni restano inoltre
+rintracciabili nella cronologia Git e nelle note di pubblicazione.
+
+Il riconoscimento è curato editorialmente e non viene ricavato automaticamente
+dal numero di commit: prima della pubblicazione il contributore può verificare
+nome, formulazione del ruolo ed eventuale collegamento personale.

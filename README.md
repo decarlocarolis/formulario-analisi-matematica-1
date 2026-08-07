@@ -79,10 +79,10 @@ La pagina editoriale del formulario è:
 https://ingegnerismo.it/matematica/formulario-analisi-1/
 ```
 
-La copia `v.1.2` distribuita dal sito è disponibile all'indirizzo:
+La copia `v.1.3` distribuita dal sito è disponibile all'indirizzo:
 
 ```text
-https://ingegnerismo.it/downloads/formulari/formulario-analisi-1/formulario-analisi-matematica-1-v1.2.pdf
+https://ingegnerismo.it/downloads/formulari/formulario-analisi-1/formulario-analisi-matematica-1-v1.3.pdf
 ```
 
 Il file [`formulario.json`](formulario.json) registra per questa copia versione,
